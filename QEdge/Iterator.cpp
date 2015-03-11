@@ -3,8 +3,21 @@
 
 
 
-QEdge_NS::Iterator::Iterator() : d_pimpl( std::make_shared<Impl>() ) {}
+QEdge_NS::Iterator::Iterator() : d_pimpl( std::make_unique<Impl>() ) {}
 QEdge_NS::Iterator::~Iterator() {}
+
+
+QEdge_NS::Iterator::Iterator( const Iterator& iter ) : Iterator()
+{
+  impl().d_iter = iter.impl().d_iter;
+}
+
+
+QEdge_NS::Iterator& QEdge_NS::Iterator::operator= ( const Iterator& iter )
+{
+  impl().d_iter = iter.impl().d_iter;
+  return *this;
+}
 
 
 QEdge_NS::Iterator::Impl& QEdge_NS::Iterator::impl() const { return *d_pimpl; }

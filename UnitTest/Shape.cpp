@@ -103,22 +103,50 @@ namespace UnitTest
     }
 
 
-    TEST_METHOD( Iterator )
+    TEST_METHOD( Size )
+    {
+      QEdge_NS::Shape s;
+
+      Assert::AreEqual( 0u, s.size() );
+
+      s.makeEdge();
+
+      Assert::AreEqual( 1u, s.size() );
+
+      s.makeLoop();
+
+      Assert::AreEqual( 2u, s.size() );
+    }
+
+
+    TEST_METHOD( MoveCtor )
     {
       QEdge_NS::Shape s;
 
       s.makeEdge();
-      s.makeLoop();
 
-      size_t n = 0;
+      Assert::AreEqual( 1u, s.size() );
 
-      for( QEdge_NS::Edge e : s )
-      {
-        ++n;
-      }
+      QEdge_NS::Shape t = std::move( s );
 
-      Assert::AreEqual( 2u, n );
+      Assert::AreEqual( 0u, s.size() );
+      Assert::AreEqual( 1u, t.size() );
     }
 
+
+    TEST_METHOD( MoveAssign )
+    {
+      QEdge_NS::Shape s, t;
+
+      s.makeEdge();
+
+      Assert::AreEqual( 1u, s.size() );
+      Assert::AreEqual( 0u, t.size() );
+
+      t = std::move( s );
+
+      Assert::AreEqual( 0u, s.size() );
+      Assert::AreEqual( 1u, t.size() );
+    }
 	};
 }

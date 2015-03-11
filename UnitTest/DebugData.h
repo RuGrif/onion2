@@ -1,13 +1,12 @@
 #pragma once
 
 
-#include "Data.h"
-#include <exception>
+#include "..\QEdge\Data.h"
 
 
 namespace QEdge_NS
 {
-  class DebugData : virtual public VertData, virtual public FaceData, virtual public PrimEdgeData, virtual public DualEdgeData
+  class DebugData : public VertData, public FaceData, public PrimEdgeData, public DualEdgeData
   {
     std::wstring d_tag;
 

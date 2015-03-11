@@ -13,6 +13,8 @@ namespace QEdge_NS
   public:
 
     Shape();
+    Shape( Shape&& );
+    Shape& operator = ( Shape&& );
     ~Shape();
 
     Edge makeEdge();
@@ -20,6 +22,8 @@ namespace QEdge_NS
 
     Iterator begin();
     Iterator end();
+
+    size_t size() const;
 
   public:
 

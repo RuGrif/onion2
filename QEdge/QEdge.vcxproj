@@ -75,7 +75,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Data.h" />
-    <ClInclude Include="Debug.h" />
     <ClInclude Include="Iterator.h" />
     <ClInclude Include="IteratorImpl.h" />
     <ClInclude Include="Node.h" />
