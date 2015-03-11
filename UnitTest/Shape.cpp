@@ -102,5 +102,23 @@ namespace UnitTest
       Assert::IsFalse( v );
     }
 
+
+    TEST_METHOD( Iterator )
+    {
+      QEdge_NS::Shape s;
+
+      s.makeEdge();
+      s.makeLoop();
+
+      size_t n = 0;
+
+      for( QEdge_NS::Edge e : s )
+      {
+        ++n;
+      }
+
+      Assert::AreEqual( 2u, n );
+    }
+
 	};
 }

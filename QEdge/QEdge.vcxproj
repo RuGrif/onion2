@@ -76,16 +76,20 @@
   <ItemGroup>
     <ClInclude Include="Data.h" />
     <ClInclude Include="Debug.h" />
+    <ClInclude Include="Iterator.h" />
+    <ClInclude Include="IteratorImpl.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Edge.h" />
     <ClInclude Include="Loop.h" />
     <ClInclude Include="QEdge.h" />
     <ClInclude Include="Quad.h" />
     <ClInclude Include="Shape.h" />
+    <ClInclude Include="ShapeImpl.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Edge.cpp" />
+    <ClCompile Include="Iterator.cpp" />
     <ClCompile Include="Shape.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -2,8 +2,8 @@
 
 
 #include "Edge.h"
+#include "Iterator.h"
 #include "QEdge.h"
-#include <iterator>
 
 
 namespace QEdge_NS
@@ -11,9 +11,6 @@ namespace QEdge_NS
   class QEDGE_API Shape
   {
   public:
-    
-    struct Impl;
-    struct iterator;
 
     Shape();
     ~Shape();
@@ -21,28 +18,17 @@ namespace QEdge_NS
     Edge makeEdge();
     Edge makeLoop();
 
-    iterator begin();
-    iterator end();
+    Iterator begin();
+    Iterator end();
+
+  public:
+
+    struct Impl;
+    Impl& impl() const;
 
   private:
 
-    Impl& impl;
+    #pragma warning( suppress : 4251 )
+    std::unique_ptr<Impl> d_pimpl; //  non-null
   };
-
-
-  class Quad;
-
-
-  //struct Shape::iterator : std::iterator<std::bidirectional_iterator_tag, Edge>
-  //{
-  //  iterator& operator ++ ();
-  //  iterator& operator -- ();
-
-  //  Edge  operator *  () const;
-  //  Edge* operator -> () const;
-
-  //private:
-
-  //  std::list<Quad>::iterator impl;
-  //};
 }

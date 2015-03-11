@@ -41,12 +41,26 @@ namespace UnitTest
     TEST_METHOD( EmptyEdge )
     {
       QEdge_NS::Edge e;
-
       Assert::IsFalse( e );
 
+      QEdge_NS::Edge c = e;
+      Assert::IsFalse( c );
+
+      Assert::IsFalse( c = e );
+    }
+
+    TEST_METHOD( NonEmptyEdge )
+    {
       QEdge_NS::Shape s;
 
-      Assert::IsTrue( s.makeEdge() );
+      QEdge_NS::Edge e = s.makeEdge();
+
+      Assert::IsTrue( e );
+
+      QEdge_NS::Edge c = e;
+      Assert::IsTrue( c );
+
+      Assert::IsTrue( c = e );
     }
 		
     TEST_METHOD( EdgeNavigation )
