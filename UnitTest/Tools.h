@@ -12,4 +12,4 @@ template <> std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString
 template <> std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString( const QEdge_NS::Vert& v ) { return v ? v->tag() : L"null vert"; }
 template <> std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString( const QEdge_NS::Face& f ) { return f ? f->tag() : L"null face"; }
 
-void label( QEdge_NS::Edge, const std::wstring& );
+void label( QEdge_NS::Edge, const std::wstring& = L"e" );

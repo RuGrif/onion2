@@ -24,9 +24,6 @@ namespace QEdge_NS
 
     Edge( Loop& i_loop ) : d_loop( &i_loop ) {}
 
-    const Edge* operator -> ( ) const { return this; }
-    Edge*       operator -> ( )       { return this; }
-
     operator bool() const { return d_loop != nullptr; }
 
     Edge oNext() const;

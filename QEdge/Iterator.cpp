@@ -43,7 +43,7 @@ QEdge_NS::Edge QEdge_NS::Iterator::operator* ( ) const
 }
 
 
-QEdge_NS::Edge QEdge_NS::Iterator::operator-> ( ) const
+QEdge_NS::Iterator::EPtr QEdge_NS::Iterator::operator-> ( ) const
 {
   return impl().d_iter->edge();
 }

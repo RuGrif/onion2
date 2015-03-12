@@ -104,5 +104,26 @@ namespace UnitTest
       Assert::AreEqual( e, e.rNext(), L"rNext" );
       Assert::AreEqual( e, e.rPrev(), L"rPrev" );
     }
+
+    TEST_METHOD( EdgeCtor )
+    {
+      QEdge_NS::Shape s;
+      QEdge_NS::Edge e = s.makeLoop();
+
+      label( e );
+
+      {
+        QEdge_NS::Edge c = e;
+        Assert::AreEqual( e, c );
+      }
+
+      {
+        QEdge_NS::Edge c;
+
+        Assert::AreNotEqual( e, c );
+        c = e;
+        Assert::AreEqual( e, c );
+      }
+    }
 	};
 }
