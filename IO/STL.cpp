@@ -1,5 +1,6 @@
 #include "STL.h"
 #include "Constructor.h"
+#include "..\QEdge\Utils.h"
 #include <fstream>
 
 
@@ -43,4 +44,31 @@ void IO_NS::writeSTL( const QEdge_NS::Shape& i_shape, const std::wstring& i_file
 
   char header[ 80 ] = "Garlyon STL file";
   file.write( header, 80 );
+
+  auto faces = QEdge_NS::allFaces( i_shape );
+
+  uint32_t nf = faces.size();
+  file.write( reinterpret_cast<char*>( &nf ), 4 );
+
+  for( QEdge_NS::Edge e : faces )
+  {
+    float x[ 3 * 3 ];
+
+    for( size_t i = 0; i < 3; ++i )
+    {
+      Math_NS::Vector3D p = e.o()->point();
+      x[ 3 * i + 0 ] = static_cast<float>( p.x );
+      x[ 3 * i + 1 ] = static_cast<float>( p.y );
+      x[ 3 * i + 2 ] = static_cast<float>( p.z );
+      e = e.lNext();
+    }
+
+    file.seekp( 3 * 4, std::ofstream::cur );  //  normal
+    file.write( reinterpret_cast<const char*>( x ), 3 * 3 * 4 );
+    file.seekp( 2, std::ofstream::cur );  //  attribute
+  }
+
+  uint16_t end = 0;
+  file.seekp( -2, std::ofstream::cur );
+  file.write( reinterpret_cast<const char*>( &end ), 2 ); //  write explicitly last attribute to make correct file size
 }
