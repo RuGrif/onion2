@@ -20,8 +20,8 @@ namespace QEdge_NS
     Edge makeEdge();
     Edge makeLoop();
 
-    Iterator begin();
-    Iterator end();
+    Iterator begin() const;
+    Iterator end() const;
 
     size_t size() const;
 

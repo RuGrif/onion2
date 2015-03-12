@@ -2,55 +2,55 @@
 
 
 #include <string>
-#include "Vector.h"
+#include "..\Math\Vector3.h"
 #include "QEdge.h"
 
 
 namespace QEdge_NS
 {
-  class QEDGE_API Tag
+  struct Tag
   {
-  public:
+    //  get node comment
+    virtual std::wstring tag() const { return L"tag"; }
+    //  set node comment
+    virtual void tag( const std::wstring& ) {}
 
-    virtual std::wstring tag() const;
-
-    virtual ~Tag();
+    virtual ~Tag() {}
   };
 
 
-  class QEDGE_API VertData : public Tag
+  template <typename T>
+  struct Point3
   {
-  public:
+    //  get point coordinates
+    virtual Math_NS::Vector3<T> point() const { return{}; }
+    //  set point coordinates
+    virtual void point( const Math_NS::Vector3<T>& ) {}
 
-    //  get vertex coordinates
-    virtual Vector3D point() const;
-    //  set vertex coordinates
-    virtual void point( const Vector3D& );
-
-    virtual ~VertData();
+    virtual ~Point3() {}
   };
 
 
-  class FaceData : public Tag
+  struct VertData : public Tag, public Point3<double>
   {
-  public:
+    virtual ~VertData() {}
+  };
 
+
+  struct FaceData : public Tag
+  {
     virtual ~FaceData() {}
   };
 
 
-  class PrimEdgeData : public Tag
+  struct PrimEdgeData : public Tag
   {
-  public:
-
     virtual ~PrimEdgeData() {}
   };
 
 
-  class DualEdgeData : public Tag
+  struct DualEdgeData : public Tag
   {
-  public:
-
     virtual ~DualEdgeData() {}
   };
 }

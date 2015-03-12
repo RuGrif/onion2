@@ -37,7 +37,7 @@ QEdge_NS::Edge QEdge_NS::Shape::makeLoop()
 }
 
 
-QEdge_NS::Iterator QEdge_NS::Shape::begin()
+QEdge_NS::Iterator QEdge_NS::Shape::begin() const
 {
   Iterator iter;
   iter.impl().d_iter = impl().d_quads.begin();
@@ -45,7 +45,7 @@ QEdge_NS::Iterator QEdge_NS::Shape::begin()
 }
 
 
-QEdge_NS::Iterator QEdge_NS::Shape::end()
+QEdge_NS::Iterator QEdge_NS::Shape::end() const
 {
   Iterator iter;
   iter.impl().d_iter = impl().d_quads.end();
