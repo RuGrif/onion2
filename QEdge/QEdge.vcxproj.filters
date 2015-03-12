@@ -30,6 +30,15 @@
     <Filter Include="Source Files">
       <UniqueIdentifier>{3001d48b-8bb1-411a-9c5c-76ddcf92f840}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IO">
+      <UniqueIdentifier>{410a09f7-232a-46a3-9353-a247949bcfce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Header Files">
+      <UniqueIdentifier>{befd62e5-46f8-40b7-8740-29070b5bd8b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Source Files">
+      <UniqueIdentifier>{9e371f91-4d7f-4038-b2d8-72c90f98c15e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QEdge.h">
@@ -65,6 +74,9 @@
     <ClInclude Include="Data.h">
       <Filter>API\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="STL.h">
+      <Filter>IO\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shape.cpp">
@@ -74,6 +86,12 @@
       <Filter>API\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Edge.cpp">
+      <Filter>API\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="STL.cpp">
+      <Filter>IO\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Data.cpp">
       <Filter>API\Source Files</Filter>
     </ClCompile>
   </ItemGroup>

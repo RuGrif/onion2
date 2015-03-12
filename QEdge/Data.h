@@ -2,26 +2,32 @@
 
 
 #include <string>
-#include <exception>
+#include "Vector.h"
+#include "QEdge.h"
 
 
 namespace QEdge_NS
 {
-  class Tag
+  class QEDGE_API Tag
   {
   public:
 
-    virtual std::wstring tag() const { return L"tag"; }
+    virtual std::wstring tag() const;
 
-    virtual ~Tag() {}
+    virtual ~Tag();
   };
 
 
-  class VertData : public Tag
+  class QEDGE_API VertData : public Tag
   {
   public:
 
-    virtual ~VertData() {}
+    //  get vertex coordinates
+    virtual Vector3D point() const;
+    //  set vertex coordinates
+    virtual void point( const Vector3D& );
+
+    virtual ~VertData();
   };
 
 

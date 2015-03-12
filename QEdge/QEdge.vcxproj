@@ -84,12 +84,15 @@
     <ClInclude Include="Quad.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="ShapeImpl.h" />
+    <ClInclude Include="STL.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Data.cpp" />
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="Iterator.cpp" />
     <ClCompile Include="Shape.cpp" />
+    <ClCompile Include="STL.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Loop.inl" />

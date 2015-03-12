@@ -30,6 +30,9 @@ namespace QEdge_NS
     struct Impl;
     Impl& impl() const;
 
+    Shape( const Shape& ) = delete;
+    Shape& operator = ( const Shape& ) = delete;
+
   private:
 
     #pragma warning( suppress : 4251 )
