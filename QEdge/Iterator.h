@@ -42,7 +42,7 @@ namespace QEdge_NS
   };
 
 
-  struct Iterator::EPtr : public Edge
+  struct Iterator::EPtr : private Edge
   {
     EPtr( Edge e ) : Edge( e ) {}
     Edge* operator -> () { return this; }
