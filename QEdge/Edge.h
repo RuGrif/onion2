@@ -37,14 +37,14 @@ namespace QEdge_NS
 
     Edge sym() const; //  opposite edge
 
-    Vert& o();  //  origin vertex
-    Vert& d();  //  destination vertex
-    Face& l();  //  left face
-    Face& r();  //  right face
-    Prim& n();  //  north (this) edge data
-    Prim& s();  //  south (opposite) edge data
-    Dual& e();  //  east (CW rotated) edge data
-    Dual& w();  //  west (CCW rotated) edge data
+    Vert& o() const;  //  origin vertex
+    Vert& d() const;  //  destination vertex
+    Face& l() const;  //  left face
+    Face& r() const;  //  right face
+    Prim& n() const;  //  north (this) edge data
+    Prim& s() const;  //  south (opposite) edge data
+    Dual& e() const;  //  east (CW rotated) edge data
+    Dual& w() const;  //  west (CCW rotated) edge data
 
     void splice0( Edge );   //  preserve this->o and this->l node data
     void splice1( Edge );   //  preserve this->o and edge->l node data
