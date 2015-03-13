@@ -106,6 +106,7 @@
     <ClCompile Include="general.cpp" />
     <ClCompile Include="STL.cpp" />
     <ClCompile Include="Tools.cpp" />
+    <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IO\IO.vcxproj">

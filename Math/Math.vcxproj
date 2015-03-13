@@ -75,11 +75,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Hash.h" />
+    <ClInclude Include="Intersect.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Hash.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Intersect.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
