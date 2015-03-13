@@ -4,16 +4,21 @@
 
 namespace Math_NS
 {
-  Int det( const Vector& a, const Vector& b, const Vector& c ) { return ( a ^ b ) * c; }
+  //  shortcuts
+  using Vec = IS_NS::Vec;
+  using Int = IS_NS::Int;
+
+  //  determinant of matrix || a  b  c ||
+  Int det( const Vec& a, const Vec& b, const Vec& c ) { return ( a ^ b ) * c; }
   
-  //  2D version on XY plane
-  Int det( const Vector& a, const Vector& b ) { return a.x * b.y - a.y * b.x; }
+  //  2D version of determinant on XY plane
+  Int det( const Vec& a, const Vec& b ) { return a.x * b.y - a.y * b.x; }
 }
 
 
 void Math_NS::intersect(
-  const Vector& A, const Vector& B, const Vector& C,
-  const Vector& U, const Vector& V,
+  const Vec& A, const Vec& B, const Vec& C,
+  const Vec& U, const Vec& V,
   FaceEdge& i_callback )
 {
   //  a * A + b * B + c * C = u * U + v * V
@@ -26,9 +31,9 @@ void Math_NS::intersect(
   //  a * ( A - C ) + b * ( B - C ) + C = u * ( U - V ) + V
   //  a * ( A - C ) + b * ( B - C ) + u * ( V - U ) = V - C
 
-  Vector ea = A - C;
-  Vector eb = B - C;
-  Vector eu = V - U;
+  Vec ea = A - C;
+  Vec eb = B - C;
+  Vec eu = V - U;
 
   if( Int div = det( ea, eb, eu ) )
   {
@@ -36,7 +41,7 @@ void Math_NS::intersect(
     //  Normal scenario
     //
 
-    Vector rhs = V - C;
+    Vec rhs = V - C;
     
     Int a = det( rhs, eb, eu );
     Int b = det( ea, rhs, eu );
@@ -69,8 +74,8 @@ void Math_NS::intersect(
 
 
 void Math_NS::intersect(
-  const Vector& A, const Vector& B,
-  const Vector& U, const Vector& V,
+  const Vec& A, const Vec& B,
+  const Vec& U, const Vec& V,
   EdgeEdge& i_callback )
 {
   //  a * A + b * B = u * U + v * V
@@ -83,11 +88,11 @@ void Math_NS::intersect(
   //  a * ( A - B ) + B = u * ( U - V ) + V
   //  a * ( A - B ) + u * ( V - U ) = V - B
 
-  Vector ea = A - B;
-  Vector eu = V - U;
-  Vector rhs = V - B;
+  Vec ea = A - B;
+  Vec eu = V - U;
+  Vec rhs = V - B;
 
-  Vector n = ea ^ eu;
+  Vec n = ea ^ eu;
 
   //  make n.z != 0
   if( !n.z )
@@ -146,8 +151,8 @@ void Math_NS::intersect(
 
 
 void Math_NS::intersect(
-  const Vector& A,
-  const Vector& U, const Vector& V,
+  const Vec& A,
+  const Vec& U, const Vec& V,
   VertEdge& i_callback )
 {
   //  A = u * U + v * V
@@ -157,8 +162,8 @@ void Math_NS::intersect(
   //  A = u * ( U - V ) + V
   //  u * ( V - U ) = V - A
 
-  Vector e = V - U;
-  Vector rhs = V - A;
+  Vec e = V - U;
+  Vec rhs = V - A;
 
   //  make e.z != 0
   if( !e.z )

@@ -43,5 +43,11 @@ namespace UnitTest
 
       Assert::AreEqual( Math_NS::Vector3I( 0, 0, 0 ), Math_NS::Vector3I( 1, 2, 3 ) ^ Math_NS::Vector3I( 1, 2, 3 ) );
     }
+
+    TEST_METHOD( Multiply )
+    {
+      Assert::AreEqual( Math_NS::Vector3I( 0, 2, 4 ), 2 * Math_NS::Vector3I( 0, 1, 2 ) );
+      Assert::AreEqual( Math_NS::Vector3I( 0, 2, 4 ), Math_NS::Vector3I( 0, 1, 2 ) * 2 );
+    }
 	};
 }

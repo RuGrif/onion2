@@ -12,6 +12,7 @@ template <> std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString
 template <> std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString( const QEdge_NS::Vert& v ) { return v ? v->tag() : L"null vert"; }
 template <> std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString( const QEdge_NS::Face& f ) { return f ? f->tag() : L"null face"; }
 
-template <> std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString( const Math_NS::Vector3I& v ) { return ToString( v.x ) + L", " + ToString( v.y ) + L", " + ToString( v.z ); }
+template <> std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString( const Math_NS::Vector3I& v ) { return std::to_wstring( v.x ) + L", " + std::to_wstring( v.y ) + L", " + std::to_wstring( v.z ); }
+template <> std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString( const Math_NS::Vector3L& v ) { return std::to_wstring( v.x ) + L", " + std::to_wstring( v.y ) + L", " + std::to_wstring( v.z ); }
 
 void label( QEdge_NS::Edge, const std::wstring& = L"e" );
