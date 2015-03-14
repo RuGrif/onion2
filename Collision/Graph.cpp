@@ -1,24 +1,9 @@
 #include "Graph.h"
 
 
-template <typename A, typename B>
-Collision_NS::Node::Node( QEdge_NS::Edge a, QEdge_NS::Edge b )
-  : d_alpha( std::make_unique<A>( a ) )
-  , d_beta( std::make_unique<B>( b ) )
+void Collision_NS::Graph::push( Node&& i_node )
 {
-
-}
-
-
-bool Collision_NS::operator == ( const Node& x, const Node& y )
-{
-  return x.alpha() == y.alpha() && x.beta() == y.beta();
-}
-
-
-std::size_t std::hash<Collision_NS::NodeId>::operator() ( const Collision_NS::NodeId& id ) const
-{
-  return id.first ^ id.second;
+  d_verts.insert( std::make_pair( i_node.id(), std::move( i_node ) ) );
 }
 
 

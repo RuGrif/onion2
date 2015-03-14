@@ -24,7 +24,7 @@
     <ClInclude Include="Hash.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Intersect.h">
+    <ClInclude Include="Solve.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -34,7 +34,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Intersect.cpp">
+    <ClCompile Include="Solve.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

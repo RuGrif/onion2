@@ -94,12 +94,13 @@
     <ClInclude Include="Tools.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Intersect.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Iterator.cpp" />
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Quad.cpp" />
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="Shape.cpp" />
+    <ClCompile Include="Solve.cpp" />
     <ClCompile Include="Splice.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

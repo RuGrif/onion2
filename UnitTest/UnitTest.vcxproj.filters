@@ -59,10 +59,13 @@
     <ClCompile Include="Vector3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Intersect.cpp">
+    <ClCompile Include="Primitive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Primitive.cpp">
+    <ClCompile Include="Solve.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -24,12 +24,30 @@
     <ClInclude Include="Primitive.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Primitive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Graph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

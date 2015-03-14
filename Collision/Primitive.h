@@ -8,12 +8,11 @@
 
 namespace Collision_NS
 {
-  //using Vec = Math_NS::Vector3L;
-
-
   struct COLLISION_API Prim
   {
     using Neighborhood =            std::vector<size_t>;
+    using Vec =                     Math_NS::Vector3L;
+    using Int =                     Vec::Type;
 
     Prim( QEdge_NS::Edge i_edge ) : d_edge( i_edge ) {}
     
@@ -32,7 +31,7 @@ namespace Collision_NS
   {
     Vert( QEdge_NS::Edge i_edge ) : Prim( i_edge ) {}
 
-    //Vec                             point() const;
+    Math_NS::Vector3D               point() const { return d_edge.o()->point(); }
 
     virtual Neighborhood            neighbourhood() const override;
     virtual                         operator size_t() const override;
@@ -43,8 +42,8 @@ namespace Collision_NS
   {
     Edge( QEdge_NS::Edge i_edge ) : Prim( i_edge ) {}
 
-    //Vert                            A() const;
-    //Vert                            B() const;
+    Vert                            U() const { return d_edge; }
+    Vert                            V() const { return d_edge.sym(); }
 
     virtual Neighborhood            neighbourhood() const override;
     virtual                         operator size_t() const override;
@@ -55,13 +54,13 @@ namespace Collision_NS
   {
     Face( QEdge_NS::Edge i_edge ) : Prim( i_edge ) {}
 
-    //Vert                            A() const;
-    //Vert                            B() const;
-    //Vert                            C() const;
+    Edge                            AB() const { return d_edge; }
+    Edge                            BC() const { return d_edge.lNext(); }
+    Edge                            CA() const { return d_edge.lPrev(); }
 
-    //Edge                            AB() const;
-    //Edge                            BC() const;
-    //Edge                            CA() const;
+    Vert                            A() const { return d_edge; }
+    Vert                            B() const { return d_edge; }
+    Vert                            C() const { return d_edge; }
 
     virtual Neighborhood            neighbourhood() const override;
     virtual                         operator size_t() const override;
