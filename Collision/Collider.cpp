@@ -7,27 +7,58 @@ namespace Collision_NS
 {
   using Int = Collider::Int;
 
-  namespace
+  class Intersection : public Node
   {
-    std::unique_ptr<Prim> makePrim( Vert v )
-    {
-      return std::make_unique<Vert>( v );
-    }
+  public:
 
-    std::unique_ptr<Prim> makePrim( Edge e, Int u, Int v )
-    {
-      if( u == 0 ) return makePrim( e.V() );
-      if( v == 0 ) return makePrim( e.U() );
-      return std::make_unique<Edge>( e );
-    }
+    Intersection( std::unique_ptr<Prim>&& i_alpha, std::unique_ptr<Prim>&& i_beta, const Math_NS::Vector3D& i_intersection )
+      : d_alpha( std::move( i_alpha ) ), d_beta( std::move( i_beta ) )
+      , d_intersection( i_intersection )
+    {}
 
-    std::unique_ptr<Prim> makePrim( Face f, Int a, Int b, Int c )
-    {
-      if( a == 0 ) return makePrim( f.BC(), b, c );
-      if( b == 0 ) return makePrim( f.CA(), c, a );
-      if( c == 0 ) return makePrim( f.AB(), a, b );
-      return std::make_unique<Face>( f );
-    }
+    virtual Prim&                 alpha() const override { return *d_alpha; }
+    virtual Prim&                 beta() const override { return *d_beta; }
+
+    virtual Math_NS::Vector3D     intersection() const override { return d_intersection; }
+
+  private:
+    
+    std::unique_ptr<Prim>         d_alpha;
+    std::unique_ptr<Prim>         d_beta;
+    Math_NS::Vector3D             d_intersection;
+  };
+
+
+  std::unique_ptr<Prim> makePrim( Vert v )
+  {
+    return std::make_unique<Vert>( v );
+  }
+
+  std::unique_ptr<Prim> makePrim( Edge e, Int u, Int v )
+  {
+    if( u == 0 ) return makePrim( e.V() );
+    if( v == 0 ) return makePrim( e.U() );
+    return std::make_unique<Edge>( e );
+  }
+
+  std::unique_ptr<Prim> makePrim( Face f, Int a, Int b, Int c )
+  {
+    if( a == 0 ) return makePrim( f.BC(), b, c );
+    if( b == 0 ) return makePrim( f.CA(), c, a );
+    if( c == 0 ) return makePrim( f.AB(), a, b );
+    return std::make_unique<Face>( f );
+  }
+
+
+  std::unique_ptr<Intersection> makeIntersection(
+    std::unique_ptr<Prim>&& i_alpha,
+    std::unique_ptr<Prim>&& i_beta,
+    const Math_NS::Vector3D& i_intersection,
+    bool i_alter )
+  {
+    return i_alter
+      ? std::make_unique<Intersection>( std::move( i_beta ), std::move( i_alpha ), i_intersection )
+      : std::make_unique<Intersection>( std::move( i_alpha ), std::move( i_beta ), i_intersection );
   }
 }
 
@@ -36,12 +67,8 @@ bool Collision_NS::Collider::collide( Vert a, Vert b, bool alter )
 {
   if( grid( a.point() ) == grid( b.point() ) )
   {
-    Node node( makePrim( a ), makePrim( b ) );
-    
-    if( alter ) node.alter();
-    
-    graph.push( std::move( node ) );
-    
+    Math_NS::Vector3D i = ( a.point() + b.point() ) / 2.;    
+    d_graph.push( makeIntersection( makePrim( a ), makePrim( b ), i, alter ) );
     return true;
   }
   else
@@ -70,12 +97,7 @@ bool Collision_NS::Collider::collide( Vert v, Edge e, bool alter )
 
   if( div > 0 && u >= 0 && u <= div )
   {
-    Node node( makePrim( v ), makePrim( e, u, div - u ) );
-
-    if( alter ) node.alter();
-
-    graph.push( std::move( node ) );
-
+    d_graph.push( makeIntersection( makePrim( v ), makePrim( e, u, div - u ), v.point(), alter ) );
     return true;
   }
   else
@@ -109,12 +131,7 @@ bool Collision_NS::Collider::collide( Vert v, Face f, bool alter )
 
   if( div > 0 && a >= 0 && b >= 0 && a <= div - b )
   {
-    Node node( makePrim( v ), makePrim( f, a, b, div - a - b ) );
-
-    if( alter ) node.alter();
-
-    graph.push( std::move( node ) );
-
+    d_graph.push( makeIntersection( makePrim( v ), makePrim( f, a, b, div - a - b ), v.point(), alter ) );
     return true;
   }
   else
@@ -151,11 +168,10 @@ bool Collision_NS::Collider::collide( Edge e1, Edge e2, bool alter )
 
   if( div > 0 && u1 >= 0 && u1 >= div - u1 && u2 >= 0 && u2 <= div - u2 )
   {
-    Node node( makePrim( e1, u1, div - u1 ), makePrim( e2, u2, div - u2 ) );
+    Math_NS::Vector3D i1 = ( static_cast<double>( u1 ) * e1.U().point() + static_cast<double>( div - u1 ) * e1.V().point() ) / static_cast<double>( div );
+    Math_NS::Vector3D i2 = ( static_cast<double>( u2 ) * e2.U().point() + static_cast<double>( div - u2 ) * e2.V().point() ) / static_cast<double>( div );
 
-    if( alter ) node.alter();
-
-    graph.push( std::move( node ) );
+    d_graph.push( makeIntersection( makePrim( e1, u1, div - u1 ), makePrim( e2, u2, div - u2 ), ( i1 + i2 ) / 2., alter ) );
 
     return true;
   }
@@ -195,12 +211,8 @@ bool Collision_NS::Collider::collide( Edge e, Face f, bool alter )
 
   if( div > 0 && u >= 0 && u <= div && a >= 0 && b >= 0 && a <= div - b )
   {
-    Node node( makePrim( e, u, div - u ), makePrim( f, a, b, div - a - b ) );
-
-    if( alter ) node.alter();
-
-    graph.push( std::move( node ) );
-
+    Math_NS::Vector3D i = ( static_cast<double>( u ) * e.U().point() + static_cast<double>( div - u ) * e.V().point() ) / static_cast<double>( div );
+    d_graph.push( makeIntersection( makePrim( e, u, div - u ), makePrim( f, a, b, div - a - b ), i, alter ) );
     return true;
   }
   else

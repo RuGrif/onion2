@@ -1,6 +1,9 @@
 #pragma once
 
 
+#include <type_traits>
+
+
 namespace Math_NS
 {
   template <typename T>
@@ -16,6 +19,7 @@ namespace Math_NS
     Vector3& operator += ( const Vector3& v ) { x += v.x; y += v.y; z += v.z; return *this; }
     Vector3& operator -= ( const Vector3& v ) { x -= v.x; y -= v.y; z -= v.z; return *this; }
     Vector3& operator *= ( T t ) { x *= t; y *= t; z *= t; return *this; }
+    Vector3& operator /= ( T t ) { x /= t; y /= t; z /= t; return *this; }
   };
 
 
@@ -27,6 +31,8 @@ namespace Math_NS
 
   template <typename T> Vector3<T> operator * ( const Vector3<T>& v, T t ) { return Vector3<T>( v ) *= t; }
   template <typename T> Vector3<T> operator * ( T t, const Vector3<T>& v ) { return Vector3<T>( v ) *= t; }
+
+  template <typename T> Vector3<T> operator / ( const Vector3<T>& v, T t ) { return Vector3<T>( v ) /= t; }
 
   template <typename T> bool operator == ( const Vector3<T>& a, const Vector3<T> &b ) { return a.x == b.x && a.y == b.y && a.z == b.z; }
 

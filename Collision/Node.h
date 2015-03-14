@@ -2,8 +2,6 @@
 
 
 #include "Primitive.h"
-#include <memory>
-#include "Collision.h"
 
 
 namespace Collision_NS
@@ -11,46 +9,21 @@ namespace Collision_NS
   using NodeId = std::pair<size_t, size_t>;
 
   //  Intersection vertex
-  class COLLISION_API Node
+  struct Node
   {
-    Node() = delete;
-    Node( const Node& ) = delete;
-    Node& operator = ( const Node& ) = delete;
+    virtual Prim&                 alpha() const = 0;
+    virtual Prim&                 beta() const = 0;
 
-  public:
+    virtual Math_NS::Vector3D     intersection() const = 0;
 
-    using Int = Prim::Int;
+    virtual NodeId                id() const { return{ alpha(), beta() }; }
 
-    Node( Node&& );
-    Node& operator = ( Node&& );
-
-    Node( std::unique_ptr<Prim>&&, std::unique_ptr<Prim>&& );
-
-    Prim& alpha() const { return *d_alpha; }
-    Prim& beta() const { return *d_beta; }
-
-    void alter() { std::swap( d_alpha, d_beta ); }
-
-    NodeId id() const { return{ alpha(), beta() }; }
-
-    ~Node();
-
-  private:
-    
-    #pragma warning( suppress : 4251 )
-    std::unique_ptr<Prim>     d_alpha;
-
-    #pragma warning( suppress : 4251 )
-    std::unique_ptr<Prim>     d_beta;
-    
+    virtual ~Node() {}
   };
-
-
-  bool operator == ( const Node&, const Node& );
 }
 
 
 template <> struct std::hash<Collision_NS::NodeId>
 {
-  std::size_t operator() ( const Collision_NS::NodeId& ) const;
+  std::size_t operator() ( const Collision_NS::NodeId& id ) const { return id.first ^ id.second; }
 };

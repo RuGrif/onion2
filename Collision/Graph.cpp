@@ -1,15 +1,23 @@
 #include "Graph.h"
 
 
-void Collision_NS::Graph::push( Node&& i_node )
+void Collision_NS::Graph::push( std::unique_ptr<Node>&& i_node )
 {
-  d_verts.insert( std::make_pair( i_node.id(), std::move( i_node ) ) );
+  d_verts[ i_node->id() ] = std::move( i_node );
 }
 
 
-Collision_NS::Graph::Neighborhood Collision_NS::Graph::neighborhood( const Node& i_node ) const
+Collision_NS::Graph::Nodes Collision_NS::Graph::all() const
 {
-  Neighborhood nb;
+  Nodes nodes;
+  for( auto& node : d_verts ) nodes.push_back( std::cref( *node.second ) );
+  return nodes;
+}
+
+
+Collision_NS::Graph::Nodes Collision_NS::Graph::neighborhood( const Node& i_node ) const
+{
+  Nodes nb;
 
   for( size_t alpha : i_node.alpha().neighbourhood() )
   {
@@ -19,7 +27,7 @@ Collision_NS::Graph::Neighborhood Collision_NS::Graph::neighborhood( const Node&
       if( alpha == i_node.alpha() && beta == i_node.beta() ) continue;
 
       auto f = d_verts.find( std::make_pair( alpha, beta ) );
-      if( f != d_verts.end() ) nb.push_back( std::ref( f->second ) );
+      if( f != d_verts.end() ) nb.push_back( std::cref( *f->second ) );
     }
   }
 

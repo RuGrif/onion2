@@ -11,8 +11,6 @@ namespace Collision_NS
   struct COLLISION_API Prim
   {
     using Neighborhood =            std::vector<size_t>;
-    using Vec =                     Math_NS::Vector3L;
-    using Int =                     Vec::Type;
 
     Prim( QEdge_NS::Edge i_edge ) : d_edge( i_edge ) {}
     

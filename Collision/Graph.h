@@ -2,6 +2,7 @@
 
 
 #include "Node.h"
+#include <memory>
 #include <unordered_map>
 #include <vector>
 #include <functional>
@@ -20,15 +21,16 @@ namespace Collision_NS
 
     Graph() = default;
 
-    void push( Node&& );
+    void push( std::unique_ptr<Node>&& );
 
-    using Neighborhood = std::vector<std::reference_wrapper<const Node>>;
+    using Nodes = std::vector<std::reference_wrapper<const Node>>;
 
-    Neighborhood neighborhood( const Node& ) const;
+    Nodes all() const;
+    Nodes neighborhood( const Node& ) const;
 
   private:
 
     #pragma warning( suppress : 4251 )
-    std::unordered_map<NodeId, Node> d_verts;
+    std::unordered_map<NodeId, std::unique_ptr<Node>> d_verts;
   };
 }

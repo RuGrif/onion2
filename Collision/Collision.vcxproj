@@ -85,7 +85,6 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Grid.cpp" />
-    <ClCompile Include="Node.cpp" />
     <ClCompile Include="Primitive.cpp" />
   </ItemGroup>
   <ItemGroup>

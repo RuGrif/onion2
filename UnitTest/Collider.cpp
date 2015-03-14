@@ -37,6 +37,7 @@ namespace UnitTest
       bool r = collider( Collision_NS::Vert( e ), Collision_NS::Vert( e.sym() ) );
 
       Assert::IsTrue( r );
+      Assert::AreEqual( 1u, collider.graph().all().size() );
 		}
 
 	};

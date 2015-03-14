@@ -13,7 +13,8 @@ namespace Collision_NS
   {
   public:
 
-    using Int = Grid::Int;
+    using Vec = Math_NS::Vector3L;
+    using Int = Vec::Type;
 
     bool operator() ( Vert a, Vert b ) { return collide( a, b, false ); }
     bool operator() ( Vert a, Edge b ) { return collide( a, b, false ); }
@@ -25,6 +26,8 @@ namespace Collision_NS
     bool operator() ( Face a, Edge b ) { return collide( b, a, true ); }
     //  no need in face x face intersection
 
+    const Graph& graph() const { return d_graph; }
+
   private:
 
     bool collide( Vert, Vert, bool alter );
@@ -33,9 +36,11 @@ namespace Collision_NS
     bool collide( Edge, Edge, bool alter );
     bool collide( Edge, Face, bool alter );
 
+    Math_NS::Vector3L grid( const Math_NS::Vector3D& p ) const { return d_grid( p ); }
+
   private:
 
-    Grid  grid;
-    Graph graph;
+    Grid  d_grid;
+    Graph d_graph;
   };
 }
