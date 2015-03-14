@@ -49,6 +49,8 @@ namespace QEdge_NS
     void splice0( Edge );   //  preserve this->o and this->l node data
     void splice1( Edge );   //  preserve this->o and edge->l node data
 
+    size_t id() const { return reinterpret_cast<size_t>( d_loop ); }
+
   public:
 
     friend bool operator == ( Edge a, Edge b ) { return a.d_loop == b.d_loop; }

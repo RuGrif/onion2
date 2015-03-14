@@ -47,6 +47,8 @@ namespace QEdge_NS
     const Data* operator -> () const;
     Data*       operator -> ();
 
+    size_t      id() const { return reinterpret_cast<size_t>( this ); }
+
   protected:
 
     ~Node(){}

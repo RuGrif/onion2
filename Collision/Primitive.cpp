@@ -76,7 +76,7 @@ std::unique_ptr<Collision_NS::Prim> Collision_NS::Vert::copy() const
 
 size_t Collision_NS::Vert::id() const
 {
-  return reinterpret_cast<size_t>( &d_edge.o() );
+  return d_edge.o().id();
 }
 
 
@@ -88,8 +88,8 @@ std::unique_ptr<Collision_NS::Prim> Collision_NS::Edge::copy() const
 
 size_t Collision_NS::Edge::id() const
 {
-  size_t n = reinterpret_cast<size_t>( &d_edge.n() );
-  size_t s = reinterpret_cast<size_t>( &d_edge.s() );
+  size_t n = d_edge.id();
+  size_t s = d_edge.sym().id();
   return n < s ? n : s;
 }
 
@@ -102,7 +102,7 @@ std::unique_ptr<Collision_NS::Prim> Collision_NS::Face::copy() const
 
 size_t Collision_NS::Face::id() const
 {
-  return reinterpret_cast<size_t>( &d_edge.l() );
+  return d_edge.l().id();
 }
 
 

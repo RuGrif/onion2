@@ -34,15 +34,15 @@ namespace UnitTest
       std::set<size_t> expected = 
       {
         //  face
-        reinterpret_cast<size_t>( &a.l() ),
+        a.l().id(),
         //  edges
-        reinterpret_cast<size_t>( &a.n() ),
-        reinterpret_cast<size_t>( &b.n() ),
-        reinterpret_cast<size_t>( &c.n() ),
+        a.id(),
+        b.id(),
+        c.id(),
         //  verts
-        reinterpret_cast<size_t>( &a.o() ),
-        reinterpret_cast<size_t>( &b.o() ),
-        reinterpret_cast<size_t>( &c.o() ),
+        a.o().id(),
+        b.o().id(),
+        c.o().id()
       };
 
       Assert::AreEqual( 7u, expected.size() );
@@ -72,19 +72,19 @@ namespace UnitTest
       std::set<size_t> expected =
       {
         //  faces
-        reinterpret_cast<size_t>( &m.l() ),
-        reinterpret_cast<size_t>( &m.r() ),
+        m.l().id(),
+        m.r().id(),
         //  edges
-        reinterpret_cast<size_t>( &a.n() ),
-        reinterpret_cast<size_t>( &b.n() ),
-        reinterpret_cast<size_t>( &c.n() ),
-        reinterpret_cast<size_t>( &d.n() ),
-        reinterpret_cast<size_t>( &m.n() ),
+        a.id(),
+        b.id(),
+        c.id(),
+        d.id(),
+        m.id(),
         //  verts
-        reinterpret_cast<size_t>( &a.o() ),
-        reinterpret_cast<size_t>( &b.o() ),
-        reinterpret_cast<size_t>( &c.o() ),
-        reinterpret_cast<size_t>( &d.o() ),
+        a.o().id(),
+        b.o().id(),
+        c.o().id(),
+        d.o().id(),
       };
 
       Assert::AreEqual( 11u, expected.size() );
@@ -141,21 +141,21 @@ namespace UnitTest
       std::set<size_t> expected =
       {
         //  faces
-        reinterpret_cast<size_t>( &x.l() ),
-        reinterpret_cast<size_t>( &y.l() ),
-        reinterpret_cast<size_t>( &z.l() ),
+        x.l().id(),
+        y.l().id(),
+        z.l().id(),
         //  edges
-        reinterpret_cast<size_t>( &a.n() ),
-        reinterpret_cast<size_t>( &b.n() ),
-        reinterpret_cast<size_t>( &c.n() ),
-        reinterpret_cast<size_t>( &x.n() ),
-        reinterpret_cast<size_t>( &y.n() ),
-        reinterpret_cast<size_t>( &z.n() ),
+        a.id(),
+        b.id(),
+        c.id(),
+        x.id(),
+        y.id(),
+        z.id(),
         //  verts
-        reinterpret_cast<size_t>( &x.d() ),
-        reinterpret_cast<size_t>( &a.o() ),
-        reinterpret_cast<size_t>( &b.o() ),
-        reinterpret_cast<size_t>( &c.o() )
+        x.d().id(),
+        a.o().id(),
+        b.o().id(),
+        c.o().id()
       };
 
       Assert::AreEqual( 13u, expected.size() );
