@@ -3,6 +3,7 @@
 
 #include "..\QEdge\Edge.h"
 #include <vector>
+#include <memory>
 #include "Collision.h"
 
 
@@ -16,6 +17,7 @@ namespace Collision_NS
     
     virtual Neighborhood            neighbourhood() const = 0;
     virtual                         operator size_t() const = 0;
+    virtual std::unique_ptr<Prim>   clone() const = 0;
 
     virtual                         ~Prim() {}
 
@@ -33,6 +35,7 @@ namespace Collision_NS
 
     virtual Neighborhood            neighbourhood() const override;
     virtual                         operator size_t() const override;
+    virtual std::unique_ptr<Prim>   clone() const override;
   };
 
 
@@ -45,6 +48,7 @@ namespace Collision_NS
 
     virtual Neighborhood            neighbourhood() const override;
     virtual                         operator size_t() const override;
+    virtual std::unique_ptr<Prim>   clone() const override;
   };
 
 
@@ -57,11 +61,12 @@ namespace Collision_NS
     Edge                            CA() const { return d_edge.lPrev(); }
 
     Vert                            A() const { return d_edge; }
-    Vert                            B() const { return d_edge; }
-    Vert                            C() const { return d_edge; }
+    Vert                            B() const { return d_edge.lNext(); }
+    Vert                            C() const { return d_edge.lPrev(); }
 
     virtual Neighborhood            neighbourhood() const override;
     virtual                         operator size_t() const override;
+    virtual std::unique_ptr<Prim>   clone() const override;
   };
 
 

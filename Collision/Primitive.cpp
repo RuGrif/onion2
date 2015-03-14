@@ -88,6 +88,24 @@ Collision_NS::Face::operator size_t() const
 }
 
 
+std::unique_ptr<Collision_NS::Prim> Collision_NS::Vert::clone() const
+{
+  return std::make_unique<Vert>( d_edge );
+}
+
+
+std::unique_ptr<Collision_NS::Prim> Collision_NS::Edge::clone() const
+{
+  return std::make_unique<Edge>( d_edge );
+}
+
+
+std::unique_ptr<Collision_NS::Prim> Collision_NS::Face::clone() const
+{
+  return std::make_unique<Face>( d_edge );
+}
+
+
 bool Collision_NS::operator == ( const Prim& a, const Prim& b )
 {
   return a.operator size_t() == b.operator size_t();

@@ -31,14 +31,14 @@ namespace Collision_NS
 
   std::unique_ptr<Prim> makePrim( Vert v )
   {
-    return std::make_unique<Vert>( v );
+    return v.clone();
   }
 
   std::unique_ptr<Prim> makePrim( Edge e, Int u, Int v )
   {
     if( u == 0 ) return makePrim( e.V() );
     if( v == 0 ) return makePrim( e.U() );
-    return std::make_unique<Edge>( e );
+    return e.clone();
   }
 
   std::unique_ptr<Prim> makePrim( Face f, Int a, Int b, Int c )
@@ -46,7 +46,7 @@ namespace Collision_NS
     if( a == 0 ) return makePrim( f.BC(), b, c );
     if( b == 0 ) return makePrim( f.CA(), c, a );
     if( c == 0 ) return makePrim( f.AB(), a, b );
-    return std::make_unique<Face>( f );
+    return f.clone();
   }
 
 

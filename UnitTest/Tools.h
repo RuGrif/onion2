@@ -14,6 +14,7 @@ template <> std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString
 
 template <> std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString( const Math_NS::Vector3I& v ) { return std::to_wstring( v.x ) + L", " + std::to_wstring( v.y ) + L", " + std::to_wstring( v.z ); }
 template <> std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString( const Math_NS::Vector3L& v ) { return std::to_wstring( v.x ) + L", " + std::to_wstring( v.y ) + L", " + std::to_wstring( v.z ); }
+template <> std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString( const Math_NS::Vector3D& v ) { return std::to_wstring( v.x ) + L", " + std::to_wstring( v.y ) + L", " + std::to_wstring( v.z ); }
 
 template <> std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString( const Math_NS::Vector3L::Type& t ) { return std::to_wstring( t ); }
 

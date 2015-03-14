@@ -170,4 +170,78 @@ namespace UnitTest
     }
 
 	};
+
+
+  TEST_CLASS( PrimitiveId )
+  {
+  public:
+    
+    TEST_METHOD( FaceId )
+    {
+      QEdge_NS::Shape s;
+
+      auto a = s.makeEdge();
+      auto b = s.makeEdge();
+      auto c = s.makeEdge();
+
+      a.splice0( b.sym() );
+      b.splice0( c.sym() );
+      c.splice0( a.sym() );
+
+      Assert::AreEqual( a.l().id(), b.l().id() );
+      Assert::AreEqual( c.l().id(), c.l().id() );
+
+      Assert::AreEqual<size_t>( a.l().id(), Collision_NS::Face( a ) );
+      Assert::AreEqual<size_t>( b.l().id(), Collision_NS::Face( b ) );
+      Assert::AreEqual<size_t>( c.l().id(), Collision_NS::Face( c ) );
+
+      Assert::AreEqual<size_t>( a.r().id(), Collision_NS::Face( a.sym() ) );
+      Assert::AreEqual<size_t>( b.r().id(), Collision_NS::Face( b.sym() ) );
+      Assert::AreEqual<size_t>( c.r().id(), Collision_NS::Face( c.sym() ) );
+    }
+
+
+    TEST_METHOD( EdgeId )
+    {
+      QEdge_NS::Shape s;
+
+      auto a = s.makeEdge();
+      auto b = s.makeEdge();
+      auto c = s.makeEdge();
+
+      a.splice0( b.sym() );
+      b.splice0( c.sym() );
+      c.splice0( a.sym() );
+
+      Assert::AreEqual<size_t>( a.id(), Collision_NS::Edge( a ) );
+      Assert::AreEqual<size_t>( b.id(), Collision_NS::Edge( b ) );
+      Assert::AreEqual<size_t>( c.id(), Collision_NS::Edge( c ) );
+
+      Assert::AreEqual<size_t>( a.id(), Collision_NS::Edge( a.sym() ) );
+      Assert::AreEqual<size_t>( b.id(), Collision_NS::Edge( b.sym() ) );
+      Assert::AreEqual<size_t>( c.id(), Collision_NS::Edge( c.sym() ) );
+    }
+
+
+    TEST_METHOD( VertId )
+    {
+      QEdge_NS::Shape s;
+
+      auto a = s.makeEdge();
+      auto b = s.makeEdge();
+      auto c = s.makeEdge();
+
+      a.splice0( b.sym() );
+      b.splice0( c.sym() );
+      c.splice0( a.sym() );
+
+      Assert::AreEqual<size_t>( a.o().id(), Collision_NS::Vert( a ) );
+      Assert::AreEqual<size_t>( b.o().id(), Collision_NS::Vert( b ) );
+      Assert::AreEqual<size_t>( c.o().id(), Collision_NS::Vert( c ) );
+
+      Assert::AreEqual<size_t>( a.d().id(), Collision_NS::Vert( a.sym() ) );
+      Assert::AreEqual<size_t>( b.d().id(), Collision_NS::Vert( b.sym() ) );
+      Assert::AreEqual<size_t>( c.d().id(), Collision_NS::Vert( c.sym() ) );
+    }
+  };
 }
