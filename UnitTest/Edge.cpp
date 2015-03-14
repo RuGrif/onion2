@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
+#include <set>
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -124,6 +125,29 @@ namespace UnitTest
         c = e;
         Assert::AreEqual( e, c );
       }
+    }
+
+
+    TEST_METHOD( Id )
+    {
+      QEdge_NS::Shape s;
+
+      auto e = s.makeEdge();
+
+      Assert::AreEqual( e.id(), e.id() );
+      Assert::AreNotEqual( e.id(), e.sym().id() );
+
+      Assert::AreEqual( e.l().id(), e.r().id() );
+      Assert::AreNotEqual( e.o().id(), e.d().id() );
+
+      std::set<size_t> all = 
+      {
+        e.id(), e.sym().id(),
+        e.o().id(), e.d().id(),
+        e.l().id(), e.r().id()
+      };
+
+      Assert::AreEqual( 5u, all.size() );
     }
 	};
 }

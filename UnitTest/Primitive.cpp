@@ -13,7 +13,7 @@ namespace UnitTest
     std::set<size_t> ids( const Collision_NS::Prim::Neighborhood& nb )
     {
       std::set<size_t> s;
-      for( auto& p : nb ) s.insert( p->id() );
+      for( auto& p : nb ) s.insert( p );
       return s;
     }
 

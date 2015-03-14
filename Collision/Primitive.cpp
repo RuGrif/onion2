@@ -5,15 +5,15 @@ Collision_NS::Prim::Neighborhood Collision_NS::Vert::neighbourhood() const
 {
   Neighborhood nb;
 
-  nb.push_back( std::make_unique<Vert>( d_edge ) );
+  nb.push_back( Vert( d_edge ) );
 
   QEdge_NS::Edge e = d_edge;
   do
   {
-    nb.push_back( std::make_unique<Edge>( e ) );
-    nb.push_back( std::make_unique<Vert>( e.sym() ) );
-    nb.push_back( std::make_unique<Face>( e ) );
-    nb.push_back( std::make_unique<Edge>( e.lNext() ) );
+    nb.push_back( Edge( e ) );
+    nb.push_back( Vert( e.sym() ) );
+    nb.push_back( Face( e ) );
+    nb.push_back( Edge( e.lNext() ) );
     e = e.oNext();
   }
   while( e != d_edge );
@@ -26,23 +26,23 @@ Collision_NS::Prim::Neighborhood Collision_NS::Edge::neighbourhood() const
 {
   Neighborhood nb;
 
-  nb.push_back( std::make_unique<Edge>( d_edge ) );
+  nb.push_back( Edge( d_edge ) );
   
-  nb.push_back( std::make_unique<Face>( d_edge ) );
-  nb.push_back( std::make_unique<Face>( d_edge.sym() ) );
+  nb.push_back( Face( d_edge ) );
+  nb.push_back( Face( d_edge.sym() ) );
 
   QEdge_NS::Edge e = d_edge;
 
   while( ( e = e.lPrev() ) != d_edge )
   {
-    nb.push_back( std::make_unique<Edge>( e ) );
-    nb.push_back( std::make_unique<Vert>( e ) );
+    nb.push_back( Edge( e ) );
+    nb.push_back( Vert( e ) );
   }
 
   while( ( e = e.rPrev() ) != d_edge )
   {
-    nb.push_back( std::make_unique<Edge>( e ) );
-    nb.push_back( std::make_unique<Vert>( e.sym() ) );
+    nb.push_back( Edge( e ) );
+    nb.push_back( Vert( e.sym() ) );
   }
 
   return nb;
@@ -53,13 +53,13 @@ Collision_NS::Prim::Neighborhood Collision_NS::Face::neighbourhood() const
 {
   Neighborhood nb;
 
-  nb.push_back( std::make_unique<Face>( d_edge ) );
+  nb.push_back( Face( d_edge ) );
 
   QEdge_NS::Edge e = d_edge;
   do
   {
-    nb.push_back( std::make_unique<Edge>( e ) );
-    nb.push_back( std::make_unique<Vert>( e ) );
+    nb.push_back( Edge( e ) );
+    nb.push_back( Vert( e ) );
     e = e.lPrev();
   }
   while( e != d_edge );
@@ -68,25 +68,13 @@ Collision_NS::Prim::Neighborhood Collision_NS::Face::neighbourhood() const
 }
 
 
-std::unique_ptr<Collision_NS::Prim> Collision_NS::Vert::copy() const
-{
-  return std::make_unique<Vert>( d_edge );
-}
-
-
-size_t Collision_NS::Vert::id() const
+Collision_NS::Vert::operator size_t() const
 {
   return d_edge.o().id();
 }
 
 
-std::unique_ptr<Collision_NS::Prim> Collision_NS::Edge::copy() const
-{
-  return std::make_unique<Edge>( d_edge );
-}
-
-
-size_t Collision_NS::Edge::id() const
+Collision_NS::Edge::operator size_t() const
 {
   size_t n = d_edge.id();
   size_t s = d_edge.sym().id();
@@ -94,13 +82,7 @@ size_t Collision_NS::Edge::id() const
 }
 
 
-std::unique_ptr<Collision_NS::Prim> Collision_NS::Face::copy() const
-{
-  return std::make_unique<Face>( d_edge );
-}
-
-
-size_t Collision_NS::Face::id() const
+Collision_NS::Face::operator size_t() const
 {
   return d_edge.l().id();
 }
@@ -108,5 +90,5 @@ size_t Collision_NS::Face::id() const
 
 bool Collision_NS::operator == ( const Prim& a, const Prim& b )
 {
-  return a.id() == b.id();
+  return a.operator size_t() == b.operator size_t();
 }

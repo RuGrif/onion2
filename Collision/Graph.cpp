@@ -1,15 +1,24 @@
 #include "Graph.h"
 
 
-std::size_t std::hash<Collision_NS::Node>::operator() ( const N& n ) const
+template <typename A, typename B>
+Collision_NS::Node::Node( QEdge_NS::Edge a, QEdge_NS::Edge b )
+  : d_alpha( std::make_unique<A>( a ) )
+  , d_beta( std::make_unique<B>( b ) )
 {
-  return n.first->id() ^ n.second->id();
+
 }
 
 
 bool Collision_NS::operator == ( const Node& x, const Node& y )
 {
-  return *x.first == *y.first && *x.second == *y.second;
+  return x.alpha() == y.alpha() && x.beta() == y.beta();
+}
+
+
+std::size_t std::hash<Collision_NS::NodeId>::operator() ( const Collision_NS::NodeId& id ) const
+{
+  return id.first ^ id.second;
 }
 
 
@@ -17,21 +26,15 @@ Collision_NS::Graph::Neighborhood Collision_NS::Graph::neighborhood( const Node&
 {
   Neighborhood nb;
 
-  for( std::unique_ptr<Prim>& alpha : i_node.first->neighbourhood() )
+  for( size_t alpha : i_node.alpha().neighbourhood() )
   {
-    for( std::unique_ptr<Prim>& beta : i_node.second->neighbourhood() )
+    for( size_t beta : i_node.beta().neighbourhood() )
     {
-      Node n;
-      
-      n.first.swap( alpha );
-      n.second.swap( beta );
-      
-      auto i = d_verts.find( n );
+      //  remove this node from neighbrhood
+      if( alpha == i_node.alpha() && beta == i_node.beta() ) continue;
 
-      alpha.swap( n.first );
-      beta.swap( n.second );
-      
-      if( i != d_verts.end() ) nb.push_back( std::make_pair( i->first->copy(), i->second->copy() ) );
+      auto f = d_verts.find( std::make_pair( alpha, beta ) );
+      if( f != d_verts.end() ) nb.push_back( std::ref( f->second ) );
     }
   }
 
