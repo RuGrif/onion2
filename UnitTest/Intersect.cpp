@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 #include "..\Collision\Collider.h"
 #include "..\IO\STL.h"
+#include "..\IO\Mesh.h"
 #include "..\QEdge\Utils.h"
 #include "Point3D.h"
 
@@ -43,6 +44,8 @@ namespace UnitTest
 
       for( auto pa : fa ) for( auto pb : eb ) collider( Collision_NS::Face( pa ), Collision_NS::Edge( pb ) );
       for( auto pa : ea ) for( auto pb : fb ) collider( Collision_NS::Edge( pa ), Collision_NS::Face( pb ) );
+
+      IO_NS::writeMesh( collider.graph(), L"box box intersection.mesh" );
 
       auto n = collider.graph().all();
 

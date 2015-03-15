@@ -76,13 +76,18 @@
   <ItemGroup>
     <ClInclude Include="Constructor.h" />
     <ClInclude Include="IO.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="STL.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Constructor.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="STL.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Collision\Collision.vcxproj">
+      <Project>{6961285b-38ad-4fc0-b3da-44747f374fc6}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\QEdge\QEdge.vcxproj">
       <Project>{242ab1aa-981d-4696-b9db-3f1c5ef50dbe}</Project>
     </ProjectReference>
