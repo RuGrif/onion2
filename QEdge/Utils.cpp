@@ -32,3 +32,9 @@ std::vector<QEdge_NS::Edge> QEdge_NS::allFaces( const Shape& i_shape )
 
   return out;
 }
+
+
+std::vector<QEdge_NS::Edge> QEdge_NS::allEdges( const Shape& i_shape )
+{
+  return{ i_shape.begin(), i_shape.end() };
+}

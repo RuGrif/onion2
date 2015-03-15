@@ -1,48 +1,12 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "..\Collision\Collider.h"
+#include "Point3D.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTest
 {
-  namespace
-  {
-    struct Point : public QEdge_NS::VertData
-    {
-      Point() = default;
-      Point( const Math_NS::Vector3D& i_point ) : d_point( i_point ) {}
-      Point( double x, double y, double z ) : d_point( x, y, z ) {}
-
-      virtual Math_NS::Vector3D point() const { return d_point; }
-      virtual void point( const Math_NS::Vector3D& i_point ) { d_point = i_point; }
-
-    private:
-
-      Math_NS::Vector3D d_point;
-    };
-
-
-    //template <typename A, typename B>
-    //struct Intersection : Collision_NS::Node
-    //{
-    //  virtual Prim&                 alpha() const override { return d_alpha; }
-    //  virtual Prim&                 beta() const override { return d_beta; }
-
-    //  virtual Math_NS::Vector3D     intersection() const override { return d_point; }
-
-    //  Node( A i_alpha, B i_beta, const Math_NS::Vector3D& i_point )
-    //    : d_alpha( i_alpha ), d_beta( i_beta )
-    //    , d_point( i_point )
-    //  {}
-
-    //  A                             d_alpha;
-    //  B                             d_beta;
-    //  Math_NS::Vector3D             d_point;
-    //};
-  }
-
-
   struct TestIntersection
   {
     Collision_NS::Collider      collider;
@@ -77,12 +41,12 @@ namespace UnitTest
 
     bool collide()
     {
-      a.o().reset<Point>( A );
-      b.o().reset<Point>( B );
-      c.o().reset<Point>( C );
+      a.o().reset<Test_NS::Point3D>( A );
+      b.o().reset<Test_NS::Point3D>( B );
+      c.o().reset<Test_NS::Point3D>( C );
 
-      e.o().reset<Point>( U );
-      e.d().reset<Point>( V );
+      e.o().reset<Test_NS::Point3D>( U );
+      e.d().reset<Test_NS::Point3D>( V );
 
       return collider( Collision_NS::Face( a ), Collision_NS::Edge( e ) );
     }

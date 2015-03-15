@@ -17,11 +17,14 @@ Collision_NS::Graph::Nodes Collision_NS::Graph::all() const
 
 Collision_NS::Graph::Nodes Collision_NS::Graph::neighborhood( const Node& i_node ) const
 {
+  Prim::Neighborhood alphaNb = i_node.alpha().neighbourhood();
+  Prim::Neighborhood betaNb = i_node.beta().neighbourhood();
+
   Nodes nb;
 
-  for( size_t alpha : i_node.alpha().neighbourhood() )
+  for( size_t alpha : alphaNb )
   {
-    for( size_t beta : i_node.beta().neighbourhood() )
+    for( size_t beta : betaNb )
     {
       //  remove this node from neighbrhood
       if( alpha == i_node.alpha() && beta == i_node.beta() ) continue;

@@ -3,21 +3,11 @@
 
 Math_NS::Vector3L Collision_NS::Grid::operator() ( const Math_NS::Vector3D& v ) const
 {
+  const double s = 1000;
   return
   {
-    static_cast<Math_NS::Vector3L::Type>( v.x ),
-    static_cast<Math_NS::Vector3L::Type>( v.y ),
-    static_cast<Math_NS::Vector3L::Type>( v.z )
-  };
-}
-
-
-Math_NS::Vector3D Collision_NS::Grid::operator() ( const Math_NS::Vector3L& v ) const
-{
-  return
-  {
-    static_cast<Math_NS::Vector3D::Type>( v.x ),
-    static_cast<Math_NS::Vector3D::Type>( v.y ),
-    static_cast<Math_NS::Vector3D::Type>( v.z )
+    static_cast<Math_NS::Vector3L::Type>( s * v.x ),
+    static_cast<Math_NS::Vector3L::Type>( s * v.y ),
+    static_cast<Math_NS::Vector3L::Type>( s * v.z )
   };
 }
