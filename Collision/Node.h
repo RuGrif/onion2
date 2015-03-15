@@ -16,9 +16,9 @@ namespace Collision_NS
 
     virtual Math_NS::Vector3D     intersection() const = 0;
 
-    virtual NodeId                id() const { return{ alpha(), beta() }; }
+    NodeId                        id() const { return{ alpha(), beta() }; }
 
-    virtual ~Node() {}
+    virtual                       ~Node() {}
   };
 }
 

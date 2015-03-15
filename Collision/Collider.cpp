@@ -166,7 +166,7 @@ bool Collision_NS::Collider::collide( Edge e1, Edge e2, bool alter )
 
   auto div = Math_NS::solve( U1 - V1, V2 - U2, V2 - V1, u1, u2 );
 
-  if( div > 0 && u1 >= 0 && u1 >= div - u1 && u2 >= 0 && u2 <= div - u2 )
+  if( div > 0 && u1 >= 0 && u1 <= div && u2 >= 0 && u2 <= div )
   {
     Math_NS::Vector3D i1 = ( static_cast<double>( u1 ) * e1.U().point() + static_cast<double>( div - u1 ) * e1.V().point() ) / static_cast<double>( div );
     Math_NS::Vector3D i2 = ( static_cast<double>( u2 ) * e2.U().point() + static_cast<double>( div - u2 ) * e2.V().point() ) / static_cast<double>( div );
