@@ -74,5 +74,8 @@
     <ClCompile Include="Intersect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Box3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

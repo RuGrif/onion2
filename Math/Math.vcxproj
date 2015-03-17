@@ -74,6 +74,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Box3.h" />
     <ClInclude Include="Hash.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Solve.h" />

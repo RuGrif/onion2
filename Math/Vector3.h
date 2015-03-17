@@ -2,6 +2,7 @@
 
 
 #include <type_traits>
+#include <algorithm>
 
 
 namespace Math_NS
@@ -35,6 +36,10 @@ namespace Math_NS
   template <typename T> Vector3<T> operator / ( const Vector3<T>& v, T t ) { return Vector3<T>( v ) /= t; }
 
   template <typename T> bool operator == ( const Vector3<T>& a, const Vector3<T> &b ) { return a.x == b.x && a.y == b.y && a.z == b.z; }
+
+
+  template <typename T> Vector3<T> min( const Vector3<T>& a, const Vector3<T>& b ) { using std::min; return{ min( a.x, b.x ), min( a.y, b.y ), min( a.z, b.z ) }; }
+  template <typename T> Vector3<T> max( const Vector3<T>& a, const Vector3<T>& b ) { using std::max; return{ max( a.x, b.x ), max( a.y, b.y ), max( a.z, b.z ) }; }
 
 
   using Vector3D = Vector3<double>;

@@ -27,6 +27,9 @@
     <ClInclude Include="Solve.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Box3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Hash.inl">
