@@ -11,7 +11,7 @@ namespace Collision_NS
   {
   public:
 
-    Intersection( std::unique_ptr<Prim>&& i_alpha, std::unique_ptr<Prim>&& i_beta, const Math_NS::Vector3D& i_intersection )
+    Intersection( std::unique_ptr<Prim> i_alpha, std::unique_ptr<Prim> i_beta, const Math_NS::Vector3D& i_intersection )
       : d_alpha( std::move( i_alpha ) ), d_beta( std::move( i_beta ) )
       , d_intersection( i_intersection )
     {}
