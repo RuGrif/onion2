@@ -93,12 +93,17 @@ bool Collision_NS::Collider::collide( Vert v, Edge e, bool alter )
 
   Int u{};
 
-  auto div = Math_NS::solve( V - U, V - A, u );
-
-  if( div > 0 && u >= 0 && u <= div )
+  if( auto div = Math_NS::solve( V - U, V - A, u ) )
   {
-    d_graph.push( makeIntersection( makePrim( v ), makePrim( e, u, div - u ), v.point(), alter ) );
-    return true;
+    if( u >= 0 && u <= div )
+    {
+      d_graph.push( makeIntersection( makePrim( v ), makePrim( e, u, div - u ), v.point(), alter ) );
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
   else
   {
@@ -127,12 +132,17 @@ bool Collision_NS::Collider::collide( Vert v, Face f, bool alter )
 
   Int a{}, b{};
 
-  auto div = Math_NS::solve( A - C, B - C, V - C, a, b );
-
-  if( div > 0 && a >= 0 && b >= 0 && a <= div - b )
+  if( auto div = Math_NS::solve( A - C, B - C, V - C, a, b ) )
   {
-    d_graph.push( makeIntersection( makePrim( v ), makePrim( f, a, b, div - a - b ), v.point(), alter ) );
-    return true;
+    if( a >= 0 && b >= 0 && a <= div - b )
+    {
+      d_graph.push( makeIntersection( makePrim( v ), makePrim( f, a, b, div - a - b ), v.point(), alter ) );
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
   else
   {
@@ -164,16 +174,21 @@ bool Collision_NS::Collider::collide( Edge e1, Edge e2, bool alter )
 
   Int u1{}, u2{};
 
-  auto div = Math_NS::solve( U1 - V1, V2 - U2, V2 - V1, u1, u2 );
-
-  if( div > 0 && u1 >= 0 && u1 <= div && u2 >= 0 && u2 <= div )
+  if( auto div = Math_NS::solve( U1 - V1, V2 - U2, V2 - V1, u1, u2 ) )
   {
-    Math_NS::Vector3D i1 = ( static_cast<double>( u1 ) * e1.U().point() + static_cast<double>( div - u1 ) * e1.V().point() ) / static_cast<double>( div );
-    Math_NS::Vector3D i2 = ( static_cast<double>( u2 ) * e2.U().point() + static_cast<double>( div - u2 ) * e2.V().point() ) / static_cast<double>( div );
+    if( u1 >= 0 && u1 <= div && u2 >= 0 && u2 <= div )
+    {
+      Math_NS::Vector3D i1 = ( static_cast<double>(u1) * e1.U().point() + static_cast<double>( div - u1 ) * e1.V().point() ) / static_cast<double>( div );
+      Math_NS::Vector3D i2 = ( static_cast<double>(u2) * e2.U().point() + static_cast<double>( div - u2 ) * e2.V().point() ) / static_cast<double>( div );
 
-    d_graph.push( makeIntersection( makePrim( e1, u1, div - u1 ), makePrim( e2, u2, div - u2 ), ( i1 + i2 ) / 2., alter ) );
+      d_graph.push( makeIntersection( makePrim( e1, u1, div - u1 ), makePrim( e2, u2, div - u2 ), ( i1 + i2 ) / 2., alter ) );
 
-    return true;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
   else
   {
@@ -207,13 +222,18 @@ bool Collision_NS::Collider::collide( Edge e, Face f, bool alter )
 
   Int u{}, a{}, b{};
 
-  auto div = Math_NS::solve( V - U, A - C, B - C, V - C, u, a, b );
-
-  if( div > 0 && u >= 0 && u <= div && a >= 0 && b >= 0 && a <= div - b )
+  if( auto div = Math_NS::solve( V - U, A - C, B - C, V - C, u, a, b ) )
   {
-    Math_NS::Vector3D i = ( static_cast<double>( u ) * e.U().point() + static_cast<double>( div - u ) * e.V().point() ) / static_cast<double>( div );
-    d_graph.push( makeIntersection( makePrim( e, u, div - u ), makePrim( f, a, b, div - a - b ), i, alter ) );
-    return true;
+    if( u >= 0 && u <= div && a >= 0 && b >= 0 && a <= div - b )
+    {
+      Math_NS::Vector3D i = ( static_cast<double>(u) * e.U().point() + static_cast<double>( div - u ) * e.V().point() ) / static_cast<double>( div );
+      d_graph.push( makeIntersection( makePrim( e, u, div - u ), makePrim( f, a, b, div - a - b ), i, alter ) );
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
   else
   {
