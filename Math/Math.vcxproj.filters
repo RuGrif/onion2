@@ -30,6 +30,9 @@
     <ClInclude Include="Box3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Hash.inl">
@@ -38,6 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Solve.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

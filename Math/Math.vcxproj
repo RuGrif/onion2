@@ -75,6 +75,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Box3.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="Hash.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Solve.h" />
@@ -84,6 +85,7 @@
     <None Include="Hash.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Solve.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
