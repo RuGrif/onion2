@@ -49,6 +49,9 @@ namespace Collision_NS
     virtual Neighborhood            neighbourhood() const override;
     virtual                         operator size_t() const override;
     virtual std::unique_ptr<Prim>   clone() const override;
+
+    //  the first edge in a quad is major and the second, the symmetrical, is minor
+    bool                            isMajor() const;
   };
 
 

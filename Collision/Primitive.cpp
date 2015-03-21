@@ -88,6 +88,14 @@ Collision_NS::Face::operator size_t() const
 }
 
 
+bool Collision_NS::Edge::isMajor() const
+{
+  size_t n = d_edge.id();
+  size_t s = d_edge.sym().id();
+  return n < s;
+}
+
+
 std::unique_ptr<Collision_NS::Prim> Collision_NS::Vert::clone() const
 {
   return std::make_unique<Vert>( d_edge );

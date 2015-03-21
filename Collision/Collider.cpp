@@ -108,10 +108,12 @@ bool Collision_NS::Collider::collide( Vert v, Edge e, bool alter )
   else
   {
     //  degenerated edge
-    bool r1 = collide( v, e.U(), alter );
-    bool r2 = collide( v, e.V(), alter );
+    bool r = false;
+
+    r |= collide( v, e.U(), alter );
+    r |= collide( v, e.V(), alter );
     
-    return r1 || r2;
+    return r;
   }
 }
 
@@ -147,11 +149,13 @@ bool Collision_NS::Collider::collide( Vert v, Face f, bool alter )
   else
   {
     //  degenerated face
-    bool r1 = collide( v, f.AB(), alter );
-    bool r2 = collide( v, f.BC(), alter );
-    bool r3 = collide( v, f.CA(), alter );
+    bool r = false;
 
-    return r1 || r2 || r3;
+    r |= collide( v, f.AB(), alter );
+    r |= collide( v, f.BC(), alter );
+    r |= collide( v, f.CA(), alter );
+
+    return r;
   }
 }
 
@@ -193,12 +197,14 @@ bool Collision_NS::Collider::collide( Edge e1, Edge e2, bool alter )
   else
   {
     //  parallel edges
-    bool r1 = collide( e1.U(), e2, alter );
-    bool r2 = collide( e1.V(), e2, alter );
-    bool r3 = collide( e2.U(), e1, !alter );
-    bool r4 = collide( e2.V(), e1, !alter );
+    bool r = false;
 
-    return r1 || r2 || r3 || r4;
+    r |= collide( e1.U(), e2, alter );
+    r |= collide( e1.V(), e2, alter );
+    r |= collide( e2.U(), e1, !alter );
+    r |= collide( e2.V(), e1, !alter );
+
+    return r;
   }
 }
 
@@ -238,12 +244,29 @@ bool Collision_NS::Collider::collide( Edge e, Face f, bool alter )
   else
   {
     //  edge parallel to face
-    bool r1 = collide( e, f.AB(), alter );
-    bool r2 = collide( e, f.BC(), alter );
-    bool r3 = collide( e, f.CA(), alter );
-    bool r4 = collide( e.U(), f, alter );
-    bool r5 = collide( e.V(), f, alter );
+    bool r = false;
 
-    return r1 || r2 || r3 || r4 || r5;
+    r |= collide( e, f.AB(), alter );
+    r |= collide( e, f.BC(), alter );
+    r |= collide( e, f.CA(), alter );
+    r |= collide( e.U(), f, alter );
+    r |= collide( e.V(), f, alter );
+
+    return r;
   }
+}
+
+
+bool Collision_NS::Collider::operator() ( Face a, Face b )
+{
+  bool r = false;
+  
+  if( a.AB().isMajor() ) r |= collide( a.AB(), b, false );
+  if( a.BC().isMajor() ) r |= collide( a.BC(), b, false );
+  if( a.CA().isMajor() ) r |= collide( a.CA(), b, false );
+  if( b.AB().isMajor() ) r |= collide( b.AB(), a, true );
+  if( b.BC().isMajor() ) r |= collide( b.BC(), a, true );
+  if( b.CA().isMajor() ) r |= collide( b.CA(), a, true );
+
+  return r;
 }

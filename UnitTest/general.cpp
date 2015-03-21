@@ -43,5 +43,21 @@ namespace UnitTest
       auto q = std::move( p );
     }
 
+    TEST_METHOD( OR )
+    {
+      size_t f = 0;
+
+      bool r = false;
+
+      r |= [&f](){ ++f; return false; }();
+      r |= [&f](){ ++f; return true; }();
+      r |= [&f](){ ++f; return false; }();
+      r |= [&f](){ ++f; return true; }();
+      r |= [&f](){ ++f; return false; }();
+      r |= [&f](){ ++f; return true; }();
+
+      Assert::IsTrue( r );
+      Assert::AreEqual( 6u, f );
+    }
 	};
 }

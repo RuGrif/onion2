@@ -2,7 +2,7 @@
 
 
 #include "Primitive.h"
-#include "Grid.h"
+#include "..\Math\Grid.h"
 #include "Graph.h"
 #include "Collision.h"
 
@@ -24,7 +24,7 @@ namespace Collision_NS
     bool operator() ( Edge a, Face b ) { return collide( a, b, false ); }
     bool operator() ( Face a, Vert b ) { return collide( b, a, true ); }
     bool operator() ( Face a, Edge b ) { return collide( b, a, true ); }
-    //  no need in face x face intersection
+    bool operator() ( Face a, Face b );
 
     const Graph& graph() const { return d_graph; }
 
@@ -40,7 +40,7 @@ namespace Collision_NS
 
   private:
 
-    Grid  d_grid;
-    Graph d_graph;
+    Math_NS::Grid   d_grid;
+    Graph           d_graph;
   };
 }
