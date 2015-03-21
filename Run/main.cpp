@@ -15,15 +15,12 @@ void main() try
 
   auto fa = QEdge_NS::allFaces( a );
   auto fb = QEdge_NS::allFaces( b );
-  auto ea = QEdge_NS::allEdges( a );
-  auto eb = QEdge_NS::allEdges( b );
 
   Collision_NS::Collider collider;
 
-  for( auto pa : fa ) for( auto pb : eb ) collider( Collision_NS::Face( pa ), Collision_NS::Edge( pb ) );
-  for( auto pa : ea ) for( auto pb : fb ) collider( Collision_NS::Edge( pa ), Collision_NS::Face( pb ) );
+  for( auto a : fa ) for( auto b : fb ) collider( Collision_NS::Face( a ), Collision_NS::Face( b ) );
 
-  IO_NS::writeMesh( collider.graph(), L"box box intersection.mesh" );
+  IO_NS::writeMesh( collider.graph(), L"box - triple torus intersection.mesh" );
 
   auto t1 = std::chrono::high_resolution_clock::now();
 
