@@ -19,20 +19,10 @@ namespace QEdge_NS
   };
 
 
-  template <typename T>
-  struct Point3
+  struct VertData : public Tag
   {
-    //  get point coordinates
-    virtual Math_NS::Vector3<T> point() const { return{}; }
-    //  set point coordinates
-    virtual void point( const Math_NS::Vector3<T>& ) {}
+    virtual Math_NS::Vector3D point() const { return{}; }
 
-    virtual ~Point3() {}
-  };
-
-
-  struct VertData : public Tag, public Point3<double>
-  {
     virtual ~VertData() {}
   };
 

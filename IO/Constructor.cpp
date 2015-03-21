@@ -10,7 +10,6 @@ namespace IO_NS
     Point3D( float x, float y, float z ) : d_point( static_cast<double>( x ), static_cast<double>( y ), static_cast<double>( z ) ) {}
 
     virtual Math_NS::Vector3D point() const override { return d_point; }
-    virtual void point( const Math_NS::Vector3D& i_point ) override { d_point = i_point; }
 
   private:
 
