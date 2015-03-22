@@ -12,8 +12,13 @@ namespace Collision_NS
   {
   public:
 
+    using Box = Math_NS::Box3L;
+    using Vec = Box::Vector3;
+
     bool collideFirst( const AABB&, const AABB& );
     bool collideAll( const AABB&, const AABB& );
+
+    static bool collide( const Box&, const Box& );
 
     const Collider& collider() const { return d_collider; }
 

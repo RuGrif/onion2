@@ -1,9 +1,10 @@
 #include "AABBCollider.h"
+#include <utility>
 
 
 bool Collision_NS::AABBCollider::collideAll( const AABB& a, const AABB& b )
 {
-  if( ( a.box() * b.box() ).empty() ) return false;
+  if( !collide( a.box(), b.box() ) ) return false;
 
   if( a.isFace() )
   {
@@ -44,4 +45,13 @@ bool Collision_NS::AABBCollider::collideAll( const AABB& a, const AABB& b )
       return r;
     }
   }
+}
+
+
+bool Collision_NS::AABBCollider::collide( const Box& a, const Box& b )
+{
+  return
+    std::max( a.min.x, b.min.x ) <= std::min( a.max.x, b.max.x ) &&
+    std::max( a.min.y, b.min.y ) <= std::min( a.max.y, b.max.y ) &&
+    std::max( a.min.z, b.min.z ) <= std::min( a.max.z, b.max.z );
 }
