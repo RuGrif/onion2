@@ -14,7 +14,8 @@ namespace
 
 
 Math_NS::Grid::Grid( const Vector3D& i_frame )
-  : d_scale( maxframe / i_frame.x, maxframe / i_frame.y, maxframe / i_frame.z )
+  //: d_scale( maxframe / i_frame.x, maxframe / i_frame.y, maxframe / i_frame.z )
+  : d_scale( 1 << 12, 1 << 12, 1 << 12 )
 {
 
 }

@@ -2,7 +2,7 @@
 #include <utility>
 
 
-bool Collision_NS::AABBCollider::collideAll( const AABB& a, const AABB& b )
+bool Collision_NS::AABBCollider::collide( const AABB& a, const AABB& b )
 {
   if( !collide( a.box(), b.box() ) ) return false;
 
@@ -16,8 +16,8 @@ bool Collision_NS::AABBCollider::collideAll( const AABB& a, const AABB& b )
     {
       bool r = false;
 
-      r |= collideAll( a, b.left() );
-      r |= collideAll( a, b.right() );
+      r |= collide( a, b.left() );
+      r |= collide( a, b.right() );
 
       return r;
     }
@@ -28,8 +28,8 @@ bool Collision_NS::AABBCollider::collideAll( const AABB& a, const AABB& b )
     {
       bool r = false;
 
-      r |= collideAll( a.left(), b );
-      r |= collideAll( a.left(), b );
+      r |= collide( a.left(), b );
+      r |= collide( a.right(), b );
 
       return r;
     }
@@ -37,10 +37,10 @@ bool Collision_NS::AABBCollider::collideAll( const AABB& a, const AABB& b )
     {
       bool r = false;
 
-      r |= collideAll( a.left(), b.left() );
-      r |= collideAll( a.left(), b.right() );
-      r |= collideAll( a.right(), b.left() );
-      r |= collideAll( a.right(), b.right() );
+      r |= collide( a.left(), b.left() );
+      r |= collide( a.left(), b.right() );
+      r |= collide( a.right(), b.left() );
+      r |= collide( a.right(), b.right() );
 
       return r;
     }

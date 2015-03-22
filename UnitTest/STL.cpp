@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 #include "..\IO\STL.h"
 #include "..\QEdge\Utils.h"
+#include "Point3D.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -9,6 +10,15 @@ namespace UnitTest
 {
   TEST_CLASS( STL )
 	{
+    Math_NS::Vector3D distort( const Math_NS::Vector3D& i_point )
+    {
+      Math_NS::Vector3D ex{ -0.7, 0.2, -0.4 };
+      Math_NS::Vector3D ey{ -0.1, 0.3, 0.9 };
+      Math_NS::Vector3D ez{ -0.1, 0.8, -0.1 };
+
+      return{ i_point * ex, i_point * ey, i_point * ez };
+    }
+
 	public:
 
     //TEST_METHOD( ReadBig )
@@ -63,10 +73,18 @@ namespace UnitTest
       Assert::AreEqual( s.size(), t.size() );
     }
 
-    //TEST_METHOD( WriteBig )
-    //{
-    //  IO_NS::writeSTL( IO_NS::readSTL( L"triple torus.stl" ), L"unit test copy of triple torus.stl" );
-    //}
+
+    TEST_METHOD( WriteBig )
+    {
+      auto s = IO_NS::readSTL( L"triple torus.stl" );
+      
+      for( auto& v : QEdge_NS::allVerts( s ) )
+      {
+        v.o().reset<Test_NS::Point3D>( distort( v.o()->point() ) );
+      }
+      
+      IO_NS::writeSTL( s, L"distort torus.stl" );
+    }
 
 	};
 }

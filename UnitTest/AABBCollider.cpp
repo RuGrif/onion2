@@ -28,7 +28,7 @@ namespace UnitTest
 
       Collision_NS::AABBCollider collider;
 
-      collider.collideAll( ta.top(), tb.top() );
+      collider.collide( ta, tb );
 
       IO_NS::writeMesh( collider.collider().graph(), L"box torus intersection.mesh" );
 		}

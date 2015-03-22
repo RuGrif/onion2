@@ -39,13 +39,16 @@ namespace UnitTest
     {
       Assert::IsFalse( b.isFace() );
 
-      //Assert::ExpectException<std::out_of_range>( [b](){ b.face(); } );
-
       auto l = b.left();
       auto r = b.right();
 
       Assert::IsTrue( l.box().volume() <= b.box().volume(), L"left volume" );
       Assert::IsTrue( r.box().volume() <= b.box().volume(), L"right volume" );
+
+      auto bb = l.box() + r.box();
+      
+      Assert::AreEqual( b.box().min, bb.min );
+      Assert::AreEqual( b.box().max, bb.max );
 
       std::vector<Collision_NS::Face> lf, rf;
       allFaces( l, lf );
@@ -80,11 +83,6 @@ namespace UnitTest
 
       auto l = f.left();
       auto r = f.right();
-
-      //Assert::ExpectException<std::out_of_range>( [l](){ l.face(); } );
-      //Assert::ExpectException<std::out_of_range>( [r](){ r.face(); } );
-      //Assert::ExpectException<std::out_of_range>( [l](){ l.box(); } );
-      //Assert::ExpectException<std::out_of_range>( [r](){ r.box(); } );
     }
 
     void check( Collision_NS::AABB b, const Math_NS::Grid& i_grid )

@@ -25,7 +25,7 @@ namespace Collision_NS
   {
   public:
 
-    AABB( const AABBTree& );
+    explicit AABB( const AABBTree& );
 
     using Box = Math_NS::Box3L;
 
@@ -56,7 +56,7 @@ namespace Collision_NS
 
     AABBTree( const std::vector<QEdge_NS::Edge>&, const Math_NS::Grid& );
 
-    AABB        top()            const { return{ *this }; }
+    AABB        top()            const { return AABB( *this ); }
     const Box&  box ( size_t i ) const { return d_boxes.at( i ); }
     Face        face( size_t i ) const { return d_faces.at( i ); }
     size_t      size()           const { return d_faces.size(); }

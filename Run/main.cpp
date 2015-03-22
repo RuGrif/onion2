@@ -11,8 +11,8 @@ void collision0() try
 {
   auto t0 = std::chrono::high_resolution_clock::now();
 
-  QEdge_NS::Shape a = IO_NS::readSTL( L"distort torus.stl" );
-  QEdge_NS::Shape b = IO_NS::readSTL( L"triple torus.stl" );
+  QEdge_NS::Shape a = IO_NS::readSTL( L"box.stl" );
+  QEdge_NS::Shape b = IO_NS::readSTL( L"distort box.stl" );
 
   auto fa = QEdge_NS::allFaces( a );
   auto fb = QEdge_NS::allFaces( b );
@@ -21,7 +21,7 @@ void collision0() try
 
   for( auto a : fa ) for( auto b : fb ) collider( Collision_NS::Face( a ), Collision_NS::Face( b ) );
 
-  IO_NS::writeMesh( collider.graph(), L"box - triple torus intersection.mesh" );
+  IO_NS::writeMesh( collider.graph(), L"run - direct intersection.mesh" );
 
   auto t1 = std::chrono::high_resolution_clock::now();
 
@@ -41,8 +41,8 @@ void collision1() try
 {
   auto t0 = std::chrono::high_resolution_clock::now();
 
-  QEdge_NS::Shape a = IO_NS::readSTL( L"distort torus.stl" );
-  QEdge_NS::Shape b = IO_NS::readSTL( L"triple torus.stl" );
+  QEdge_NS::Shape a = IO_NS::readSTL( L"triple torus.stl" );
+  QEdge_NS::Shape b = IO_NS::readSTL( L"distort torus.stl" );
 
   auto fa = QEdge_NS::allFaces( a );
   auto fb = QEdge_NS::allFaces( b );
@@ -54,9 +54,11 @@ void collision1() try
 
   Collision_NS::AABBCollider collider;
 
-  collider.collideAll( ta, tb );
+  bool r = collider.collide( ta, tb );
 
-  IO_NS::writeMesh( collider.collider().graph(), L"box - triple torus intersection (AABB).mesh" );
+  if( !r ) std::cout << "warning: no intersection detected" << std::endl;
+
+  IO_NS::writeMesh( collider.collider().graph(), L"run - AABB intersection.mesh" );
 
   auto t1 = std::chrono::high_resolution_clock::now();
 
@@ -74,5 +76,6 @@ catch( ... )
 
 void main()
 {
+  //collision0();
   collision1();
 }
