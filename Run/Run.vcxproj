@@ -87,6 +87,9 @@
     <ProjectReference Include="..\IO\IO.vcxproj">
       <Project>{785be8f3-36ac-4d53-9f01-8f470ca72273}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Math\Math.vcxproj">
+      <Project>{ba73692a-001f-4f09-ac64-db0b5f527838}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\QEdge\QEdge.vcxproj">
       <Project>{242ab1aa-981d-4696-b9db-3f1c5ef50dbe}</Project>
     </ProjectReference>
