@@ -25,12 +25,16 @@ namespace Math_NS
 
     Box3& operator += ( const Vector3& v ) { min = Math_NS::min( min, v ); max = Math_NS::max( max, v ); return *this; }
     Box3& operator += ( const Box3& box ) { min = Math_NS::min( min, box.min ); max = Math_NS::max( max, box.max ); return *this; }
+
+    Box3& operator *= ( const Box3& box ) { min = Math_NS::max( min, box.min ); max = Math_NS::min( max, box.max ); return *this; }
   };
 
 
   template <typename T> Box3<T> operator + ( const Box3<T>& a, const Box3<T>& b ) { return Box3<T>( a ) += b; }
   template <typename T> Box3<T> operator + ( const Box3<T>& b, const Vector3<T>& v ) { return Box3<T>( b ) += v; }
   template <typename T> Box3<T> operator + ( const Vector3<T>& v, const Box3<T>& b ) { return Box3<T>( b ) += v; }
+
+  template <typename T> Box3<T> operator * ( const Box3<T>& a, const Box3<T>& b ) { return Box3<T>( a ) *= b; }
 
 
   using Box3D = Box3<double>;
