@@ -4,7 +4,7 @@
 
 template <> struct std::hash<Math_NS::Vector3F>
 {
-  std::size_t operator() ( const Math_NS::Vector3F& p )
+  std::size_t operator() ( const Math_NS::Vector3F& p ) const
   {
     auto hash = std::hash<float>();
 
@@ -19,7 +19,7 @@ template <> struct std::hash<Math_NS::Vector3F>
 
 template <> struct std::hash<std::pair<Math_NS::Vector3F, Math_NS::Vector3F>>
 {
-  std::size_t operator() ( const std::pair<Math_NS::Vector3F, Math_NS::Vector3F>& p )
+  std::size_t operator() ( const std::pair<Math_NS::Vector3F, Math_NS::Vector3F>& p ) const
   {
     auto hash = std::hash<float>();
 
