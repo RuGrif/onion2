@@ -22,6 +22,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Collision", "Collision\Coll
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Run", "Run\Run.vcxproj", "{650EF905-557D-4AE2-BF0C-ECD46E48D653}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LongInt", "LongInt\LongInt.vcxproj", "{22652A95-5AA1-4BDB-8D54-B8905E655C9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -52,6 +54,10 @@ Global
 		{650EF905-557D-4AE2-BF0C-ECD46E48D653}.Debug|Win32.Build.0 = Debug|Win32
 		{650EF905-557D-4AE2-BF0C-ECD46E48D653}.Release|Win32.ActiveCfg = Release|Win32
 		{650EF905-557D-4AE2-BF0C-ECD46E48D653}.Release|Win32.Build.0 = Release|Win32
+		{22652A95-5AA1-4BDB-8D54-B8905E655C9D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{22652A95-5AA1-4BDB-8D54-B8905E655C9D}.Debug|Win32.Build.0 = Debug|Win32
+		{22652A95-5AA1-4BDB-8D54-B8905E655C9D}.Release|Win32.ActiveCfg = Release|Win32
+		{22652A95-5AA1-4BDB-8D54-B8905E655C9D}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
