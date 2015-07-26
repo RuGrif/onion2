@@ -5,8 +5,8 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-using uli64 = LongInt_NS::LongIntRaw<uint32_t, uint32_t>;
-using uli128 = LongInt_NS::LongIntRaw<uli64, uli64>;
+using uli64 = LongInt_NS::LongIntRaw<uint32_t>;
+using uli128 = LongInt_NS::LongIntRaw<uli64>;
 
 template <> std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString( const uli64& i ) { return ToString( i.h ) + L'.' + ToString( i.l ); }
 template <> std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString( const uli128& i ) { return ToString( i.h ) + L'.' + ToString( i.l ); }

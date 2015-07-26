@@ -6,21 +6,21 @@
 
 namespace LongInt_NS
 {
-  template <typename H, typename L>
+  template <typename T>
   struct LongIntRaw
   {
-    L l;
-    H h;
+    T l;
+    T h;
 
-    unsigned add( const LongIntRaw& r, unsigned cf ) { return h.add( l.h, l.add( r.l, cf ) ); }
-    unsigned sub( const LongIntRaw& r, unsigned cf ) { return h.sub( l.h, l.sub( r.l, cf ) ); }
+    uint32_t add( const LongIntRaw& r, uint32_t cf ) { return h.add( l.h, l.add( r.l, cf ) ); }
+    uint32_t sub( const LongIntRaw& r, uint32_t cf ) { return h.sub( l.h, l.sub( r.l, cf ) ); }
 
     bool operator == ( const LongIntRaw& r ) const { return l == r.l && h == r.h; }
   };
 
 
   template <>
-  struct LongIntRaw<uint32_t, uint32_t>
+  struct LongIntRaw<uint32_t>
   {
     union
     {
@@ -40,20 +40,20 @@ namespace LongInt_NS
     LongIntRaw( uint32_t h, uint32_t l ) : h( h ), l( l ) {}
     LongIntRaw( uint64_t u ) : u( u ) {}
 
-    unsigned add( const LongIntRaw& r ) { uint64_t v = u; u += r.u; return u < v; }
-    unsigned add( const LongIntRaw& r, unsigned cf ) { return add( cf ) + add( r ); }
+    uint32_t add( const LongIntRaw& r ) { uint64_t v = u; u += r.u; return u < v; }
+    uint32_t add( const LongIntRaw& r, uint32_t cf ) { return add( cf ) + add( r ); }
 
-    unsigned sub( const LongIntRaw& r ) { uint64_t v = u; u -= r.u; return u > v; }
-    unsigned sub( const LongIntRaw& r, unsigned cf ) { return sub( cf ) + sub( r ); }
+    uint32_t sub( const LongIntRaw& r ) { uint64_t v = u; u -= r.u; return u > v; }
+    uint32_t sub( const LongIntRaw& r, uint32_t cf ) { return sub( cf ) + sub( r ); }
 
     bool operator == ( const LongIntRaw& r ) const { return u == r.u; }
   };
 
 
-  template <typename H, typename L>
+  template <typename T>
   class LongInt
   {
-    LongIntRaw<H, L> i;
+    LongIntRaw<T> i;
 
   public:
 
