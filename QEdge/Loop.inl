@@ -5,24 +5,30 @@
 #include <utility>
 
 
-template <typename T>
-QEdge_NS::Loop<T>::Loop( Dual& i_dual )
-  : d_dual( i_dual )
-  , d_edge( std::make_unique<Edge>() )
+template<typename T>
+QEdge_NS::Loop<T>::Loop( Dual & i_dual ) : d_dual( i_dual ) {}
+
+
+template<typename T>
+QEdge_NS::Loop<T>::~Loop()
 {
-  
+  detach();
+  delete d_edge;
 }
 
 
 template<typename T>
 auto QEdge_NS::Loop<T>::vert() -> Vert&
 {
-  if( !d_vert )
-  {
-    set( new Vert );
-  }
-
+  if( !d_vert ) set( new Vert );
   return *d_vert;
+}
+
+template<typename T>
+auto QEdge_NS::Loop<T>::edge() -> Edge&
+{
+  if( !d_edge ) d_edge = new Edge;
+  return *d_edge;
 }
 
 //  ring = other
@@ -33,12 +39,11 @@ void QEdge_NS::Loop<T>::fuse0( Loop& other )
   if( d_vert == other.d_vert )
   {
     std::swap( d_next, other.d_next );
-    if( other.d_vert ) other.set( nullptr );
+    other.detach();
   }
   else
   {
-    delete other.d_vert;
-    other.set( d_vert );
+    other.attach( d_vert );
     std::swap( d_next, other.d_next );
   }
 }
@@ -52,12 +57,11 @@ void QEdge_NS::Loop<T>::fuse1( Loop& other )
   if( d_vert == other.d_vert )
   {
     std::swap( d_next, other.d_next );
-    if( d_next->d_vert ) d_next->set( nullptr ); //  former other->next
+    detach(); //  former other->next
   }
   else
   {
-    delete other.d_vert;
-    other.set( d_vert );
+    other.attach( d_vert );
     std::swap( d_next, other.d_next );
   }
 }
@@ -76,6 +80,21 @@ void QEdge_NS::Loop<T>::splice1( Loop& other )
 {
   other.next().dual().fuse1( next().dual() ); //  preserve other->next->dual->next->o ring who is simply other->l ring
   fuse0( other );
+}
+
+
+template<typename T>
+void QEdge_NS::Loop<T>::attach( Vert* i_vert )
+{
+  delete d_vert;
+  set( i_vert );
+}
+
+
+template<typename T>
+void QEdge_NS::Loop<T>::detach()
+{
+  if( d_vert ) set( nullptr );
 }
 
 

@@ -1,9 +1,6 @@
 #pragma once
 
 
-#include <memory>
-
-
 namespace QEdge_NS
 {
   //  represent an edge in quad-edge structure
@@ -18,6 +15,7 @@ namespace QEdge_NS
     using Dual = Loop<Face>;
 
     Loop( Dual& );
+    ~Loop();
 
     const Loop& next() const { return *d_next; }
     Loop&       next()       { return *d_next; }
@@ -26,9 +24,7 @@ namespace QEdge_NS
     Dual&       dual()       { return d_dual; }
 
     Vert&       vert();
-
-    const Edge& edge() const { return *d_edge; }
-    Edge&       edge()       { return *d_edge; }
+    Edge&       edge();
 
     void        fuse0( Loop& ); //  swap links and preserve this->o ring
     void        fuse1( Loop& ); //  swap links and preserve this->next->o ring
@@ -38,15 +34,17 @@ namespace QEdge_NS
 
   private:
 
+    void        attach( Vert* );  //  merge this->vert to other vert
+    void        detach();         //  split this->vert from other vert
     //  update an this->o ring core
     void        set( Vert* );
 
   private:
 
-    Loop*                           d_next = this; //  non-null pointer on next edge in a loop
-    Dual&                           d_dual; //  non-null pointer on co-edge based on face nodes
+    Loop*                           d_next = this;
+    Dual&                           d_dual;
     Vert*                           d_vert = nullptr;
-    std::unique_ptr<Edge>           d_edge; //  non-null pointer on edge data for this concrete edge
+    Edge*                           d_edge = nullptr;
 
   private:
 
