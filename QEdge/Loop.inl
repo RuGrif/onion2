@@ -8,12 +8,22 @@
 template <typename T>
 QEdge_NS::Loop<T>::Loop( Dual& i_dual )
   : d_dual( i_dual )
-  , d_vert( std::make_shared<Vert>() )
   , d_edge( std::make_unique<Edge>() )
 {
   
 }
 
+
+template<typename T>
+auto QEdge_NS::Loop<T>::vert() -> Vert&
+{
+  if( !d_vert )
+  {
+    set( new Vert );
+  }
+
+  return *d_vert;
+}
 
 //  ring = other
 template <typename T>
@@ -23,11 +33,12 @@ void QEdge_NS::Loop<T>::fuse0( Loop& other )
   if( d_vert == other.d_vert )
   {
     std::swap( d_next, other.d_next );
-    other.reset( std::make_shared<Vert>() );
+    if( other.d_vert ) other.set( nullptr );
   }
   else
   {
-    other.reset( d_vert );
+    delete other.d_vert;
+    other.set( d_vert );
     std::swap( d_next, other.d_next );
   }
 }
@@ -41,11 +52,12 @@ void QEdge_NS::Loop<T>::fuse1( Loop& other )
   if( d_vert == other.d_vert )
   {
     std::swap( d_next, other.d_next );
-    d_next->reset( std::make_shared<Vert>() ); //  former other->next
+    if( d_next->d_vert ) d_next->set( nullptr ); //  former other->next
   }
   else
   {
-    other.d_next->reset( d_vert );
+    delete other.d_vert;
+    other.set( d_vert );
     std::swap( d_next, other.d_next );
   }
 }
@@ -68,7 +80,7 @@ void QEdge_NS::Loop<T>::splice1( Loop& other )
 
 
 template <typename T>
-void QEdge_NS::Loop<T>::reset( const std::shared_ptr<Vert>& i_vert )
+void QEdge_NS::Loop<T>::set( Vert* i_vert )
 {
   Loop* loop = this;
   do

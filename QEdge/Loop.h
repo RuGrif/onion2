@@ -25,8 +25,7 @@ namespace QEdge_NS
     const Dual& dual() const { return d_dual; }
     Dual&       dual()       { return d_dual; }
 
-    const Vert& vert() const { return *d_vert; }
-    Vert&       vert()       { return *d_vert; }
+    Vert&       vert();
 
     const Edge& edge() const { return *d_edge; }
     Edge&       edge()       { return *d_edge; }
@@ -40,13 +39,13 @@ namespace QEdge_NS
   private:
 
     //  update an this->o ring core
-    void        reset( const std::shared_ptr<Vert>& );
+    void        set( Vert* );
 
   private:
 
     Loop*                           d_next = this; //  non-null pointer on next edge in a loop
     Dual&                           d_dual; //  non-null pointer on co-edge based on face nodes
-    std::shared_ptr<Vert>           d_vert; //  non-null pointer on common vertex for this edge loop
+    Vert*                           d_vert = nullptr;
     std::unique_ptr<Edge>           d_edge; //  non-null pointer on edge data for this concrete edge
 
   private:
