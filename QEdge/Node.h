@@ -24,19 +24,8 @@ namespace QEdge_NS
   struct Null : std::exception { virtual const char* what() const override { return "null node data"; } };
 
 
-  class QEDGE_API NodeId
-  {
-  protected:
-    NodeId();
-  public:
-    size_t          id() const { return d_uid; }
-  private:
-    const size_t    d_uid;
-  };
-
-
   template <typename Data>
-  class Node : private NodeId
+  class Node
   {
   public:
 
@@ -58,7 +47,7 @@ namespace QEdge_NS
     const Data* operator -> () const;
     Data*       operator -> ();
 
-    using NodeId::id;
+    size_t      id() const { return reinterpret_cast<size_t>( this ); }
 
   protected:
 
