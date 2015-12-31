@@ -36,8 +36,7 @@ namespace QEdge_NS
 
     void        attach( Vert* );  //  merge this->vert to other vert
     void        detach();         //  split this->vert from other vert
-    //  update an this->o ring core
-    void        set( Vert* );
+    void        set( Vert* );     //  update this->o ring core
 
   private:
 

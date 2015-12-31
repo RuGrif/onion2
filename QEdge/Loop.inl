@@ -24,12 +24,14 @@ auto QEdge_NS::Loop<T>::vert() -> Vert&
   return *d_vert;
 }
 
+
 template<typename T>
 auto QEdge_NS::Loop<T>::edge() -> Edge&
 {
   if( !d_edge ) d_edge = new Edge;
   return *d_edge;
 }
+
 
 //  ring = other
 template <typename T>
