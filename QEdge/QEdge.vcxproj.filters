@@ -9,24 +9,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="API">
-      <UniqueIdentifier>{0f30a860-8234-4ce9-8148-e9ab425f5026}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="API\Header Files">
-      <UniqueIdentifier>{8d72dbe7-6174-4463-a794-e747e919a8bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="API\Source Files">
-      <UniqueIdentifier>{004df599-3452-4dc1-8182-c12911318da0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Impl">
-      <UniqueIdentifier>{fff5fb79-30e1-491a-ba7a-a432169ccd77}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Impl\Header Files">
-      <UniqueIdentifier>{0a27f4ea-43c0-4990-9920-4612337cf9f8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Impl\Source FIles">
-      <UniqueIdentifier>{9b1784af-4225-4532-931f-6a6bf0170d8f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{3001d48b-8bb1-411a-9c5c-76ddcf92f840}</UniqueIdentifier>
     </Filter>
@@ -35,57 +17,57 @@
     <ClInclude Include="QEdge.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Shape.h">
-      <Filter>API\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Iterator.h">
-      <Filter>API\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Edge.h">
-      <Filter>API\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ShapeImpl.h">
-      <Filter>Impl\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Quad.h">
-      <Filter>Impl\Header Files</Filter>
+    <ClInclude Include="IteratorImpl.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Loop.h">
-      <Filter>Impl\Header Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IteratorImpl.h">
-      <Filter>Impl\Header Files</Filter>
+    <ClInclude Include="Quad.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Node.h">
-      <Filter>API\Header Files</Filter>
+    <ClInclude Include="ShapeImpl.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Data.h">
-      <Filter>API\Header Files</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Edge.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Iterator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h">
-      <Filter>API\Header Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Shape.cpp">
-      <Filter>API\Source Files</Filter>
+    <ClCompile Include="Edge.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Iterator.cpp">
-      <Filter>API\Source Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Edge.cpp">
-      <Filter>API\Source Files</Filter>
+    <ClCompile Include="Shape.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Utils.cpp">
-      <Filter>API\Source Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Loop.inl">
-      <Filter>Impl\Source FIles</Filter>
-    </None>
     <None Include="Node.inl">
-      <Filter>API\Source Files</Filter>
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="Loop.inl">
+      <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
 </Project>
