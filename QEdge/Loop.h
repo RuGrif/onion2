@@ -22,8 +22,8 @@ namespace QEdge_NS
     const Loop& next() const { return *d_next; }
     Loop&       next()       { return *d_next; }
 
-    const Dual& dual() const { return *d_dual; }
-    Dual&       dual()       { return *d_dual; }
+    const Dual& dual() const { return d_dual; }
+    Dual&       dual()       { return d_dual; }
 
     const Vert& vert() const { return *d_vert; }
     Vert&       vert()       { return *d_vert; }
@@ -44,8 +44,8 @@ namespace QEdge_NS
 
   private:
 
-    Loop*                           d_next; //  non-null pointer on next edge in a loop
-    Dual*                           d_dual; //  non-null pointer on co-edge based on face nodes
+    Loop*                           d_next = this; //  non-null pointer on next edge in a loop
+    Dual&                           d_dual; //  non-null pointer on co-edge based on face nodes
     std::shared_ptr<Vert>           d_vert; //  non-null pointer on common vertex for this edge loop
     std::unique_ptr<Edge>           d_edge; //  non-null pointer on edge data for this concrete edge
 

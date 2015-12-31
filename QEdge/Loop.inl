@@ -7,8 +7,7 @@
 
 template <typename T>
 QEdge_NS::Loop<T>::Loop( Dual& i_dual )
-  : d_next( this )
-  , d_dual( &i_dual )
+  : d_dual( i_dual )
   , d_vert( std::make_shared<Vert>() )
   , d_edge( std::make_unique<Edge>() )
 {
