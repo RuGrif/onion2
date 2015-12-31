@@ -12,8 +12,9 @@ QEdge_NS::Loop<T>::Loop( Dual & i_dual ) : d_dual( i_dual ) {}
 template<typename T>
 QEdge_NS::Loop<T>::~Loop()
 {
-  detach();
   delete d_edge;
+  delete d_vert;
+  detach();
 }
 
 
