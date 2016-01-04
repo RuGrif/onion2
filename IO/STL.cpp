@@ -6,8 +6,7 @@
 
 QEdge_NS::Shape IO_NS::readSTL( const std::wstring& i_fileName )
 {
-  QEdge_NS::Shape shape;
-  IO_NS::Constructor constructor( shape );
+  IO_NS::Constructor constructor;
 
   std::ifstream file( i_fileName, std::ifstream::binary );
   file.exceptions( file.badbit | file.failbit );
@@ -33,7 +32,7 @@ QEdge_NS::Shape IO_NS::readSTL( const std::wstring& i_fileName )
       Math_NS::Vector3F( x[ 6 ], x[ 7 ], x[ 8 ] ) );
   }
 
-  return shape;
+  return IO_NS::Constructor::getShape( std::move( constructor ) );
 }
 
 
