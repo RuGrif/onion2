@@ -12,7 +12,6 @@ QEdge_NS::Loop<T>::Loop( Dual & i_dual ) : d_dual( i_dual ) {}
 template<typename T>
 QEdge_NS::Loop<T>::~Loop()
 {
-  delete d_edge;
   delete d_vert;
   detach();
 }
@@ -23,14 +22,6 @@ auto QEdge_NS::Loop<T>::vert() -> Vert&
 {
   if( !d_vert ) set( new Vert );
   return *d_vert;
-}
-
-
-template<typename T>
-auto QEdge_NS::Loop<T>::edge() -> Edge&
-{
-  if( !d_edge ) d_edge = new Edge;
-  return *d_edge;
 }
 
 

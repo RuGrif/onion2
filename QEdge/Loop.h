@@ -24,7 +24,6 @@ namespace QEdge_NS
     Dual&       dual()       { return d_dual; }
 
     Vert&       vert();
-    Edge&       edge();
 
     void        fuse0( Loop& ); //  swap links and preserve this->o ring
     void        fuse1( Loop& ); //  swap links and preserve this->next->o ring
@@ -43,7 +42,6 @@ namespace QEdge_NS
     Loop*                           d_next = this;
     Dual&                           d_dual;
     Vert*                           d_vert = nullptr;
-    Edge*                           d_edge = nullptr;
 
   private:
 
