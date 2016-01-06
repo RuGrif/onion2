@@ -9,9 +9,9 @@ namespace QEdge_NS
   {
   public:
 
-    using Vert = T;
-    using Face = typename Vert::Dual;
-    using Edge = typename Vert::Edge;
+    using Core = T;
+    using Face = typename Core::Dual;
+    using Edge = typename Core::Edge;
     using Dual = Loop<Face>;
 
     Loop( Dual& );
@@ -23,7 +23,7 @@ namespace QEdge_NS
     const Dual& dual() const { return d_dual; }
     Dual&       dual()       { return d_dual; }
 
-    Vert&       vert();
+    Core&       core();
 
     void        fuse0( Loop& ); //  swap links and preserve this->o ring
     void        fuse1( Loop& ); //  swap links and preserve this->next->o ring
@@ -33,15 +33,15 @@ namespace QEdge_NS
 
   private:
 
-    void        attach( Vert* );  //  merge this->vert to other vert
-    void        detach();         //  split this->vert from other vert
-    void        set( Vert* );     //  update this->o ring core
+    void        attach( Core* );  //  merge this->core to other core
+    void        detach();         //  split this->core from other core
+    void        set( Core* );     //  update this->core
 
   private:
 
-    Loop*                           d_next = this;
-    Dual&                           d_dual;
-    Vert*                           d_vert = nullptr;
+    Loop*       d_next = this;
+    Dual&       d_dual;
+    Core*       d_core = nullptr;
 
   private:
 

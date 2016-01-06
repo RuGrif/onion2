@@ -12,16 +12,16 @@ QEdge_NS::Loop<T>::Loop( Dual & i_dual ) : d_dual( i_dual ) {}
 template<typename T>
 QEdge_NS::Loop<T>::~Loop()
 {
-  delete d_vert;
+  delete d_core;
   detach();
 }
 
 
 template<typename T>
-auto QEdge_NS::Loop<T>::vert() -> Vert&
+auto QEdge_NS::Loop<T>::core() -> Core&
 {
-  if( !d_vert ) set( new Vert );
-  return *d_vert;
+  if( !d_core ) set( new Core );
+  return *d_core;
 }
 
 
@@ -30,14 +30,14 @@ template <typename T>
 void QEdge_NS::Loop<T>::fuse0( Loop& other )
 {
   //  detach / attach
-  if( d_vert == other.d_vert )
+  if( d_core == other.d_core )
   {
     std::swap( d_next, other.d_next );
     other.detach();
   }
   else
   {
-    other.attach( d_vert );
+    other.attach( d_core );
     std::swap( d_next, other.d_next );
   }
 }
@@ -48,14 +48,14 @@ template <typename T>
 void QEdge_NS::Loop<T>::fuse1( Loop& other )
 {
   //  detach / attach
-  if( d_vert == other.d_vert )
+  if( d_core == other.d_core )
   {
     std::swap( d_next, other.d_next );
     detach(); //  former other->next
   }
   else
   {
-    other.attach( d_vert );
+    other.attach( d_core );
     std::swap( d_next, other.d_next );
   }
 }
@@ -78,9 +78,9 @@ void QEdge_NS::Loop<T>::splice1( Loop& other )
 
 
 template<typename T>
-void QEdge_NS::Loop<T>::attach( Vert* i_vert )
+void QEdge_NS::Loop<T>::attach( Core* i_vert )
 {
-  delete d_vert;
+  delete d_core;
   set( i_vert );
 }
 
@@ -88,17 +88,17 @@ void QEdge_NS::Loop<T>::attach( Vert* i_vert )
 template<typename T>
 void QEdge_NS::Loop<T>::detach()
 {
-  if( d_vert ) set( nullptr );
+  if( d_core ) set( nullptr );
 }
 
 
 template <typename T>
-void QEdge_NS::Loop<T>::set( Vert* i_vert )
+void QEdge_NS::Loop<T>::set( Core* i_vert )
 {
   Loop* loop = this;
   do
   {
-    loop->d_vert = i_vert;
+    loop->d_core = i_vert;
     loop = loop->d_next;
   }
   while( loop != this );
