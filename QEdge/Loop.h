@@ -11,7 +11,6 @@ namespace QEdge_NS
 
     using Core = T;
     using Face = typename Core::Dual;
-    using Edge = typename Core::Edge;
     using Dual = Loop<Face>;
 
     Loop( Dual& );
