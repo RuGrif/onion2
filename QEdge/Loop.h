@@ -1,11 +1,14 @@
 #pragma once
 
 
+#include "UniqueID.h"
+
+
 namespace QEdge_NS
 {
   //  represent an edge in quad-edge structure
   template <typename T>
-  class Loop
+  class Loop : public UniqueID
   {
   public:
 

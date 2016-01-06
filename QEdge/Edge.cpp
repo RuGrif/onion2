@@ -19,5 +19,7 @@ QEdge_NS::Vert& QEdge_NS::Edge::d() const { return d_loop->dual().dual().core();
 QEdge_NS::Face& QEdge_NS::Edge::l() const { return d_loop->dual().dual().dual().core(); }
 QEdge_NS::Face& QEdge_NS::Edge::r() const { return d_loop->dual().core(); }
 
+size_t QEdge_NS::Edge::id() const { return d_loop->id(); }
+
 void QEdge_NS::Edge::splice0( Edge e ) { d_loop->splice0( *e.d_loop ); }
 void QEdge_NS::Edge::splice1( Edge e ) { d_loop->splice1( *e.d_loop ); }

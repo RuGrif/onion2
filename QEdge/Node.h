@@ -2,6 +2,7 @@
 
 
 #include "Data.h"
+#include "UniqueID.h"
 #include <memory>
 #include <exception>
 
@@ -25,7 +26,7 @@ namespace QEdge_NS
 
 
   template <typename Data>
-  class Node
+  class Node : public UniqueID
   {
   public:
 
@@ -47,11 +48,9 @@ namespace QEdge_NS
     const Data* operator -> () const;
     Data*       operator -> ();
 
-    size_t      id() const { return reinterpret_cast<size_t>( this ); }
-
   protected:
 
-    ~Node(){}
+    ~Node() = default;
 
   private:
 
