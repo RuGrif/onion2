@@ -30,29 +30,37 @@ void IO_NS::Constructor::addTriangle( const Math_NS::Vector3F& a, const Math_NS:
   QEdge_NS::Edge eb = getOrConstructEdge( b, c );
   QEdge_NS::Edge ec = getOrConstructEdge( c, a );
 
-  auto stitch = []( QEdge_NS::Edge a, QEdge_NS::Edge b ) { if( a.oNext() != b ) a.splice0( b.oPrev() ); };
+  auto stitch = []( QEdge_NS::Edge a, QEdge_NS::Edge b, const Math_NS::Vector3F& v )
+  {
+    if( a.oNext() != b ) a.splice0( b.oPrev() );
+    if( !a.o() ) a.o().reset<Point3D>( v.x, v.y, v.z );
+  };
 
-  stitch( ea, ec.sym() );
-  stitch( eb, ea.sym() );
-  stitch( ec, eb.sym() );
+  stitch( ea, ec.sym(), a );
+  stitch( eb, ea.sym(), b );
+  stitch( ec, eb.sym(), c );
 }
 
 
 QEdge_NS::Shape&& IO_NS::Constructor::getShape( Constructor&& c )
 {
-  auto makeVertex = []( QEdge_NS::Vert& v, const Math_NS::Vector3F& p ) { if( !v ) v.reset<Point3D>( p.x, p.y, p.z ); };
-
-  for( const auto& e : c.d_edges )
-  {
-    makeVertex( e.second.o(), e.first.first );
-    makeVertex( e.second.d(), e.first.second );
-  }
-
   return std::move( c.d_shape );
 }
 
 QEdge_NS::Edge IO_NS::Constructor::getOrConstructEdge( const Math_NS::Vector3F& a, const Math_NS::Vector3F& b )
 {
   auto f = d_edges.find( std::make_pair( b, a ) );  //  look for exist e.sym
-  return ( f == d_edges.end() ) ? ( d_edges[ std::make_pair( a, b ) ] = d_shape.makeEdge() ) : f->second.sym();
+  
+  if( f == d_edges.end() )  //  first call
+  {
+    QEdge_NS::Edge e = d_shape.makeEdge();
+    d_edges[ std::make_pair( a, b ) ] = e;
+    return e;
+  }
+  else                      //  second call
+  {
+    QEdge_NS::Edge e = f->second.sym();
+    d_edges.erase( f );
+    return e;
+  }
 }
