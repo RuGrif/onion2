@@ -47,7 +47,7 @@ namespace
     using Vec = Math_NS::Vector3L;
     using Box = Math_NS::Box3<Vec::Type>;
 
-    Split( const std::vector<QEdge_NS::Edge>& i_faces, const Math_NS::Grid& i_grid )
+    Split( const std::vector<QEdge_NS::Edge>& i_faces, const Math_NS::Grid& i_grid ) : d_axes{ &Vec::x, &Vec::y, &Vec::z }
     {
       auto center = [i_grid]( Collision_NS::Face f ) { return i_grid( f.A().point() ) + i_grid( f.B().point() ) + i_grid( f.C().point() ); };
       size_t c = 0;

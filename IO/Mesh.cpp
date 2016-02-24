@@ -70,7 +70,7 @@ void IO_NS::writeMesh( const Collision_NS::Graph& i_graph, const std::wstring& i
   {
     Vertex v{ node.intersection(), label };
     file.write( reinterpret_cast<char*>( &v ), sizeof( v ) );
-    ids[ node.id() ] = ids.size();
+    ids.emplace( node.id(), ids.size() );
   }
 
   //  Faces
