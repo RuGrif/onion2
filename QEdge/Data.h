@@ -10,11 +10,7 @@ namespace QEdge_NS
 {
   struct Tag
   {
-    //  get node comment
     virtual std::wstring tag() const { return L"tag"; }
-    //  set node comment
-    virtual void tag( const std::wstring& ) {}
-
     virtual ~Tag() {}
   };
 
@@ -22,7 +18,6 @@ namespace QEdge_NS
   struct VertData : public Tag
   {
     virtual Math_NS::Vector3D point() const { return{}; }
-
     virtual ~VertData() {}
   };
 
