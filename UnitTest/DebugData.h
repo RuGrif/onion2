@@ -15,5 +15,6 @@ namespace QEdge_NS
     DebugData( const std::wstring& i_tag = L"debug tag" ) : d_tag( i_tag ) {}
 
     virtual std::wstring tag() const override { return d_tag; }
+    virtual const Math_NS::Vector3D point() const override { return{}; }
   };
 }

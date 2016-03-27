@@ -17,7 +17,7 @@ namespace QEdge_NS
 
   struct VertData : public Tag
   {
-    virtual Math_NS::Vector3D point() const { return{}; }
+    virtual const Math_NS::Vector3D point() const = 0;
     virtual ~VertData() {}
   };
 

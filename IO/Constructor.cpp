@@ -7,15 +7,9 @@ namespace
   {
   public:
 
-    Point3D( float x, float y, float z ) : d_point( static_cast<double>( x ), static_cast<double>( y ), static_cast<double>( z ) )
-    {
+    Point3D( float x, float y, float z ) : d_point( static_cast<double>( x ), static_cast<double>( y ), static_cast<double>( z ) ) {}
 
-    }
-
-    virtual Math_NS::Vector3D point() const override
-    {
-      return d_point;
-    }
+    virtual const Math_NS::Vector3D point() const override { return d_point; }
 
   private:
 
