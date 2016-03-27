@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "Node.h"
+#include "Intersection.h"
 #include <memory>
 #include <unordered_map>
 #include <vector>
@@ -21,16 +21,16 @@ namespace Collision_NS
 
     Graph() = default;
 
-    void push( std::unique_ptr<Node>&& );
+    void operator()( std::unique_ptr<Intersection>&& );
 
-    using Nodes = std::vector<std::reference_wrapper<const Node>>;
+    using Nodes = std::vector<std::reference_wrapper<const Intersection>>;
 
     Nodes all() const;
-    Nodes neighborhood( const Node& ) const;
+    Nodes neighborhood( const Intersection& ) const;
 
   private:
 
     #pragma warning( suppress : 4251 )
-    std::unordered_map<NodeId, std::unique_ptr<Node>> d_verts;
+    std::unordered_map<Intersection::ID, std::unique_ptr<Intersection>> d_verts;
   };
 }

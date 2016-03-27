@@ -1,5 +1,5 @@
 #include <iostream>
-#include "..\Collision\Collider.h"
+#include "..\Collision\PrimCollider.h"
 #include "..\Collision\AABBCollider.h"
 #include "..\IO\STL.h"
 #include "..\IO\Mesh.h"
@@ -64,6 +64,8 @@ void wmain( int argc, wchar_t* argv[] )try
 
   Run_NS::TimeLog time;
 
+  /////////////////////////////////////////////////////////////////////////////
+
   std::cout << "Read STLs ... ";
   
   QEdge_NS::Shape a = IO_NS::readSTL( argv[ 1 ] );
@@ -71,29 +73,47 @@ void wmain( int argc, wchar_t* argv[] )try
   
   time.log();
 
+  /////////////////////////////////////////////////////////////////////////////
+
   std::cout << "Get faces ... ";
   
-  auto fa = QEdge_NS::allFaces( a );
-  auto fb = QEdge_NS::allFaces( b );
+  auto fa = allFaces( a );
+  auto fb = allFaces( b );
   
   time.log();
 
-  Math_NS::Grid g;
+  /////////////////////////////////////////////////////////////////////////////
+
+  std::cout << "Get bounding box ... ";
+
+  Math_NS::Grid grid{ box( a ) + box( b ) };
+
+  time.log();
+
+  /////////////////////////////////////////////////////////////////////////////
 
   std::cout << "Build AABB trees ... ";
 
-  Collision_NS::AABBTree ta( fa, g );
-  Collision_NS::AABBTree tb( fb, g );
+  Collision_NS::AABBTree ta( fa, grid );
+  Collision_NS::AABBTree tb( fb, grid );
 
   time.log();
 
-  Collision_NS::AABBCollider collider;
+  /////////////////////////////////////////////////////////////////////////////
+
+  Collision_NS::Graph graph;
+  Collision_NS::PrimCollider primCollider{ std::ref( graph ), grid };
+  Collision_NS::AABBCollider aabbCollider{ std::ref( primCollider ) };
+
+  /////////////////////////////////////////////////////////////////////////////
 
   std::cout << "Collide ... ";
 
-  bool r = collider.collide( ta, tb );
+  bool r = aabbCollider.collide( ta, tb );
 
   time.log();
+
+  /////////////////////////////////////////////////////////////////////////////
 
   if( !r )
   {
@@ -101,11 +121,15 @@ void wmain( int argc, wchar_t* argv[] )try
     return;
   }
 
+  /////////////////////////////////////////////////////////////////////////////
+
   std::cout << "Save intersection graph ... ";
 
-  IO_NS::writeMesh( collider.collider().graph(), argv[ 3 ] );
+  IO_NS::writeMesh( graph, argv[ 3 ] );
 
   time.log();
+
+  /////////////////////////////////////////////////////////////////////////////
 
   auto t1 = std::chrono::high_resolution_clock::now();
 

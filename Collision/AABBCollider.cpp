@@ -10,7 +10,7 @@ bool Collision_NS::AABBCollider::collide( const AABB& a, const AABB& b )
   {
     if( b.isFace() )
     {
-      return d_collider( a.face(), b.face() );
+      return d_callback( a.face(), b.face() );
     }
     else
     {

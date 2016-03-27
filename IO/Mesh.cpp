@@ -52,7 +52,7 @@ Edges are optional.
 
 void IO_NS::writeMesh( const Collision_NS::Graph& i_graph, const std::wstring& i_fileName )
 {
-  std::unordered_map<Collision_NS::NodeId, int> ids;
+  std::unordered_map<Collision_NS::Intersection::ID, int> ids;
 
   std::ofstream file( i_fileName, std::ofstream::binary );
   file.exceptions( file.badbit | file.failbit );
@@ -66,7 +66,7 @@ void IO_NS::writeMesh( const Collision_NS::Graph& i_graph, const std::wstring& i
   size = verts.size();
   file.write( reinterpret_cast<char*>( &size ), sizeof( size ) );
 
-  for( const Collision_NS::Node& node : verts )
+  for( const Collision_NS::Intersection& node : verts )
   {
     Vertex v{ node.intersection(), label };
     file.write( reinterpret_cast<char*>( &v ), sizeof( v ) );
@@ -81,9 +81,9 @@ void IO_NS::writeMesh( const Collision_NS::Graph& i_graph, const std::wstring& i
   size = 0;
   file.write( reinterpret_cast<char*>( &size ), sizeof( size ) );
 
-  for( const Collision_NS::Node& node : verts )
+  for( const Collision_NS::Intersection& node : verts )
   {
-    for( const Collision_NS::Node& nb : i_graph.neighborhood( node ) )
+    for( const Collision_NS::Intersection& nb : i_graph.neighborhood( node ) )
     {
       Edge e{ ids.at( node.id() ), ids.at( nb.id() ), label };
       file.write( reinterpret_cast<char*>( &e ), sizeof( e ) );

@@ -1,17 +1,17 @@
-#include "Collider.h"
+#include "PrimCollider.h"
 #include "..\Math\Solve.h"
 #include <memory>
 
 
 namespace Collision_NS
 {
-  using Int = Collider::Int;
+  using Int = PrimCollider::Int;
 
-  class Intersection : public Node
+  class MyNode : public Intersection
   {
   public:
 
-    Intersection( std::unique_ptr<Prim> i_alpha, std::unique_ptr<Prim> i_beta, const Math_NS::Vector3D& i_intersection )
+    MyNode( std::unique_ptr<Prim> i_alpha, std::unique_ptr<Prim> i_beta, const Math_NS::Vector3D& i_intersection )
       : d_alpha( std::move( i_alpha ) ), d_beta( std::move( i_beta ) )
       , d_intersection( i_intersection )
     {}
@@ -50,25 +50,25 @@ namespace Collision_NS
   }
 
 
-  std::unique_ptr<Intersection> makeIntersection(
+  std::unique_ptr<MyNode> makeIntersection(
     std::unique_ptr<Prim>&& i_alpha,
     std::unique_ptr<Prim>&& i_beta,
     const Math_NS::Vector3D& i_intersection,
     bool i_alter )
   {
     return i_alter
-      ? std::make_unique<Intersection>( std::move( i_beta ), std::move( i_alpha ), i_intersection )
-      : std::make_unique<Intersection>( std::move( i_alpha ), std::move( i_beta ), i_intersection );
+      ? std::make_unique<MyNode>( std::move( i_beta ), std::move( i_alpha ), i_intersection )
+      : std::make_unique<MyNode>( std::move( i_alpha ), std::move( i_beta ), i_intersection );
   }
 }
 
 
-bool Collision_NS::Collider::collide( Vert a, Vert b, bool alter )
+bool Collision_NS::PrimCollider::collide( Vert a, Vert b, bool alter )
 {
   if( grid( a.point() ) == grid( b.point() ) )
   {
     Math_NS::Vector3D i = ( a.point() + b.point() ) / 2.;    
-    d_graph.push( makeIntersection( makePrim( a ), makePrim( b ), i, alter ) );
+    d_callback( makeIntersection( makePrim( a ), makePrim( b ), i, alter ) );
     return true;
   }
   else
@@ -78,7 +78,7 @@ bool Collision_NS::Collider::collide( Vert a, Vert b, bool alter )
 }
 
 
-bool Collision_NS::Collider::collide( Vert v, Edge e, bool alter )
+bool Collision_NS::PrimCollider::collide( Vert v, Edge e, bool alter )
 {
   //  A = u * U + v * V
   //  u + v = 1
@@ -97,7 +97,7 @@ bool Collision_NS::Collider::collide( Vert v, Edge e, bool alter )
   {
     if( u >= 0 && u <= div )
     {
-      d_graph.push( makeIntersection( makePrim( v ), makePrim( e, u, div - u ), v.point(), alter ) );
+      d_callback( makeIntersection( makePrim( v ), makePrim( e, u, div - u ), v.point(), alter ) );
       return true;
     }
     else
@@ -118,7 +118,7 @@ bool Collision_NS::Collider::collide( Vert v, Edge e, bool alter )
 }
 
 
-bool Collision_NS::Collider::collide( Vert v, Face f, bool alter )
+bool Collision_NS::PrimCollider::collide( Vert v, Face f, bool alter )
 {
   //  V = a * A + b * B + c * C
   //  a + b + c = 1
@@ -138,7 +138,7 @@ bool Collision_NS::Collider::collide( Vert v, Face f, bool alter )
   {
     if( a >= 0 && b >= 0 && a <= div - b )
     {
-      d_graph.push( makeIntersection( makePrim( v ), makePrim( f, a, b, div - a - b ), v.point(), alter ) );
+      d_callback( makeIntersection( makePrim( v ), makePrim( f, a, b, div - a - b ), v.point(), alter ) );
       return true;
     }
     else
@@ -160,7 +160,7 @@ bool Collision_NS::Collider::collide( Vert v, Face f, bool alter )
 }
 
 
-bool Collision_NS::Collider::collide( Edge e1, Edge e2, bool alter )
+bool Collision_NS::PrimCollider::collide( Edge e1, Edge e2, bool alter )
 {
   //  u1 * U1 + v1 * V1 = u2 * U2 + v2 * V2
   //  u1 + v1 = 1
@@ -185,7 +185,7 @@ bool Collision_NS::Collider::collide( Edge e1, Edge e2, bool alter )
       Math_NS::Vector3D i1 = ( static_cast<double>(u1) * e1.U().point() + static_cast<double>( div - u1 ) * e1.V().point() ) / static_cast<double>( div );
       Math_NS::Vector3D i2 = ( static_cast<double>(u2) * e2.U().point() + static_cast<double>( div - u2 ) * e2.V().point() ) / static_cast<double>( div );
 
-      d_graph.push( makeIntersection( makePrim( e1, u1, div - u1 ), makePrim( e2, u2, div - u2 ), ( i1 + i2 ) / 2., alter ) );
+      d_callback( makeIntersection( makePrim( e1, u1, div - u1 ), makePrim( e2, u2, div - u2 ), ( i1 + i2 ) / 2., alter ) );
 
       return true;
     }
@@ -209,7 +209,7 @@ bool Collision_NS::Collider::collide( Edge e1, Edge e2, bool alter )
 }
 
 
-bool Collision_NS::Collider::collide( Edge e, Face f, bool alter )
+bool Collision_NS::PrimCollider::collide( Edge e, Face f, bool alter )
 {
   //  u * U + v * V = a * A + b * B + c * C
   //  u + v = 1
@@ -233,7 +233,7 @@ bool Collision_NS::Collider::collide( Edge e, Face f, bool alter )
     if( u >= 0 && u <= div && a >= 0 && b >= 0 && a <= div - b )
     {
       Math_NS::Vector3D i = ( static_cast<double>(u) * e.U().point() + static_cast<double>( div - u ) * e.V().point() ) / static_cast<double>( div );
-      d_graph.push( makeIntersection( makePrim( e, u, div - u ), makePrim( f, a, b, div - a - b ), i, alter ) );
+      d_callback( makeIntersection( makePrim( e, u, div - u ), makePrim( f, a, b, div - a - b ), i, alter ) );
       return true;
     }
     else
@@ -257,7 +257,7 @@ bool Collision_NS::Collider::collide( Edge e, Face f, bool alter )
 }
 
 
-bool Collision_NS::Collider::operator() ( Face a, Face b )
+bool Collision_NS::PrimCollider::operator() ( Face a, Face b )
 {
   bool r = false;
   

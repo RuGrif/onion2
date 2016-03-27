@@ -1,9 +1,10 @@
 #include "Graph.h"
 
 
-void Collision_NS::Graph::push( std::unique_ptr<Node>&& i_node )
+void Collision_NS::Graph::operator()( std::unique_ptr<Intersection>&& i_node )
 {
-  d_verts[ i_node->id() ] = std::move( i_node );
+  const auto id = i_node->id();
+  d_verts[ id ] = std::move( i_node );
 }
 
 
@@ -15,7 +16,7 @@ Collision_NS::Graph::Nodes Collision_NS::Graph::all() const
 }
 
 
-Collision_NS::Graph::Nodes Collision_NS::Graph::neighborhood( const Node& i_node ) const
+Collision_NS::Graph::Nodes Collision_NS::Graph::neighborhood( const Intersection& i_node ) const
 {
   Prim::Neighborhood alphaNb = i_node.alpha().neighbourhood();
   Prim::Neighborhood betaNb = i_node.beta().neighbourhood();

@@ -78,16 +78,16 @@
   <ItemGroup>
     <ClInclude Include="AABB.h" />
     <ClInclude Include="AABBCollider.h" />
-    <ClInclude Include="Collider.h" />
+    <ClInclude Include="PrimCollider.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Graph.h" />
-    <ClInclude Include="Node.h" />
+    <ClInclude Include="Intersection.h" />
     <ClInclude Include="Primitive.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AABB.cpp" />
     <ClCompile Include="AABBCollider.cpp" />
-    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="PrimCollider.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Primitive.cpp" />
   </ItemGroup>

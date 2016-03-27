@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 #include "..\IO\STL.h"
 #include "..\IO\Mesh.h"
+#include "..\Collision\PrimCollider.h"
 #include "..\Collision\AABBCollider.h"
 #include "..\QEdge\Utils.h"
 
@@ -21,16 +22,18 @@ namespace UnitTest
       auto fa = QEdge_NS::allFaces( a );
       auto fb = QEdge_NS::allFaces( b );
 
-      Math_NS::Grid g;
+      Math_NS::Grid grid{ box( a ) + box( b ) };
 
-      Collision_NS::AABBTree ta( fa, g );
-      Collision_NS::AABBTree tb( fb, g );
+      Collision_NS::AABBTree ta( fa, grid );
+      Collision_NS::AABBTree tb( fb, grid );
 
-      Collision_NS::AABBCollider collider;
+      Collision_NS::Graph graph;
+      Collision_NS::PrimCollider pc{ std::ref( graph ), grid };
+      Collision_NS::AABBCollider c{ pc };
 
-      collider.collide( ta, tb );
+      c.collide( ta, tb );
 
-      IO_NS::writeMesh( collider.collider().graph(), L"box torus intersection.mesh" );
+      IO_NS::writeMesh( graph, L"box torus intersection.mesh" );
 		}
 
 	};

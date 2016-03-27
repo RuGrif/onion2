@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include "..\Collision\Collider.h"
+#include "..\Collision\Graph.h"
+#include "..\Collision\PrimCollider.h"
 #include "Point3D.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -9,7 +10,9 @@ namespace UnitTest
 {
   struct TestIntersection
   {
-    Collision_NS::Collider      collider;
+    Math_NS::Grid               grid{ { { -16., -16., -16. }, { 16., 16., 16. } } };
+    Collision_NS::Graph         graph;
+    Collision_NS::PrimCollider  collider{ std::ref( graph ), grid };
     
     Math_NS::Vector3D           A;
     Math_NS::Vector3D           B;
@@ -63,11 +66,11 @@ namespace UnitTest
     {
       Assert::IsTrue( collide() );
 
-      auto all = collider.graph().all();
+      auto all = graph.all();
 
       Assert::AreEqual( 1u, all.size() );
 
-      const Collision_NS::Node& n = all.front();
+      const Collision_NS::Intersection& n = all.front();
 
       Assert::AreEqual( i, n.intersection() );
 
@@ -83,12 +86,12 @@ namespace UnitTest
     {
       Assert::IsTrue( collide() );
 
-      auto all = collider.graph().all();
+      auto all = graph.all();
 
       Assert::AreEqual( 2u, all.size() );
 
-      const Collision_NS::Node* n1 = &all.front().get();
-      const Collision_NS::Node* n2 = &all.back().get();
+      const Collision_NS::Intersection* n1 = &all.front().get();
+      const Collision_NS::Intersection* n2 = &all.back().get();
 
       if( a1 != n1->alpha() || b1 != n1->beta() ) std::swap( n1, n2 );
 

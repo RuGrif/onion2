@@ -46,5 +46,6 @@ namespace Math_NS
   using Vector3D = Vector3<double>;
   using Vector3F = Vector3<float>;
   using Vector3I = Vector3<int>;
-  using Vector3L = Vector3<boost::multiprecision::int128_t>;
+  //using Vector3L = Vector3<boost::multiprecision::int128_t>;
+  using Vector3L = Vector3<long long>;
 }

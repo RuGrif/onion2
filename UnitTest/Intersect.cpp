@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include "..\Collision\Collider.h"
+#include "..\Collision\PrimCollider.h"
 #include "..\IO\STL.h"
 #include "..\IO\Mesh.h"
 #include "..\QEdge\Utils.h"
@@ -38,19 +38,20 @@ namespace UnitTest
       auto fa = QEdge_NS::allFaces( a );
       auto fb = QEdge_NS::allFaces( b );
 
-      Collision_NS::Collider collider;
+      Collision_NS::Graph graph;
+      Collision_NS::PrimCollider collider{ std::ref( graph ), Math_NS::Grid{ box( a ) + box( b ) } };
 
       for( auto a : fa ) for( auto b : fb ) collider( Collision_NS::Face( a ), Collision_NS::Face( b ) );
 
-      IO_NS::writeMesh( collider.graph(), L"box box intersection.mesh" );
+      IO_NS::writeMesh( graph, L"box box intersection.mesh" );
 
-      auto n = collider.graph().all();
+      auto n = graph.all();
 
       Assert::AreNotEqual( 0u, n.size() );
 
       for( auto& i : n )
       {
-        Assert::AreEqual( 2u, collider.graph().neighborhood( i ).size() );
+        Assert::AreEqual( 2u, graph.neighborhood( i ).size() );
       }
 		}
 	};

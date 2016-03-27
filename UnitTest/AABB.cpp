@@ -105,7 +105,7 @@ namespace UnitTest
 		{
       QEdge_NS::Shape s = IO_NS::readSTL( L"box.stl" );
 
-      Math_NS::Grid g;
+      Math_NS::Grid g{ box( s ) };
 
       Collision_NS::AABBTree tree( QEdge_NS::allFaces( s ), g );
 
@@ -118,7 +118,7 @@ namespace UnitTest
     {
       QEdge_NS::Shape s = IO_NS::readSTL( L"triple torus.stl" );
 
-      Math_NS::Grid g;
+      Math_NS::Grid g{ box( s ) };
 
       Collision_NS::AABBTree tree( QEdge_NS::allFaces( s ), g );
 

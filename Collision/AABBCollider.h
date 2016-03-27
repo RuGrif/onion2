@@ -1,8 +1,8 @@
 #pragma once
 
 
-#include "Collider.h"
 #include "AABB.h"
+#include <functional>
 #include "Collision.h"
 
 
@@ -15,7 +15,9 @@ namespace Collision_NS
     using Box = Math_NS::Box3L;
     using Vec = Box::Vector3;
 
-    const Collider& collider() const { return d_collider; }
+    using Callback = std::function<bool( Face, Face )>;
+
+    AABBCollider( const Callback& i_callback ) : d_callback{ i_callback } {}
 
     bool collide( const AABBTree& a, const AABBTree& b ) { return collide( a.top(), b.top() ); }
 
@@ -27,6 +29,7 @@ namespace Collision_NS
 
   private:
 
-    Collider d_collider;
+    #pragma warning( suppress : 4251 )
+    Callback d_callback;
   };
 }
