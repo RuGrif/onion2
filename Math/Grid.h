@@ -12,12 +12,15 @@ namespace Math_NS
   {
   public:
 
-    Grid( const Math_NS::Box3D& i_box ) : d_box{ i_box } {}
+    Grid( const Math_NS::Box3D& );
+
     Math_NS::Vector3L operator() ( const Math_NS::Vector3D& ) const;
 
   private:
 
     #pragma warning( suppress : 4251 )
-    const Math_NS::Box3D d_box;
+    const Math_NS::Vector3D d_zero;
+    #pragma warning( suppress : 4251 )
+    const Math_NS::Vector3D d_diag;
   };
 }
