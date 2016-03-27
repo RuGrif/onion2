@@ -101,7 +101,6 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Intersect.cpp" />
     <ClCompile Include="Iterator.cpp" />
-    <ClCompile Include="LongInt.cpp" />
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Quad.cpp" />
     <ClCompile Include="Edge.cpp" />
