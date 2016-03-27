@@ -10,8 +10,8 @@ namespace QEdge_NS
 
   class UniqueID
   {
-    const size_t d_uid = makeUniqueID();
+    const size_t d_id = makeUniqueID();
   public:
-    const size_t id() const { return d_uid; }
+    const size_t id() const { return d_id; }
   };
 }

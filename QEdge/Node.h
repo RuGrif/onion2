@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include "QEdge.h"
 #include "Data.h"
 #include "UniqueID.h"
 #include <memory>
@@ -48,7 +49,7 @@ namespace QEdge_NS
   //  Generic node type
   //
 
-  struct Null : std::exception { virtual const char* what() const override { return "null node data"; } };
+  class Null;
 
 
   template <typename Data>
@@ -66,13 +67,11 @@ namespace QEdge_NS
 
     operator bool() const;
 
-    struct Null : QEdge_NS::Null {};
-
-    const Data& operator *  () const;
-    Data&       operator *  ();
+    const Data& operator *  () const;   //  throw Null on empty node
+    Data&       operator *  ();         //  throw Null on empty node
     
-    const Data* operator -> () const;
-    Data*       operator -> ();
+    const Data* operator -> () const;   //  throw Null on empty node
+    Data*       operator -> ();         //  throw Null on empty node
 
   protected:
 
@@ -94,6 +93,24 @@ namespace QEdge_NS
   struct Face : public Node<FaceData> {};
   struct PrimEdge : public Node<PrimEdgeData> {};
   struct DualEdge : public Node<DualEdgeData> {};
+
+  //
+  //  Null node handling
+  //
+
+  class Null : std::exception
+  {
+  public:
+
+    Null( const size_t i_id ) : d_id( i_id ) {}
+
+    virtual const char* what()  const override  { return "null node data"; }
+    const size_t        id()    const           { return d_id; }
+
+  private:
+
+    const size_t d_id;
+  };
 }
 
 

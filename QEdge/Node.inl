@@ -28,7 +28,7 @@ QEdge_NS::Node<Data>::operator bool() const
 template <typename Data>
 const Data& QEdge_NS::Node<Data>::operator* ( ) const
 {
-  if( !d_data ) throw Null{};
+  if( !d_data ) throw Null{ id() };
   return *d_data;
 }
 
@@ -36,7 +36,7 @@ const Data& QEdge_NS::Node<Data>::operator* ( ) const
 template <typename Data>
 Data& QEdge_NS::Node<Data>::operator* ( )
 {
-  if( !d_data ) throw Null{};
+  if( !d_data ) throw Null{ id() };
   return *d_data;
 }
 
