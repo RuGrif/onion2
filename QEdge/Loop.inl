@@ -18,9 +18,9 @@ QEdge_NS::Loop<T>::~Loop()
 
 
 template<typename T>
-auto QEdge_NS::Loop<T>::core() -> Core&
+auto QEdge_NS::Loop<T>::vert() -> Vert&
 {
-  if( !d_core ) set( new Core );
+  if( !d_core ) set( new Vert );
   return *d_core;
 }
 
@@ -78,7 +78,7 @@ void QEdge_NS::Loop<T>::splice1( Loop& other )
 
 
 template<typename T>
-void QEdge_NS::Loop<T>::attach( Core* i_vert )
+void QEdge_NS::Loop<T>::attach( Vert* i_vert )
 {
   delete d_core;
   set( i_vert );
@@ -93,7 +93,7 @@ void QEdge_NS::Loop<T>::detach()
 
 
 template <typename T>
-void QEdge_NS::Loop<T>::set( Core* i_vert )
+void QEdge_NS::Loop<T>::set( Vert* i_vert )
 {
   Loop* loop = this;
   do

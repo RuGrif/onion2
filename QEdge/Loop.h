@@ -7,14 +7,14 @@
 namespace QEdge_NS
 {
   //  represent an edge in quad-edge structure
-  template <typename T>
+  template <typename Traits>
   class Loop : public UniqueID
   {
   public:
 
-    using Core = T;
-    using Face = typename Core::Dual;
-    using Dual = Loop<Face>;
+    using Vert = typename Traits::Vert;
+    using Face = typename Traits::Face;
+    using Dual = Loop<typename Traits::Dual>;
 
     Loop( Dual& );
     ~Loop();
@@ -25,25 +25,25 @@ namespace QEdge_NS
     const Dual& dual() const { return d_dual; }
     Dual&       dual()       { return d_dual; }
 
-    Core&       core();
+    Vert&       vert();           //  construct vert on demand
 
-    void        fuse0( Loop& ); //  swap links and preserve this->o ring
-    void        fuse1( Loop& ); //  swap links and preserve this->next->o ring
+    void        fuse0( Loop& );   //  swap links and preserve this->o ring
+    void        fuse1( Loop& );   //  swap links and preserve this->next->o ring
 
     void        splice0( Loop& ); //  preserve this->o and this->l rings
     void        splice1( Loop& ); //  preserve this->o and other->l rings
 
   private:
 
-    void        attach( Core* );  //  merge this->core to other core
-    void        detach();         //  split this->core from other core
-    void        set( Core* );     //  update this->core
+    void        attach( Vert* );  //  merge this->vert to other vert
+    void        detach();         //  split this->vert from other vert
+    void        set( Vert* );     //  update this->vert; doesn't manage resource
 
   private:
 
     Loop*       d_next = this;
     Dual&       d_dual;
-    Core*       d_core = nullptr;
+    Vert*       d_core = nullptr;
 
   private:
 

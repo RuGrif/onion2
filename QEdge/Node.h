@@ -19,6 +19,32 @@ namespace QEdge_NS
   struct DualEdge;
 
   //
+  //  Traits
+  //
+
+
+  struct VertTraits;
+  struct FaceTraits;
+
+
+  struct VertTraits
+  {
+    using Vert = QEdge_NS::Vert;
+    using Face = QEdge_NS::Face;
+    using Edge = QEdge_NS::PrimEdge;
+    using Dual = QEdge_NS::FaceTraits;
+  };
+
+
+  struct FaceTraits
+  {
+    using Vert = QEdge_NS::Face;
+    using Face = QEdge_NS::Vert;
+    using Edge = QEdge_NS::DualEdge;
+    using Dual = QEdge_NS::VertTraits;
+  };
+
+  //
   //  Generic node type
   //
 
@@ -64,32 +90,10 @@ namespace QEdge_NS
   //  Concrete nodes implementation
   //
 
-  struct Vert : public Node<VertData>
-  {
-    using Edge = QEdge_NS::PrimEdge;
-    using Dual = QEdge_NS::Face;
-  };
-
-
-  struct Face : public Node<FaceData>
-  {
-    using Edge = QEdge_NS::DualEdge;
-    using Dual = QEdge_NS::Vert;
-  };
-
-
-  struct PrimEdge : public Node<PrimEdgeData>
-  {
-    using Vert = QEdge_NS::Vert;
-    using Dual = Vert::Dual::Edge;
-  };
-
-
-  struct DualEdge : public Node<DualEdgeData>
-  {
-    using Vert = QEdge_NS::Face;
-    using Dual = Vert::Dual::Edge;
-  };
+  struct Vert : public Node<VertData> {};
+  struct Face : public Node<FaceData> {};
+  struct PrimEdge : public Node<PrimEdgeData> {};
+  struct DualEdge : public Node<DualEdgeData> {};
 }
 
 

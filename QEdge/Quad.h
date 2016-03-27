@@ -11,8 +11,8 @@ namespace QEdge_NS
   {
   public:
 
-    using Prim = Loop<Vert>;
-    using Dual = Loop<Face>;
+    using Prim = Loop<VertTraits>;
+    using Dual = Loop<FaceTraits>;
 
     struct Edge {};
     struct Loop {};

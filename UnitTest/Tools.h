@@ -4,8 +4,8 @@
 #include "..\QEdge\Shape.h"
 
 
-template <> std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString( const QEdge_NS::Loop<QEdge_NS::Vert>& e ) { return L"vert loop"; }
-template <> std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString( const QEdge_NS::Loop<QEdge_NS::Face>& e ) { return L"face loop"; }
+template <> std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString( const QEdge_NS::Loop<QEdge_NS::VertTraits>& e ) { return L"vert loop"; }
+template <> std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString( const QEdge_NS::Loop<QEdge_NS::FaceTraits>& e ) { return L"face loop"; }
 
 template <> std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString( const QEdge_NS::Edge& e ) { return e ? ToString( e.id() ) : L"null edge"; }
 

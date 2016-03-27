@@ -14,10 +14,10 @@ QEdge_NS::Edge QEdge_NS::Edge::rPrev() const { return d_loop->dual().dual().next
 
 QEdge_NS::Edge QEdge_NS::Edge::sym() const { return d_loop->dual().dual(); }
 
-QEdge_NS::Vert& QEdge_NS::Edge::o() const { return d_loop->core(); }
-QEdge_NS::Vert& QEdge_NS::Edge::d() const { return d_loop->dual().dual().core(); }
-QEdge_NS::Face& QEdge_NS::Edge::l() const { return d_loop->dual().dual().dual().core(); }
-QEdge_NS::Face& QEdge_NS::Edge::r() const { return d_loop->dual().core(); }
+QEdge_NS::Vert& QEdge_NS::Edge::o() const { return d_loop->vert(); }
+QEdge_NS::Vert& QEdge_NS::Edge::d() const { return d_loop->dual().dual().vert(); }
+QEdge_NS::Face& QEdge_NS::Edge::l() const { return d_loop->dual().dual().dual().vert(); }
+QEdge_NS::Face& QEdge_NS::Edge::r() const { return d_loop->dual().vert(); }
 
 size_t QEdge_NS::Edge::id() const { return d_loop->id(); }
 

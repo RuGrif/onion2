@@ -42,8 +42,8 @@ namespace UnitTest
     template <typename T>
     void testEdgeData( QEdge_NS::Loop<T>& e )
     {
-      Assert::AreNotSame( e.core(), e.dual().dual().core() );
-      Assert::AreSame( e.dual().core(), e.dual().dual().dual().core() );
+      Assert::AreNotSame( e.vert(), e.dual().dual().vert() );
+      Assert::AreSame( e.dual().vert(), e.dual().dual().dual().vert() );
     }
 
     template <typename T>

@@ -18,9 +18,9 @@ namespace QEdge_NS
     Edge( const Edge& ) = default;
     Edge& operator = ( const Edge& ) = default;
 
-    using Loop = Loop<Vert>;
-    using Prim = Vert::Edge;
-    using Dual = Prim::Dual;
+    using Loop = Loop<VertTraits>;
+    using Vert = VertTraits::Vert;
+    using Face = VertTraits::Face;
 
     Edge( Loop& i_loop ) : d_loop( &i_loop ) {}
 
