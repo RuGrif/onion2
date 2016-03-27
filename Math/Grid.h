@@ -11,14 +11,11 @@ namespace Math_NS
   {
   public:
 
-    //  expect all points are within 10^6 * frame bbox
-    Grid( const Vector3D& i_frame = Vector3D( 10, 10, 10 ) );
-
     Math_NS::Vector3L operator() ( const Math_NS::Vector3D& ) const;
 
   private:
 
     #pragma warning( suppress : 4251 )
-    Math_NS::Vector3D d_scale;  //  scale factor used to map floats to integers
+    Math_NS::Vector3D d_scale{ 1E6, 1E6, 1E6 };  //  scale factor used to map floats to integers
   };
 }

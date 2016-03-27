@@ -5,19 +5,11 @@
 namespace
 {
   //  floor operation
-  Math_NS::Vector3L::Type f2i( double x ) { return static_cast<Math_NS::Vector3L::Type>( x < 0 ? x - 0.5 : x + 0.5 ); };
+  Math_NS::Vector3L::Type f2i( double x ) { return static_cast<Math_NS::Vector3L::Type>( ::floor( x ) ); };
   
   //  solving 3-dim equation within the frame wouldn't lead to overflow
   //  see solve() method
-  const Math_NS::Vector3L::Type maxframe = f2i( std::cbrt( std::numeric_limits<Math_NS::Vector3L::Type>::max() / 6.0 ) ) - 1;
-}
-
-
-Math_NS::Grid::Grid( const Vector3D& i_frame )
-  //: d_scale( maxframe / i_frame.x, maxframe / i_frame.y, maxframe / i_frame.z )
-  : d_scale( 1 << 12, 1 << 12, 1 << 12 )
-{
-
+  //const Math_NS::Vector3L::Type maxframe = f2i( std::cbrt( std::numeric_limits<Math_NS::Vector3L::Type>::max() / 6.0 ) ) - 1;
 }
 
 

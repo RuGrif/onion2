@@ -40,5 +40,5 @@ namespace Math_NS
   using Box3D = Box3<double>;
   using Box3F = Box3<float>;
   using Box3I = Box3<int>;
-  using Box3L = Box3<long long int>;
+  using Box3L = Box3<Vector3L::Type>;
 }

@@ -31,7 +31,7 @@ namespace UnitTest
 
         auto div = Math_NS::solve( A, B, C, R, a, b, c );
 
-        Assert::AreNotEqual( 0LL, div );
+        Assert::AreNotEqual<Math_NS::Vector3L::Type>( 0, div );
 
         Assert::AreEqual( div * R, a * A + b * B + c * C );
 
@@ -61,7 +61,7 @@ namespace UnitTest
 
         auto div = Math_NS::solve( A, B, C, R, a, b, c );
 
-        Assert::AreEqual( 0LL, div );
+        Assert::AreEqual<Math_NS::Vector3L::Type>( 0, div );
       }
     }
 
@@ -83,7 +83,7 @@ namespace UnitTest
 
         auto div = Math_NS::solve( A, B, R, a, b );
 
-        Assert::AreNotEqual( 0LL, div );
+        Assert::AreNotEqual<Math_NS::Vector3L::Type>( 0, div );
 
         Assert::AreEqual( div * R, a * A + b * B );
 
@@ -111,7 +111,7 @@ namespace UnitTest
 
         auto div = Math_NS::solve( A, B, R, a, b );
 
-        Assert::AreEqual( 0LL, div );
+        Assert::AreEqual<Math_NS::Vector3L::Type>( 0, div );
       }
     }
 
@@ -131,7 +131,7 @@ namespace UnitTest
 
         auto div = Math_NS::solve( A, R, a );
 
-        Assert::AreNotEqual( 0LL, div );
+        Assert::AreNotEqual<Math_NS::Vector3L::Type>( 0, div );
 
         Assert::AreEqual( div * R, a * A );
 
@@ -156,7 +156,7 @@ namespace UnitTest
 
         auto div = Math_NS::solve( A, R, a );
 
-        Assert::AreEqual( 0LL, div );
+        Assert::AreEqual<Math_NS::Vector3L::Type>( 0, div );
       }
     }
 
