@@ -1,5 +1,6 @@
 #include "Utils.h"
 #include <unordered_set>
+#include <numeric>
 
 
 std::vector<QEdge_NS::Edge> QEdge_NS::allVerts( const Shape& i_shape )
@@ -37,4 +38,18 @@ std::vector<QEdge_NS::Edge> QEdge_NS::allFaces( const Shape& i_shape )
 std::vector<QEdge_NS::Edge> QEdge_NS::allEdges( const Shape& i_shape )
 {
   return{ i_shape.begin(), i_shape.end() };
+}
+
+
+Math_NS::Box3D QEdge_NS::box( const std::vector<Edge>& i_verts )
+{
+  Math_NS::Box3D b;
+  for( Edge e : i_verts ) b += e.o()->point();
+  return b;
+}
+
+
+Math_NS::Box3D QEdge_NS::box( const Shape& i_shape )
+{
+  return box( allVerts( i_shape ) );
 }
