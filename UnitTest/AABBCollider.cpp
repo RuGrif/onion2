@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 #include "..\IO\STL.h"
 #include "..\IO\Mesh.h"
+#include "..\Collision\Graph.h"
 #include "..\Collision\PrimCollider.h"
 #include "..\Collision\AABBCollider.h"
 #include "..\QEdge\Utils.h"
@@ -33,7 +34,7 @@ namespace UnitTest
 
       c.collide( ta, tb );
 
-      IO_NS::writeMesh( graph, L"box torus intersection.mesh" );
+      IO_NS::writeMesh( graph.graph(), L"box torus intersection.mesh" );
 		}
 
 	};

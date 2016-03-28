@@ -9,69 +9,59 @@
 
 namespace Collision_NS
 {
-  struct COLLISION_API Prim
+  class Prim
   {
-    using Neighborhood =            std::vector<size_t>;
+  public:
 
     Prim( QEdge_NS::Edge i_edge ) : d_edge( i_edge ) {}
+
+    QEdge_NS::Edge                  e() const { return d_edge; }
     
-    virtual Neighborhood            neighbourhood() const = 0;
-    virtual                         operator size_t() const = 0;
-    virtual std::unique_ptr<Prim>   clone() const = 0;
-
-    virtual                         ~Prim() {}
-
-  protected:
+  private:
 
     QEdge_NS::Edge                  d_edge;
   };
 
 
-  struct COLLISION_API Vert : public Prim
+  struct Vert : public Prim
   {
     Vert( QEdge_NS::Edge i_edge ) : Prim( i_edge ) {}
-
-    Math_NS::Vector3D               point() const { return d_edge.o()->point(); }
-
-    virtual Neighborhood            neighbourhood() const override;
-    virtual                         operator size_t() const override;
-    virtual std::unique_ptr<Prim>   clone() const override;
+    const Math_NS::Vector3D         point() const { return e().o()->point(); }
   };
 
 
-  struct COLLISION_API Edge : public Prim
+  struct Edge : public Prim
   {
     Edge( QEdge_NS::Edge i_edge ) : Prim( i_edge ) {}
 
-    Vert                            U() const { return d_edge; }
-    Vert                            V() const { return d_edge.sym(); }
-
-    virtual Neighborhood            neighbourhood() const override;
-    virtual                         operator size_t() const override;
-    virtual std::unique_ptr<Prim>   clone() const override;
+    Vert                            U() const { return e(); }
+    Vert                            V() const { return e().sym(); }
 
     //  the first edge in a quad is major and the second, the symmetrical, is minor
-    bool                            isMajor() const;
+    bool                            isMajor() const { return e().id() < e().sym().id(); }
   };
 
 
-  struct COLLISION_API Face : public Prim
+  struct Face : public Prim
   {
     Face( QEdge_NS::Edge i_edge ) : Prim( i_edge ) {}
 
-    Edge                            AB() const { return d_edge; }
-    Edge                            BC() const { return d_edge.lNext(); }
-    Edge                            CA() const { return d_edge.lPrev(); }
+    Edge                            AB() const { return e(); }
+    Edge                            BC() const { return e().lNext(); }
+    Edge                            CA() const { return e().lPrev(); }
 
-    Vert                            A() const { return d_edge; }
-    Vert                            B() const { return d_edge.lNext(); }
-    Vert                            C() const { return d_edge.lPrev(); }
-
-    virtual Neighborhood            neighbourhood() const override;
-    virtual                         operator size_t() const override;
-    virtual std::unique_ptr<Prim>   clone() const override;
+    Vert                            A() const { return e(); }
+    Vert                            B() const { return e().lNext(); }
+    Vert                            C() const { return e().lPrev(); }
   };
 
 
-  bool operator == ( const Prim&, const Prim& );
+  inline size_t id( Vert v ) { return v.e().o().id(); }
+  inline size_t id( Edge e ) { return std::min( e.e().id(), e.e().sym().id() ); }
+  inline size_t id( Face f ) { return f.e().l().id(); }
+
+
+  COLLISION_API std::vector<size_t> nb( Vert );
+  COLLISION_API std::vector<size_t> nb( Edge );
+  COLLISION_API std::vector<size_t> nb( Face );
 }

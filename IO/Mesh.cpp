@@ -1,6 +1,8 @@
 #include "Mesh.h"
+#include "../QEdge/Utils.h"
 #include <fstream>
-#include <unordered_map>
+#include <map>
+#include <cinttypes>
 
 
 namespace IO_NS
@@ -11,20 +13,20 @@ namespace IO_NS
 
     struct Vertex
     {
-      Vec d_Position;
-      int d_Label;
+      Vec       d_Position;
+      uint32_t  d_Label;
     };
 
     struct Face
     {
-      int d_V[ 3 ];
-      int d_Label;
+      uint32_t  d_V[ 3 ];
+      uint32_t  d_Label;
     };
 
     struct Edge
     {
-      int d_V[ 2 ];
-      int d_Label;
+      uint32_t  d_V[ 2 ];
+      uint32_t  d_Label;
     };
   }
 }
@@ -50,27 +52,26 @@ Edges are optional.
 */
 
 
-void IO_NS::writeMesh( const Collision_NS::Graph& i_graph, const std::wstring& i_fileName )
+void IO_NS::writeMesh( const QEdge_NS::Shape& i_shape, const std::wstring& i_fileName )
 {
-  std::unordered_map<Collision_NS::Intersection::ID, int> ids;
-
+  std::map<size_t, size_t> vid;
   std::ofstream file( i_fileName, std::ofstream::binary );
   file.exceptions( file.badbit | file.failbit );
 
-  int label = 1;
+  uint32_t label = 1;
   uint32_t size = 0;
 
   //  Verts
-  auto verts = i_graph.all();
+  auto verts = allVerts( i_shape );
 
   size = verts.size();
   file.write( reinterpret_cast<char*>( &size ), sizeof( size ) );
 
-  for( const Collision_NS::Intersection& node : verts )
+  for( size_t i = 0; i < verts.size(); ++i )
   {
-    Vertex v{ node.intersection(), label };
+    Vertex v{ verts[ i ].o()->point(), label };
     file.write( reinterpret_cast<char*>( &v ), sizeof( v ) );
-    ids.emplace( node.id(), ids.size() );
+    vid[ verts[ i ].o().id() ] = i;
   }
 
   //  Faces
@@ -78,20 +79,14 @@ void IO_NS::writeMesh( const Collision_NS::Graph& i_graph, const std::wstring& i
   file.write( reinterpret_cast<char*>( &size ), sizeof( size ) );
 
   //  Edges
-  size = 0;
+  auto edges = allEdges( i_shape );
+  
+  size = edges.size();
   file.write( reinterpret_cast<char*>( &size ), sizeof( size ) );
 
-  for( const Collision_NS::Intersection& node : verts )
+  for( QEdge_NS::Edge i : edges )
   {
-    for( const Collision_NS::Intersection& nb : i_graph.neighborhood( node ) )
-    {
-      Edge e{ ids.at( node.id() ), ids.at( nb.id() ), label };
-      file.write( reinterpret_cast<char*>( &e ), sizeof( e ) );
-      ++size;
-    }
+    Edge e{ vid.at( i.o().id() ), vid.at( i.o().id() ), label };
+    file.write( reinterpret_cast<char*>( &e ), sizeof( e ) );
   }
-
-  //  go back and write edge number
-  file.seekp( -static_cast<std::ofstream::off_type>( size * sizeof( Edge ) + sizeof( size ) ), file.cur );
-  file.write( reinterpret_cast<char*>( &size ), sizeof( size ) );
 }

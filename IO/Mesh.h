@@ -1,11 +1,11 @@
 #pragma once
 
 
-#include "..\Collision\Graph.h"
+#include "..\QEdge\Shape.h"
 #include "IO.h"
 
 
 namespace IO_NS
 {
-  IO_API void writeMesh( const Collision_NS::Graph&, const std::wstring& );
+  IO_API void writeMesh( const QEdge_NS::Shape&, const std::wstring& );
 }

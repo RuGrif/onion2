@@ -1,74 +1,12 @@
 #include "PrimCollider.h"
 #include "..\Math\Solve.h"
-#include <memory>
-
-
-namespace Collision_NS
-{
-  using Int = PrimCollider::Int;
-
-  class MyNode : public Intersection
-  {
-  public:
-
-    MyNode( std::unique_ptr<Prim> i_alpha, std::unique_ptr<Prim> i_beta, const Math_NS::Vector3D& i_intersection )
-      : d_alpha( std::move( i_alpha ) ), d_beta( std::move( i_beta ) )
-      , d_intersection( i_intersection )
-    {}
-
-    virtual Prim&                 alpha() const override { return *d_alpha; }
-    virtual Prim&                 beta() const override { return *d_beta; }
-
-    virtual Math_NS::Vector3D     intersection() const override { return d_intersection; }
-
-  private:
-    
-    std::unique_ptr<Prim>         d_alpha;
-    std::unique_ptr<Prim>         d_beta;
-    Math_NS::Vector3D             d_intersection;
-  };
-
-
-  std::unique_ptr<Prim> makePrim( Vert v )
-  {
-    return v.clone();
-  }
-
-  std::unique_ptr<Prim> makePrim( Edge e, Int u, Int v )
-  {
-    if( u == 0 ) return makePrim( e.V() );
-    if( v == 0 ) return makePrim( e.U() );
-    return e.clone();
-  }
-
-  std::unique_ptr<Prim> makePrim( Face f, Int a, Int b, Int c )
-  {
-    if( a == 0 ) return makePrim( f.BC(), b, c );
-    if( b == 0 ) return makePrim( f.CA(), c, a );
-    if( c == 0 ) return makePrim( f.AB(), a, b );
-    return f.clone();
-  }
-
-
-  std::unique_ptr<MyNode> makeIntersection(
-    std::unique_ptr<Prim>&& i_alpha,
-    std::unique_ptr<Prim>&& i_beta,
-    const Math_NS::Vector3D& i_intersection,
-    bool i_alter )
-  {
-    return i_alter
-      ? std::make_unique<MyNode>( std::move( i_beta ), std::move( i_alpha ), i_intersection )
-      : std::make_unique<MyNode>( std::move( i_alpha ), std::move( i_beta ), i_intersection );
-  }
-}
 
 
 bool Collision_NS::PrimCollider::collide( Vert a, Vert b, bool alter )
 {
   if( grid( a.point() ) == grid( b.point() ) )
   {
-    Math_NS::Vector3D i = ( a.point() + b.point() ) / 2.;    
-    d_callback( makeIntersection( makePrim( a ), makePrim( b ), i, alter ) );
+    d_callback( XVert{ a }, XVert{ b }, alter );
     return true;
   }
   else
@@ -97,7 +35,7 @@ bool Collision_NS::PrimCollider::collide( Vert v, Edge e, bool alter )
   {
     if( u >= 0 && u <= div )
     {
-      d_callback( makeIntersection( makePrim( v ), makePrim( e, u, div - u ), v.point(), alter ) );
+      d_callback( XVert{ v }, XEdge{ e, u, div - u }, alter );
       return true;
     }
     else
@@ -138,7 +76,7 @@ bool Collision_NS::PrimCollider::collide( Vert v, Face f, bool alter )
   {
     if( a >= 0 && b >= 0 && a <= div - b )
     {
-      d_callback( makeIntersection( makePrim( v ), makePrim( f, a, b, div - a - b ), v.point(), alter ) );
+      d_callback( XVert{ v }, XFace{ f, a, b, div - a - b }, alter );
       return true;
     }
     else
@@ -182,11 +120,7 @@ bool Collision_NS::PrimCollider::collide( Edge e1, Edge e2, bool alter )
   {
     if( u1 >= 0 && u1 <= div && u2 >= 0 && u2 <= div )
     {
-      Math_NS::Vector3D i1 = ( static_cast<double>(u1) * e1.U().point() + static_cast<double>( div - u1 ) * e1.V().point() ) / static_cast<double>( div );
-      Math_NS::Vector3D i2 = ( static_cast<double>(u2) * e2.U().point() + static_cast<double>( div - u2 ) * e2.V().point() ) / static_cast<double>( div );
-
-      d_callback( makeIntersection( makePrim( e1, u1, div - u1 ), makePrim( e2, u2, div - u2 ), ( i1 + i2 ) / 2., alter ) );
-
+      d_callback( XEdge{ e1, u1, div - u1 }, XEdge{ e2, u2, div - u2 }, alter );
       return true;
     }
     else
@@ -232,8 +166,7 @@ bool Collision_NS::PrimCollider::collide( Edge e, Face f, bool alter )
   {
     if( u >= 0 && u <= div && a >= 0 && b >= 0 && a <= div - b )
     {
-      Math_NS::Vector3D i = ( static_cast<double>(u) * e.U().point() + static_cast<double>( div - u ) * e.V().point() ) / static_cast<double>( div );
-      d_callback( makeIntersection( makePrim( e, u, div - u ), makePrim( f, a, b, div - a - b ), i, alter ) );
+      d_callback( XEdge{ e, u, div - u }, XFace{ f, a, b, div - a - b }, alter );
       return true;
     }
     else

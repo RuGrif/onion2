@@ -4,7 +4,6 @@
 #include "Primitive.h"
 #include "Intersection.h"
 #include "..\Math\Grid.h"
-#include <functional>
 #include "Collision.h"
 
 
@@ -17,9 +16,7 @@ namespace Collision_NS
     using Vec = Math_NS::Vector3L;
     using Int = Vec::Type;
 
-    using Callback = std::function<void( std::unique_ptr<Intersection>&& )>;
-
-    PrimCollider( const Callback& i_callback, const Math_NS::Grid& i_grid ) : d_callback{ i_callback }, d_grid{ i_grid } {}
+    PrimCollider( Intersection& i_callback, const Math_NS::Grid& i_grid ) : d_callback{ i_callback }, d_grid{ i_grid } {}
 
     bool operator() ( Vert a, Vert b ) { return collide( a, b, false ); }
     bool operator() ( Vert a, Edge b ) { return collide( a, b, false ); }
@@ -44,7 +41,7 @@ namespace Collision_NS
   private:
 
     #pragma warning( suppress : 4251 )
-    Callback        d_callback;
+    Intersection&   d_callback;
     Math_NS::Grid   d_grid;
   };
 }

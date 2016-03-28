@@ -1,6 +1,7 @@
 #include <iostream>
 #include "..\Collision\PrimCollider.h"
 #include "..\Collision\AABBCollider.h"
+#include "..\Collision\Graph.h"
 #include "..\IO\STL.h"
 #include "..\IO\Mesh.h"
 #include "..\QEdge\Utils.h"
@@ -125,7 +126,7 @@ void wmain( int argc, wchar_t* argv[] )try
 
   std::cout << "Save intersection graph ... ";
 
-  IO_NS::writeMesh( graph, argv[ 3 ] );
+  IO_NS::writeMesh( graph.graph(), argv[ 3 ] );
 
   time.log();
 

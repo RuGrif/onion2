@@ -1,120 +1,68 @@
 #include "Primitive.h"
 
 
-Collision_NS::Prim::Neighborhood Collision_NS::Vert::neighbourhood() const
+std::vector<size_t> Collision_NS::nb( Vert x )
 {
-  Neighborhood nb;
+  std::vector<size_t> n;
 
-  nb.push_back( Vert( d_edge ) );
+  n.push_back( id( x ) );
 
-  QEdge_NS::Edge e = d_edge;
+  QEdge_NS::Edge e = x.e();
   do
   {
-    nb.push_back( Edge( e ) );
-    nb.push_back( Vert( e.sym() ) );
-    nb.push_back( Face( e ) );
-    nb.push_back( Edge( e.lNext() ) );
+    n.push_back( id( Edge( e ) ) );
+    n.push_back( id( Vert( e.sym() ) ) );
+    n.push_back( id( Face( e ) ) );
+    n.push_back( id( Edge( e.lNext() ) ) );
     e = e.oNext();
   }
-  while( e != d_edge );
+  while( e != x.e() );
 
-  return nb;
+  return n;
 }
 
 
-Collision_NS::Prim::Neighborhood Collision_NS::Edge::neighbourhood() const
+std::vector<size_t> Collision_NS::nb( Edge x )
 {
-  Neighborhood nb;
+  std::vector<size_t> n;
 
-  nb.push_back( Edge( d_edge ) );
+  n.push_back( id( x ) );
   
-  nb.push_back( Face( d_edge ) );
-  nb.push_back( Face( d_edge.sym() ) );
+  n.push_back( id( Face( x.e() ) ) );
+  n.push_back( id( Face( x.e().sym() ) ) );
 
-  QEdge_NS::Edge e = d_edge;
+  QEdge_NS::Edge e = x.e();
 
-  while( ( e = e.lPrev() ) != d_edge )
+  while( ( e = e.lPrev() ) != x.e() )
   {
-    nb.push_back( Edge( e ) );
-    nb.push_back( Vert( e ) );
+    n.push_back( id( Edge( e ) ) );
+    n.push_back( id( Vert( e ) ) );
   }
 
-  while( ( e = e.rPrev() ) != d_edge )
+  while( ( e = e.rPrev() ) != x.e() )
   {
-    nb.push_back( Edge( e ) );
-    nb.push_back( Vert( e.sym() ) );
+    n.push_back( id( Edge( e ) ) );
+    n.push_back( id( Vert( e.sym() ) ) );
   }
 
-  return nb;
+  return n;
 }
 
 
-Collision_NS::Prim::Neighborhood Collision_NS::Face::neighbourhood() const
+std::vector<size_t> Collision_NS::nb( Face x )
 {
-  Neighborhood nb;
+  std::vector<size_t> n;
 
-  nb.push_back( Face( d_edge ) );
+  n.push_back( id( x ) );
 
-  QEdge_NS::Edge e = d_edge;
+  QEdge_NS::Edge e = x.e();
   do
   {
-    nb.push_back( Edge( e ) );
-    nb.push_back( Vert( e ) );
+    n.push_back( id( Edge( e ) ) );
+    n.push_back( id( Vert( e ) ) );
     e = e.lPrev();
   }
-  while( e != d_edge );
+  while( e != x.e() );
 
-  return nb;
-}
-
-
-Collision_NS::Vert::operator size_t() const
-{
-  return d_edge.o().id();
-}
-
-
-Collision_NS::Edge::operator size_t() const
-{
-  size_t n = d_edge.id();
-  size_t s = d_edge.sym().id();
-  return n < s ? n : s;
-}
-
-
-Collision_NS::Face::operator size_t() const
-{
-  return d_edge.l().id();
-}
-
-
-bool Collision_NS::Edge::isMajor() const
-{
-  size_t n = d_edge.id();
-  size_t s = d_edge.sym().id();
-  return n < s;
-}
-
-
-std::unique_ptr<Collision_NS::Prim> Collision_NS::Vert::clone() const
-{
-  return std::make_unique<Vert>( d_edge );
-}
-
-
-std::unique_ptr<Collision_NS::Prim> Collision_NS::Edge::clone() const
-{
-  return std::make_unique<Edge>( d_edge );
-}
-
-
-std::unique_ptr<Collision_NS::Prim> Collision_NS::Face::clone() const
-{
-  return std::make_unique<Face>( d_edge );
-}
-
-
-bool Collision_NS::operator == ( const Prim& a, const Prim& b )
-{
-  return a.operator size_t() == b.operator size_t();
+  return n;
 }

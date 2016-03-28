@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 #include "..\Collision\Graph.h"
 #include "..\Collision\PrimCollider.h"
+#include "../QEdge/Utils.h"
 #include "Point3D.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -66,16 +67,19 @@ namespace UnitTest
     {
       Assert::IsTrue( collide() );
 
-      auto all = graph.all();
+      auto all = allVerts( graph.graph() );
 
       Assert::AreEqual( 1u, all.size() );
 
-      const Collision_NS::Intersection& n = all.front();
+      QEdge_NS::Edge n = all.front();
 
-      Assert::AreEqual( i, n.intersection() );
+      Assert::AreEqual( i, n.o()->point() );
 
-      Assert::AreEqual<size_t>( a, n.alpha(), L"node.alpha" );
-      Assert::AreEqual<size_t>( b, n.beta(), L"node.beta" );
+      auto xid = dynamic_cast<Collision_NS::XPointID*>( &*n.o() );
+
+      Assert::IsNotNull( xid );
+      Assert::AreEqual( id( a ), xid->alphaId(), L"node.alpha" );
+      Assert::AreEqual( id( b ), xid->betaId(), L"node.beta" );
     }
 
 
@@ -86,23 +90,33 @@ namespace UnitTest
     {
       Assert::IsTrue( collide() );
 
-      auto all = graph.all();
+      auto all = allVerts( graph.graph() );
 
       Assert::AreEqual( 2u, all.size() );
 
-      const Collision_NS::Intersection* n1 = &all.front().get();
-      const Collision_NS::Intersection* n2 = &all.back().get();
+      QEdge_NS::Edge* n1 = &all.front();
+      QEdge_NS::Edge* n2 = &all.back();
 
-      if( a1 != n1->alpha() || b1 != n1->beta() ) std::swap( n1, n2 );
+      auto xid1 = dynamic_cast<Collision_NS::XPointID*>( &*n1->o() );
+      auto xid2 = dynamic_cast<Collision_NS::XPointID*>( &*n2->o() );
 
-      Assert::AreEqual( i1, n1->intersection() );
-      Assert::AreEqual( i2, n2->intersection() );
+      Assert::IsNotNull( xid1 );
+      Assert::IsNotNull( xid2 );
 
-      Assert::AreEqual<size_t>( a1, n1->alpha(), L"node1.alpha" );
-      Assert::AreEqual<size_t>( b1, n1->beta(), L"node1.beta" );
+      if( id( a1 ) != xid1->alphaId() || id( b1 ) != xid1->betaId() )
+      {
+        std::swap( n1, n2 );
+        std::swap( xid1, xid2 );
+      }
 
-      Assert::AreEqual<size_t>( a2, n2->alpha(), L"node2.alpha" );
-      Assert::AreEqual<size_t>( b2, n2->beta(), L"node2.beta" );
+      Assert::AreEqual( i1, n1->o()->point() );
+      Assert::AreEqual( i2, n2->o()->point() );
+
+      Assert::AreEqual<size_t>( id( a1 ), xid1->alphaId(), L"node1.alpha" );
+      Assert::AreEqual<size_t>( id( b1 ), xid1->betaId(), L"node1.beta" );
+
+      Assert::AreEqual<size_t>( id( a2 ), xid2->alphaId(), L"node2.alpha" );
+      Assert::AreEqual<size_t>( id( b2 ), xid2->betaId(), L"node2.beta" );
     }
   };
 
