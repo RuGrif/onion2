@@ -98,7 +98,7 @@ namespace QEdge_NS
   //  Null node handling
   //
 
-  class Null : std::exception
+  class Null : public std::exception
   {
   public:
 
