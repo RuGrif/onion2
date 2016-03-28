@@ -12,7 +12,7 @@ namespace UnitTest
     void testEdgeTopology( QEdge_NS::Loop<T>& e )
     {
       {
-        Assert::AreNotSame( e, e.dual().dual(), L"rot^2" );
+        Assert::AreNotSame( e, e.dual().dual(), L"rot^2" ); //-V807
         Assert::AreSame( e, e.dual().dual().dual().dual(), L"rot^4" );
       }
 

@@ -30,7 +30,7 @@ namespace QEdge_NS
 
   private:
 
-    Quad() : o( r ), d( l ), l( o ), r( d ) {}
+    Quad() : o( r ), d( l ), l( o ), r( d ) {} //-V670
 
     Quad( const Quad& ) = delete;
     Quad& operator = ( const Quad& ) = delete;

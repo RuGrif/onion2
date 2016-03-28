@@ -36,8 +36,8 @@ namespace UnitTest
       QEdge_NS::Shape s;
 
       Assert::IsTrue( s.begin() == s.end() );
-      Assert::IsTrue( s.begin() == s.begin() );
-      Assert::IsTrue( s.end() == s.end() );
+      Assert::IsTrue( s.begin() == s.begin() ); //-V501
+      Assert::IsTrue( s.end() == s.end() ); //-V501
 
       s.makeEdge();
 
@@ -49,13 +49,13 @@ namespace UnitTest
 
       i = s.begin();
 
-      Assert::IsTrue( i == i );
+      Assert::IsTrue( i == i ); //-V501
       Assert::IsTrue( i == s.begin() );
       Assert::IsTrue( i != s.end() );
 
       ++i;
 
-      Assert::IsTrue( i == i );
+      Assert::IsTrue( i == i ); //-V501
       Assert::IsTrue( i != s.begin() );
       Assert::IsTrue( i == s.end() );
     }

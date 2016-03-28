@@ -12,7 +12,7 @@ namespace UnitTest
 {
   TEST_CLASS( AABB )
 	{
-    void allFaces( Collision_NS::AABB b, std::vector<Collision_NS::Face>& fs )
+    void allFaces( const Collision_NS::AABB& b, std::vector<Collision_NS::Face>& fs )
     {
       if( b.isFace() )
       {
@@ -35,14 +35,14 @@ namespace UnitTest
     }
 
 
-    void checkBox( Collision_NS::AABB b, const Math_NS::Grid& i_grid )
+    void checkBox( const Collision_NS::AABB& b, const Math_NS::Grid& i_grid )
     {
       Assert::IsFalse( b.isFace() );
 
       auto l = b.left();
       auto r = b.right();
 
-      Assert::IsTrue( l.box().volume() <= b.box().volume(), L"left volume" );
+      Assert::IsTrue( l.box().volume() <= b.box().volume(), L"left volume" ); //-V807
       Assert::IsTrue( r.box().volume() <= b.box().volume(), L"right volume" );
 
       auto bb = l.box() + r.box();
@@ -69,7 +69,7 @@ namespace UnitTest
       Assert::IsTrue( lc.max.x <= rc.min.x || lc.max.y <= rc.min.y || lc.max.z <= rc.min.z, L"split" );
     }
 
-    void checkFace( Collision_NS::AABB f, const Math_NS::Grid& i_grid )
+    void checkFace( const Collision_NS::AABB& f, const Math_NS::Grid& i_grid )
     {
       Assert::IsTrue( f.isFace() );
 
@@ -85,7 +85,7 @@ namespace UnitTest
       auto r = f.right();
     }
 
-    void check( Collision_NS::AABB b, const Math_NS::Grid& i_grid )
+    void check( const Collision_NS::AABB& b, const Math_NS::Grid& i_grid )
     {
       if( b.isFace() )
       {
