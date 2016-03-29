@@ -30,6 +30,9 @@
     <ClInclude Include="Point3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Intersection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -69,9 +72,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Intersect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Box3.cpp">

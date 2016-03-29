@@ -18,9 +18,6 @@
     <ClInclude Include="Collision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graph.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Primitive.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -36,14 +33,8 @@
     <ClInclude Include="Intersection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Connection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Graph.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AABB.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

@@ -1,18 +1,19 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include "..\Collision\Graph.h"
-#include "..\Collision\PrimCollider.h"
+#include "../Collision/PrimCollider.h"
 #include "../QEdge/Utils.h"
+#include "Intersection.h"
 #include "Point3D.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTest
 {
+  //  triangle ABC and edge UV
   struct TestIntersection
   {
     Math_NS::Grid               grid{ { { -16., -16., -16. }, { 16., 16., 16. } } };
-    Collision_NS::Graph         graph;
+    Test_NS::Intersection       graph;
     Collision_NS::PrimCollider  collider{ std::ref( graph ), grid };
     
     Math_NS::Vector3D           A;
@@ -56,33 +57,31 @@ namespace UnitTest
     }
 
 
+    //  check no intersections
     void test()
     {
       Assert::IsFalse( collide() );
     }
 
 
+    //  check one intersection
     template <typename A, typename B>
     void test( A a, B b, const Math_NS::Vector3D& i )
     {
       Assert::IsTrue( collide() );
 
-      auto all = allVerts( graph.graph() );
+      Assert::AreEqual( 1u, graph.d_xpoints.size() );
 
-      Assert::AreEqual( 1u, all.size() );
+      auto x = graph.d_xpoints.begin();
 
-      QEdge_NS::Edge n = all.front();
+      Assert::AreEqual( i, x->second );
 
-      Assert::AreEqual( i, n.o()->point() );
-
-      auto xid = dynamic_cast<Collision_NS::XPointID*>( &*n.o() );
-
-      Assert::IsNotNull( xid );
-      Assert::AreEqual( id( a ), xid->alphaId(), L"node.alpha" );
-      Assert::AreEqual( id( b ), xid->betaId(), L"node.beta" );
+      Assert::AreEqual( id( a ), x->first.first, L"node.alpha" );
+      Assert::AreEqual( id( b ), x->first.second, L"node.beta" );
     }
 
 
+    //  check two intersections
     template <typename A1, typename B1, typename A2, typename B2>
     void test(
       A1 a1, B1 b1, const Math_NS::Vector3D& i1,
@@ -90,33 +89,28 @@ namespace UnitTest
     {
       Assert::IsTrue( collide() );
 
-      auto all = allVerts( graph.graph() );
+      Assert::AreEqual( 2u, graph.d_xpoints.size() );
 
-      Assert::AreEqual( 2u, all.size() );
+      auto x1 = graph.d_xpoints.begin();
+      auto x2 = x1;
 
-      QEdge_NS::Edge* n1 = &all.front();
-      QEdge_NS::Edge* n2 = &all.back();
-
-      auto xid1 = dynamic_cast<Collision_NS::XPointID*>( &*n1->o() );
-      auto xid2 = dynamic_cast<Collision_NS::XPointID*>( &*n2->o() );
-
-      Assert::IsNotNull( xid1 );
-      Assert::IsNotNull( xid2 );
-
-      if( id( a1 ) != xid1->alphaId() || id( b1 ) != xid1->betaId() )
+      if( id( a1 ) == x1->first.first )
       {
-        std::swap( n1, n2 );
-        std::swap( xid1, xid2 );
+        ++x2;
+      }
+      else
+      {
+        ++x1;
       }
 
-      Assert::AreEqual( i1, n1->o()->point() );
-      Assert::AreEqual( i2, n2->o()->point() );
+      Assert::AreEqual( i1, x1->second );
+      Assert::AreEqual( i2, x2->second );
 
-      Assert::AreEqual<size_t>( id( a1 ), xid1->alphaId(), L"node1.alpha" );
-      Assert::AreEqual<size_t>( id( b1 ), xid1->betaId(), L"node1.beta" );
+      Assert::AreEqual( id( a1 ), x1->first.first, L"node1.alpha" );
+      Assert::AreEqual( id( b1 ), x1->first.second, L"node1.beta" );
 
-      Assert::AreEqual<size_t>( id( a2 ), xid2->alphaId(), L"node2.alpha" );
-      Assert::AreEqual<size_t>( id( b2 ), xid2->betaId(), L"node2.beta" );
+      Assert::AreEqual( id( a2 ), x2->first.first, L"node2.alpha" );
+      Assert::AreEqual( id( b2 ), x2->first.second, L"node2.beta" );
     }
   };
 

@@ -64,12 +64,20 @@ namespace Collision_NS
   };
 
 
-  const Math_NS::Vector3D point( const XVert&, const XVert& );
-  const Math_NS::Vector3D point( const XVert&, const XEdge& );
-  const Math_NS::Vector3D point( const XVert&, const XFace& );
-  const Math_NS::Vector3D point( const XEdge&, const XVert& );
-  const Math_NS::Vector3D point( const XEdge&, const XEdge& );
-  const Math_NS::Vector3D point( const XEdge&, const XFace& );
-  const Math_NS::Vector3D point( const XFace&, const XVert& );
-  const Math_NS::Vector3D point( const XFace&, const XEdge& );
+  COLLISION_API Math_NS::Vector3D point( const XVert&, const XVert& );
+  COLLISION_API Math_NS::Vector3D point( const XVert&, const XEdge& );
+  COLLISION_API Math_NS::Vector3D point( const XVert&, const XFace& );
+  COLLISION_API Math_NS::Vector3D point( const XEdge&, const XVert& );
+  COLLISION_API Math_NS::Vector3D point( const XEdge&, const XEdge& );
+  COLLISION_API Math_NS::Vector3D point( const XEdge&, const XFace& );
+  COLLISION_API Math_NS::Vector3D point( const XFace&, const XVert& );
+  COLLISION_API Math_NS::Vector3D point( const XFace&, const XEdge& );
+
+
+  template <typename A, typename B> using XPoint = std::pair<A, B>;
+  template <typename A, typename B> XPoint<A, B> makeXPoint( const A& a, const B& b ) { return std::make_pair( a, b ); }
+
+
+  using XPointID = std::pair<size_t, size_t>;
+  template <typename A, typename B> XPointID makeXPointID( const A& a, const B& b ) { return std::make_pair( id( a ), id( b ) ); }
 }
