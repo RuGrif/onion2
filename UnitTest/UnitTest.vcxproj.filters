@@ -33,6 +33,9 @@
     <ClInclude Include="Intersection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Tetrahedron.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -81,6 +84,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AABBCollider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Graph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tetrahedron.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

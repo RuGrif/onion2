@@ -95,6 +95,7 @@
     <ClInclude Include="Point3D.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Tetrahedron.h" />
     <ClInclude Include="Tools.h" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +103,7 @@
     <ClCompile Include="AABBCollider.cpp" />
     <ClCompile Include="Box3.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Iterator.cpp" />
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Quad.cpp" />
@@ -115,6 +117,7 @@
     </ClCompile>
     <ClCompile Include="general.cpp" />
     <ClCompile Include="STL.cpp" />
+    <ClCompile Include="Tetrahedron.cpp" />
     <ClCompile Include="Tools.cpp" />
     <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
@@ -130,6 +133,9 @@
     </ProjectReference>
     <ProjectReference Include="..\QEdge\QEdge.vcxproj">
       <Project>{242ab1aa-981d-4696-b9db-3f1c5ef50dbe}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Tailor\Tailor.vcxproj">
+      <Project>{07ee2f31-bac4-453e-bbba-8eec99e67ded}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

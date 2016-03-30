@@ -13,6 +13,7 @@ namespace Tailor_NS
   using XPointMap = std::map<Collision_NS::XPointID, Collision_NS::XPoint<A, B>>;
 
 
+  //  set of intersection points
   struct Collection
     : private XPointMap<Collision_NS::XVert, Collision_NS::XVert>
     , private XPointMap<Collision_NS::XVert, Collision_NS::XEdge>
