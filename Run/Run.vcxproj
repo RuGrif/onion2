@@ -96,6 +96,9 @@
     <ProjectReference Include="..\QEdge\QEdge.vcxproj">
       <Project>{242ab1aa-981d-4696-b9db-3f1c5ef50dbe}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Tailor\Tailor.vcxproj">
+      <Project>{07ee2f31-bac4-453e-bbba-8eec99e67ded}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Log.h" />

@@ -1,7 +1,7 @@
 #include <iostream>
 #include "..\Collision\PrimCollider.h"
 #include "..\Collision\AABBCollider.h"
-#include "..\Collision\Graph.h"
+#include "../Tailor/Graph.h"
 #include "..\IO\STL.h"
 #include "..\IO\Mesh.h"
 #include "..\QEdge\Utils.h"
@@ -102,7 +102,7 @@ void wmain( int argc, wchar_t* argv[] )try
 
   /////////////////////////////////////////////////////////////////////////////
 
-  Collision_NS::Graph graph;
+  Tailor_NS::Graph graph;
   Collision_NS::PrimCollider primCollider{ std::ref( graph ), grid };
   Collision_NS::AABBCollider aabbCollider{ std::ref( primCollider ) };
 
@@ -126,7 +126,7 @@ void wmain( int argc, wchar_t* argv[] )try
 
   std::cout << "Save intersection graph ... ";
 
-  IO_NS::writeMesh( graph.graph(), argv[ 3 ] );
+  IO_NS::writeMesh( graph.d_alpha.d_cut, argv[ 3 ] );
 
   time.log();
 
