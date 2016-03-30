@@ -40,6 +40,7 @@ namespace Collision_NS
   const Math_NS::Vector3D point( const XEdge& );
 
 
+  //  Callback for Intersection Vertexes
   class COLLISION_API Intersection
   {
   public:
@@ -74,10 +75,17 @@ namespace Collision_NS
   COLLISION_API Math_NS::Vector3D point( const XFace&, const XEdge& );
 
 
-  template <typename A, typename B> using XPoint = std::pair<A, B>;
-  template <typename A, typename B> XPoint<A, B> makeXPoint( const A& a, const B& b ) { return std::make_pair( a, b ); }
+  template <typename A, typename B>
+  using XPoint = std::pair<A, B>;
+  
+  template <typename A, typename B>
+  XPoint<A, B> makeXPoint( const A& a, const B& b ) { return std::make_pair( a, b ); }
 
 
   using XPointID = std::pair<size_t, size_t>;
-  template <typename A, typename B> XPointID makeXPointID( const A& a, const B& b ) { return std::make_pair( id( a ), id( b ) ); }
+  
+  inline XPointID makeXPointID( size_t a, size_t b ) { return std::make_pair( a, b ); }
+  
+  template <typename A, typename B>
+  XPointID makeXPointID( const A& a, const B& b ) { return makeXPointID( id( a ), id( b ) ); }
 }
