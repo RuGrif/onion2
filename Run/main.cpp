@@ -124,11 +124,11 @@ void wmain( int argc, wchar_t* argv[] )try
 
   /////////////////////////////////////////////////////////////////////////////
 
-  std::cout << "Save intersection graph ... ";
+  //std::cout << "Save intersection graph ... ";
 
-  IO_NS::writeMesh( graph.d_alpha.d_cut, argv[ 3 ] );
+  //IO_NS::writeMesh( graph.d_alpha.d_cut, argv[ 3 ] );
 
-  time.log();
+  //time.log();
 
   /////////////////////////////////////////////////////////////////////////////
 
