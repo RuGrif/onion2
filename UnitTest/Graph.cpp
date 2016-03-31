@@ -18,7 +18,7 @@ namespace UnitTest
 {
   TEST_CLASS( Graph )
   {
-    struct XEdgesCallback
+    struct XVertCB
     {
       using Map = std::map<Collision_NS::XPointID, Math_NS::Vector3D>;
       
@@ -35,7 +35,7 @@ namespace UnitTest
 
   public:
 
-    TEST_METHOD( Tetrahedron )
+    TEST_METHOD( XEdgesCallback )
     {
       Test_NS::Tetrahedron x, y;
 
@@ -66,7 +66,7 @@ namespace UnitTest
       Assert::IsTrue( Collision_NS::AABBCollider{ Collision_NS::PrimCollider{ std::ref( graph ), grid } }.collide( ta, tb ) );
       Assert::IsTrue( Collision_NS::AABBCollider{ Collision_NS::PrimCollider{ std::ref( check ), grid } }.collide( ta, tb ) );
 
-      XEdgesCallback cb;
+      XVertCB cb;
 
       graph.forEachXEdge( std::ref( cb ) );
 
