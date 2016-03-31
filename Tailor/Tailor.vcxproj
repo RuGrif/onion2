@@ -166,6 +166,9 @@
   <ItemGroup>
     <ClCompile Include="Graph.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Graph.inl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

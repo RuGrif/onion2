@@ -7,6 +7,7 @@
 #include "../Collision/PrimCollider.h"
 #include "../Tailor/Graph.h"
 #include "../IO/Mesh.h"
+#include "Intersection.h"
 #include <set>
 
 
@@ -17,6 +18,21 @@ namespace UnitTest
 {
   TEST_CLASS( Graph )
   {
+    struct XEdgesCallback
+    {
+      using Map = std::map<Collision_NS::XPointID, Math_NS::Vector3D>;
+      
+      Map d_points0;
+      Map d_points1;
+
+      template <typename A0, typename B0, typename A1, typename B1>
+      void operator() ( const Collision_NS::XPoint<A0, B0>& p0, const Collision_NS::XPoint<A1, B1>& p1 )
+      {
+        d_points0[ makeXPointID( p0.first, p0.second ) ] = point( p0 );
+        d_points1[ makeXPointID( p1.first, p1.second ) ] = point( p1 );
+      }
+    };
+
   public:
 
     TEST_METHOD( Tetrahedron )
@@ -41,43 +57,21 @@ namespace UnitTest
 
       Math_NS::Grid grid{ box( a ) + box( b ) };
 
-      Tailor_NS::Graph inter;
-
       Collision_NS::AABBTree ta( fa, grid );
       Collision_NS::AABBTree tb( fb, grid );
 
-      Collision_NS::PrimCollider pc{ std::ref( inter ), grid };
-      Collision_NS::AABBCollider c{ pc };
+      Tailor_NS::Graph graph;
+      Test_NS::Intersection check;
 
-      Assert::IsTrue( c.collide( ta, tb ) );
+      Assert::IsTrue( Collision_NS::AABBCollider{ Collision_NS::PrimCollider{ std::ref( graph ), grid } }.collide( ta, tb ) );
+      Assert::IsTrue( Collision_NS::AABBCollider{ Collision_NS::PrimCollider{ std::ref( check ), grid } }.collide( ta, tb ) );
 
-      Assert::AreEqual( inter.d_alpha.d_edges.size(), inter.d_beta.d_edges.size() );
+      XEdgesCallback cb;
 
-      auto va = allVerts( inter.d_alpha.d_cut );
-      auto vb = allVerts( inter.d_alpha.d_cut );
+      graph.forEachXEdge( std::ref( cb ) );
 
-      Assert::AreEqual( va.size(), vb.size() );
-
-      std::multiset<std::tuple<double, double, double>> vac, vbc;
-
-      for( auto e : va )
-      {
-        Assert::IsTrue( e.o() );
-        auto p = e.o()->point();
-        vac.emplace( p.x, p.y, p.z );
-      }
-
-      for( auto e : vb )
-      {
-        Assert::IsTrue( e.o() );
-        auto p = e.o()->point();
-        vbc.emplace( p.x, p.y, p.z );
-      }
-
-      Assert::IsTrue( vac == vbc, L"intersection coordinates" );
-
-      IO_NS::writeMesh( inter.d_alpha.d_cut, L"Graph.alpha.mesh" );
-      IO_NS::writeMesh( inter.d_beta.d_cut, L"Graph.beta.mesh" );
+      Assert::IsTrue( cb.d_points0 == check.d_xpoints, L"points0" );
+      Assert::IsTrue( cb.d_points1 == check.d_xpoints, L"points1" );
     }
   };
 }
