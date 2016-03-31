@@ -23,7 +23,8 @@ namespace Tailor_NS
     , private XPointMap<Collision_NS::XFace, Collision_NS::XVert>
     , private XPointMap<Collision_NS::XFace, Collision_NS::XEdge>
   {
-    template <typename A, typename B> XPointMap<A, B>& get() { return *this; }
+    template <typename A, typename B> const XPointMap<A, B>& get() const { return *this; }
+    template <typename A, typename B>       XPointMap<A, B>& get()       { return *this; }
   };
 
 
@@ -35,11 +36,23 @@ namespace Tailor_NS
     using E = Collision_NS::XEdge;
     using F = Collision_NS::XFace;
 
+    const Collection& collection() const { return d_collection; }
+
+    //  iterate all intersection edges
     template <typename Func>
     void forEachXEdge( Func );
 
+    //  iterate all intersection edges with given type of intersection vertexes X0 = { A0, B0 } and X1 = { A1, B1 }
     template <typename A0, typename B0, typename A1, typename B1, typename Func>
     void forEachXEdge( Func );
+
+    //  iterate all intersection edges coming from given intersection vertex
+    template <typename A0, typename B0, typename Func>
+    void forEachXEdge( const Collision_NS::XPoint<A0, B0>&, Func );
+
+    //  iterate all intersection edges coming from given intersection vertex and ending on any intersection vertex of type X1 = { A1, B1 }
+    template <typename A0, typename B0, typename A1, typename B1, typename Func>
+    void forEachXEdge( const Collision_NS::XPoint<A0, B0>&, Func );
 
   private:
 
