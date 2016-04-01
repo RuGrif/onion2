@@ -32,6 +32,6 @@ namespace Tailor_NS
   template <typename A, typename B>
   void setXPointData( QEdge_NS::Edge e, const A& a, const B& b )
   {
-    if( e && !e.o() ) resetXPointData( e, a, b );
+    if( !e.o() ) resetXPointData( e, a, b );
   }
 }
