@@ -40,9 +40,12 @@ void Tailor_NS::Spider::spin( const Graph& g )
 
       xA( eA, p1.first );
       xB( eB, p1.second );
+
+      setXPointData( eA.sym(), p1.first, p1.second );
+      setXPointData( eB.sym(), p1.second, p1.first );
     } );
 
-    setXPointData( xA.edge(), p0.first, p0.second );
-    setXPointData( xB.edge(), p0.second, p0.first );
+    if( xA.edge() ) setXPointData( xA.edge(), p0.first, p0.second );
+    if( xB.edge() ) setXPointData( xB.edge(), p0.second, p0.first );
   } );
 }
