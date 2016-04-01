@@ -1,5 +1,23 @@
 #include "Spider.h"
 #include "XSplice.h"
+#include "Data.h"
+
+
+QEdge_NS::Edge Tailor_NS::Web::getOrCreateEdge( const Collision_NS::XPointID& id0, const Collision_NS::XPointID& id1 )
+{
+  auto f = d_edges.find( { id1, id0 } );  //  look for existing sym edge
+
+  if( f != d_edges.end() )
+  {
+    QEdge_NS::Edge e = f->second.sym();
+    d_edges.erase( f );
+    return e;
+  }
+  else
+  {
+    return d_edges[ { id0, id0 } ] = d_web.makeEdge();
+  }
+}
 
 
 void Tailor_NS::Spider::spin( const Graph& g )
@@ -17,11 +35,14 @@ void Tailor_NS::Spider::spin( const Graph& g )
 
     g.forEachXEdge( p0, [&]( const auto&, const auto& p1 )
     {
-      QEdge_NS::Edge eA = webA.getOrCreateEdge( xidA( p0 ), xidA( p1 ) );
-      QEdge_NS::Edge eB = webB.getOrCreateEdge( xidB( p0 ), xidB( p1 ) );
+      QEdge_NS::Edge eA = d_webA.getOrCreateEdge( xidA( p0 ), xidA( p1 ) );
+      QEdge_NS::Edge eB = d_webB.getOrCreateEdge( xidB( p0 ), xidB( p1 ) );
 
       xA( eA, p1.first );
       xB( eB, p1.second );
     } );
+
+    setXPointData( xA.edge(), p0.first, p0.second );
+    setXPointData( xB.edge(), p0.second, p0.first );
   } );
 }

@@ -19,35 +19,29 @@ namespace Tailor_NS
     using XVertID = Collision_NS::XPointID;
     using XEdgeID = std::pair<XVertID, XVertID>;
 
-    QEdge_NS::Edge getOrCreateEdge( const Collision_NS::XPointID& id0, const Collision_NS::XPointID& id1 )
-    {
-      auto f = d_edges.find( { id1, id0 } );  //  look for existing sym edge
-      
-      if( f != d_edges.end() )
-      {
-        return f->second.sym();
-      }
-      else
-      {
-        return d_edges[ { id0, id0 } ] = d_graph.makeEdge();
-      }
-    }
+    QEdge_NS::Edge getOrCreateEdge( const Collision_NS::XPointID& id0, const Collision_NS::XPointID& id1 );
+
+    const QEdge_NS::Shape& web() const { return d_web; }
 
   private:
 
     std::map<XEdgeID, QEdge_NS::Edge>   d_edges;
-    QEdge_NS::Shape                     d_graph;
+    QEdge_NS::Shape                     d_web;
   };
 
 
-  class Spider
+  class TAILOR_API Spider
   {
   public:
 
     void spin( const Graph& g );
 
+    const QEdge_NS::Shape& webA() const { return d_webA.web(); }
+    const QEdge_NS::Shape& webB() const { return d_webB.web(); }
+
   private:
 
-    Web webA, webB;
+    Web d_webA;
+    Web d_webB;
   };
 }

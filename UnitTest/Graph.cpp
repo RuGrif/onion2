@@ -33,14 +33,22 @@ namespace UnitTest
 
     struct XEdgeCB
     {
-      XVertCB alpha;
-      XVertCB beta;
+      using EID = std::pair<Collision_NS::XPointID, Collision_NS::XPointID>;
+
+      XVertCB d_alpha;
+      XVertCB d_beta;
+            
+      std::map<EID, size_t> d_posEdges;
+      std::map<EID, size_t> d_negEdges;
 
       template <typename A0, typename B0, typename A1, typename B1>
       void operator() ( const Collision_NS::XPoint<A0, B0>& p0, const Collision_NS::XPoint<A1, B1>& p1 )
       {
-        alpha( p0 );
-        beta( p1 );
+        d_alpha( p0 );
+        d_beta( p1 );
+
+        ++d_posEdges[ { makeXPointID( p0 ), makeXPointID( p1 ) } ];
+        ++d_negEdges[ { makeXPointID( p1 ), makeXPointID( p0 ) } ];
       }
     };
 
@@ -55,10 +63,10 @@ namespace UnitTest
       x.c.o().reset<Test_NS::Point3D>( 0, 0, 1 );
       x.A.o().reset<Test_NS::Point3D>( 0, 0, 0 );
 
-      y.a.o().reset<Test_NS::Point3D>( 8, 9, 11 );
-      y.b.o().reset<Test_NS::Point3D>( 12, 13, 14 );
-      y.c.o().reset<Test_NS::Point3D>( -15, -16, -17 );
-      y.A.o().reset<Test_NS::Point3D>( -10, -10, -10 );
+      y.a.o().reset<Test_NS::Point3D>( 2, 0, 0 );
+      y.b.o().reset<Test_NS::Point3D>( 0, 2, 0 );
+      y.c.o().reset<Test_NS::Point3D>( 0, 0, 2 );
+      y.A.o().reset<Test_NS::Point3D>( 0.2, 0.2, 0.2 );
 
       QEdge_NS::Shape& a = x.d_shape;
       QEdge_NS::Shape& b = y.d_shape;
@@ -81,8 +89,17 @@ namespace UnitTest
 
       graph.forEachXEdge( std::ref( cb ) );
 
-      Assert::IsTrue( cb.alpha.d_points == check.d_xpoints, L"points0" );
-      Assert::IsTrue( cb.beta.d_points == check.d_xpoints, L"points1" );
+      Assert::IsTrue( cb.d_alpha.d_points == check.d_xpoints, L"points0" );
+      Assert::IsTrue( cb.d_beta.d_points == check.d_xpoints, L"points1" );
+
+      Assert::IsTrue( cb.d_posEdges == cb.d_negEdges, L"N pos = N neg" );
+
+      for( const auto& e : cb.d_posEdges )
+      {
+        Assert::AreEqual( 1u, e.second, L"num of edge cb calls" );
+      }
+
+      Assert::AreEqual( 3u, cb.d_posEdges.size() );
 
       XVertCB v0;
 

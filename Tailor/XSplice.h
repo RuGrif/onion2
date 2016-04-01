@@ -21,6 +21,8 @@ namespace Tailor_NS
       o = e;
     }
 
+    QEdge_NS::Edge edge() const { return o; }
+
   private:
 
     const P0&       p0;
