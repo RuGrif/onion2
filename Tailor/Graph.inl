@@ -4,6 +4,26 @@
 #include "Graph.h"
 
 
+template <typename Func>
+void Tailor_NS::Graph::forEachXPointType( Func func )
+{
+  tagV v;
+  tagE e;
+  tagF f;
+
+  func( v, v );
+  func( v, e );
+  func( v, f );
+
+  func( e, v );
+  func( e, e );
+  func( e, f );
+
+  func( f, v );
+  func( f, e );
+}
+
+
 template <typename A0, typename B0, typename A1, typename B1, typename Func>
 void Tailor_NS::Graph::forEachXEdge( Func func )
 {
@@ -34,100 +54,33 @@ void Tailor_NS::Graph::forEachXEdge( const Collision_NS::XPoint<A0, B0>& p0, Fun
 }
 
 
-namespace Tailor_NS
-{
-  namespace ForEach_NS
-  {
-    using V = Graph::V;
-    using E = Graph::E;
-    using F = Graph::F;
-
-
-    template <typename A0, typename B0, typename Func>
-    void forEachX1Type( Func );
-
-
-    template <typename Func>
-    void forEachX0Type( Func f )
-    {
-      forEachX1Type<V, V>( f );
-      forEachX1Type<V, E>( f );
-      forEachX1Type<V, F>( f );
-
-      forEachX1Type<E, V>( f );
-      forEachX1Type<E, E>( f );
-      forEachX1Type<E, F>( f );
-
-      forEachX1Type<F, V>( f );
-      forEachX1Type<F, E>( f );
-    }
-
-
-    template <typename A0, typename B0, typename Func>
-    void forEachX1Type( Func f )
-    {
-      f.call<A0, B0, V, V>();
-      f.call<A0, B0, V, E>();
-      f.call<A0, B0, V, F>();
-
-      f.call<A0, B0, E, V>();
-      f.call<A0, B0, E, E>();
-      f.call<A0, B0, E, F>();
-
-      f.call<A0, B0, F, V>();
-      f.call<A0, B0, F, E>();
-    }
-
-
-    template <typename Func>
-    struct CallAll
-    {
-      Func    f;
-      Graph&  g;
-
-      template <typename A0, typename B0, typename A1, typename B1>
-      void call()
-      {
-        g.forEachXEdge<A0, B0, A1, B1>( f );
-      }
-    };
-
-    
-    template <typename Func>
-    CallAll<Func> makeCallAll( Func f, Graph& g ) { return CallAll<Func>{ f, g }; }
-
-
-    template <typename A0, typename B0, typename Func>
-    struct CallOne
-    {
-      using X = Collision_NS::XPoint<A0, B0>;
-
-      Func      f;
-      Graph&    g;
-      const X&  p0;
-
-      template <typename A0, typename B0, typename A1, typename B1>
-      void call()
-      {
-        g.forEachXEdge<A0, B0, A1, B1>( p0, f );
-      }
-    };
-
-    template <typename A0, typename B0, typename Func>
-    CallOne<A0, B0, Func> makeCallOne( Func f, Graph& g, const Collision_NS::XPoint<A0, B0>& p0 ) { return CallOne<Func>{ f, g, p0 }; }
-  }
-}
-
-
 template <typename Func>
 void Tailor_NS::Graph::forEachXEdge( Func func )
 {
-  ForEach_NS::forEachX0Type( ForEach_NS::makeCallAll( func, *this ) );
+  forEachXPointType( [ this, func ]( auto a0, auto b0 )
+  {
+    using A0 = decltype( a0 )::type;
+    using B0 = decltype( b0 )::type;
+
+    forEachXPointType( [ this, func ]( auto a1, auto b1 )
+    {
+      using A1 = decltype( a1 )::type;
+      using B1 = decltype( b1 )::type;
+
+      forEachXEdge<A0, B0, A1, B1>( func );
+    } );
+  } );
 }
 
 
 template <typename A0, typename B0, typename Func>
 void Tailor_NS::Graph::forEachXEdge( const Collision_NS::XPoint<A0, B0>& p0, Func func )
 {
-  ForEach_NS::forEachX0Type( ForEach_NS::makeCallOne( func, *this, p0 ) );
+  forEachXEdge( [this, func, &p0]( auto a1, auto b1 )
+  {
+    using A1 = decltype( a1 )::type;
+    using B1 = decltype( b1 )::type;
+
+    forEachXEdge<A0, B0, A1, B1>( p0, func );
+  } );
 }

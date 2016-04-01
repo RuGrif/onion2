@@ -36,7 +36,16 @@ namespace Tailor_NS
     using E = Collision_NS::XEdge;
     using F = Collision_NS::XFace;
 
+    struct tagV { using type = V; };
+    struct tagE { using type = E; };
+    struct tagF { using type = F; };
+
     const Collection& collection() const { return d_collection; }
+
+
+    //  call func( A, B ) for each intersection vertex type X = { A::type, B::type }
+    template <typename Func>
+    void forEachXPointType( Func );
 
     //  iterate all intersection edges
     template <typename Func>
