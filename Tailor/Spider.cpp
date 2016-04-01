@@ -15,7 +15,7 @@ QEdge_NS::Edge Tailor_NS::Web::getOrCreateEdge( const Collision_NS::XPointID& id
   }
   else
   {
-    return d_edges[ { id0, id0 } ] = d_web.makeEdge();
+    return d_edges[ { id0, id1 } ] = d_web.makeEdge();
   }
 }
 
