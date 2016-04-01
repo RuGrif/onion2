@@ -38,30 +38,32 @@ namespace Tailor_NS
 
     const Collection& collection() const { return d_collection; }
 
+    template <typename A, typename B> auto& get() const { return collection().get<A, B>(); }
+
     //  iterate all intersection points
     template <typename Func>
-    void forEachXPoint( Func );
+    void forEachXPoint( Func ) const;
 
     //  iterate all intersection points of type { A, B }
     template <typename A, typename B, typename Func>
-    void forEachXPoint( Func );
+    void forEachXPoint( Func ) const;
 
     //  iterate all intersection edges
     template <typename Func>
-    void forEachXEdge( Func );
+    void forEachXEdge( Func ) const;
 
     //  iterate all intersection edges starting from intersection point of type { A0, B0 }
     template <typename A0, typename B0, typename Func>
-    void forEachXEdge( Func );
+    void forEachXEdge( Func ) const;
 
     //  iterate all intersection edges starting from given intersection vertex
     template <typename A0, typename B0, typename Func>
-    void forEachXEdge( const Collision_NS::XPoint<A0, B0>&, Func );
+    void forEachXEdge( const Collision_NS::XPoint<A0, B0>&, Func ) const;
 
     //  iterate all intersection edges starting from given intersection vertex
     //  and ending on any intersection point of type X1 = { A1, B1 }
     template <typename A0, typename B0, typename A1, typename B1, typename Func>
-    void forEachXEdge( const Collision_NS::XPoint<A0, B0>&, Func );
+    void forEachXEdge( const Collision_NS::XPoint<A0, B0>&, Func ) const;
 
   private:
 
@@ -71,7 +73,7 @@ namespace Tailor_NS
 
     //  call func( A, B ) for each intersection vertex type X = { A::type, B::type }
     template <typename Func>
-    void forEachXPointType( Func );
+    static void forEachXPointType( Func );
 
   private:
 
@@ -86,7 +88,11 @@ namespace Tailor_NS
     template <typename A, typename B> void push( const A&, const B&, bool );
     template <typename A, typename B> void push( const A&, const B& );
 
-    template <typename A, typename B> XPointMap<A, B>& get() { return d_collection.get<A, B>(); }
+  private:
+
+    Collection& collection() { return d_collection; }
+
+    template <typename A, typename B> auto& get() { return collection().get<A, B>(); }
 
   private:
 

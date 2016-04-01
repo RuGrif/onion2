@@ -29,7 +29,7 @@ void Tailor_NS::Graph::forEachXPointType( Func func )
 
 
 template <typename Func>
-void Tailor_NS::Graph::forEachXPoint( Func func )
+void Tailor_NS::Graph::forEachXPoint( Func func ) const
 {
   //  for A, B
   forEachXPointType( [this, func]( auto a, auto b )
@@ -43,7 +43,7 @@ void Tailor_NS::Graph::forEachXPoint( Func func )
 
 
 template <typename A, typename B, typename Func>
-void Tailor_NS::Graph::forEachXPoint( Func func )
+void Tailor_NS::Graph::forEachXPoint( Func func ) const
 {
   for( const auto& i : get<A, B>() )
   {
@@ -57,7 +57,7 @@ void Tailor_NS::Graph::forEachXPoint( Func func )
 
 
 template <typename Func>
-void Tailor_NS::Graph::forEachXEdge( Func func )
+void Tailor_NS::Graph::forEachXEdge( Func func ) const
 {
   //  for A0, B0
   forEachXPointType( [this, func]( auto a0, auto b0 )
@@ -71,18 +71,18 @@ void Tailor_NS::Graph::forEachXEdge( Func func )
 
 
 template <typename A0, typename B0, typename Func>
-void Tailor_NS::Graph::forEachXEdge( Func func )
+void Tailor_NS::Graph::forEachXEdge( Func func ) const
 {
   //  for p0
-  for( const auto& i0 : get<A0, B0>() )
+  forEachXPoint<A0, B0>( [this, func]( const auto& p0 )
   {
-    forEachXEdge( i0.second, func );
-  }
+    forEachXEdge( p0, func );
+  } );
 }
 
 
 template <typename A0, typename B0, typename Func>
-void Tailor_NS::Graph::forEachXEdge( const Collision_NS::XPoint<A0, B0>& p0, Func func )
+void Tailor_NS::Graph::forEachXEdge( const Collision_NS::XPoint<A0, B0>& p0, Func func ) const
 {
   //  for A1, B1
   forEachXPointType( [this, func, &p0]( auto a1, auto b1 )
@@ -96,7 +96,7 @@ void Tailor_NS::Graph::forEachXEdge( const Collision_NS::XPoint<A0, B0>& p0, Fun
 
 
 template <typename A0, typename B0, typename A1, typename B1, typename Func>
-void Tailor_NS::Graph::forEachXEdge( const Collision_NS::XPoint<A0, B0>& p0, Func func )
+void Tailor_NS::Graph::forEachXEdge( const Collision_NS::XPoint<A0, B0>& p0, Func func ) const
 {
   auto nbA = nb( p0.first );
   auto nbB = nb( p0.second );
