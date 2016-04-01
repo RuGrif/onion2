@@ -150,10 +150,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Cutter.h" />
+    <ClInclude Include="Spider.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="Tailor.h" />
+    <ClInclude Include="XSplice.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Collision\Collision.vcxproj">
@@ -164,6 +165,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Spider.cpp" />
     <ClCompile Include="Graph.cpp" />
   </ItemGroup>
   <ItemGroup>
