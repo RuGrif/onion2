@@ -22,14 +22,25 @@ namespace UnitTest
     {
       using Map = std::map<Collision_NS::XPointID, Math_NS::Vector3D>;
       
-      Map d_points0;
-      Map d_points1;
+      Map d_points;
+
+      template <typename P>
+      void operator() ( const P& p )
+      {
+        d_points[ makeXPointID( p ) ] = point( p );
+      }
+    };
+
+    struct XEdgeCB
+    {
+      XVertCB alpha;
+      XVertCB beta;
 
       template <typename A0, typename B0, typename A1, typename B1>
       void operator() ( const Collision_NS::XPoint<A0, B0>& p0, const Collision_NS::XPoint<A1, B1>& p1 )
       {
-        d_points0[ makeXPointID( p0.first, p0.second ) ] = point( p0 );
-        d_points1[ makeXPointID( p1.first, p1.second ) ] = point( p1 );
+        alpha( p0 );
+        beta( p1 );
       }
     };
 
@@ -66,12 +77,18 @@ namespace UnitTest
       Assert::IsTrue( Collision_NS::AABBCollider{ Collision_NS::PrimCollider{ std::ref( graph ), grid } }.collide( ta, tb ) );
       Assert::IsTrue( Collision_NS::AABBCollider{ Collision_NS::PrimCollider{ std::ref( check ), grid } }.collide( ta, tb ) );
 
-      XVertCB cb;
+      XEdgeCB cb;
 
       graph.forEachXEdge( std::ref( cb ) );
 
-      Assert::IsTrue( cb.d_points0 == check.d_xpoints, L"points0" );
-      Assert::IsTrue( cb.d_points1 == check.d_xpoints, L"points1" );
+      Assert::IsTrue( cb.alpha.d_points == check.d_xpoints, L"points0" );
+      Assert::IsTrue( cb.beta.d_points == check.d_xpoints, L"points1" );
+
+      XVertCB v0;
+
+      graph.forEachXPoint( std::ref( v0 ) );
+
+      Assert::IsTrue( v0.d_points == check.d_xpoints, L"points" );
     }
   };
 }

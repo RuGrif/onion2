@@ -50,15 +50,16 @@ namespace Tailor_NS
     template <typename Func>
     void forEachXEdge( Func );
 
-    //  iterate all intersection edges with given type of intersection vertexes X0 = { A0, B0 } and X1 = { A1, B1 }
-    template <typename A0, typename B0, typename A1, typename B1, typename Func>
+    //  iterate all intersection edges starting from intersection point of type { A0, B0 }
+    template <typename A0, typename B0, typename Func>
     void forEachXEdge( Func );
 
-    //  iterate all intersection edges coming from given intersection vertex
+    //  iterate all intersection edges starting from given intersection vertex
     template <typename A0, typename B0, typename Func>
     void forEachXEdge( const Collision_NS::XPoint<A0, B0>&, Func );
 
-    //  iterate all intersection edges coming from given intersection vertex and ending on any intersection vertex of type X1 = { A1, B1 }
+    //  iterate all intersection edges starting from given intersection vertex
+    //  and ending on any intersection point of type X1 = { A1, B1 }
     template <typename A0, typename B0, typename A1, typename B1, typename Func>
     void forEachXEdge( const Collision_NS::XPoint<A0, B0>&, Func );
 

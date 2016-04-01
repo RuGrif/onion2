@@ -89,6 +89,9 @@ namespace Collision_NS
   template <typename A, typename B>
   XPointID makeXPointID( const A& a, const B& b ) { return makeXPointID( id( a ), id( b ) ); }
 
+  template <typename A, typename B>
+  XPointID makeXPointID( const XPoint<A, B>& p ) { return makeXPointID( p.first, p.second ); }
+
 
   template <typename A, typename B> Math_NS::Vector3D point( const XPoint<A, B>& p ) { return point( p.first, p.second ); }
 }
