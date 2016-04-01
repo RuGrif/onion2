@@ -105,6 +105,7 @@ void Tailor_NS::Graph::forEachXEdge( const Collision_NS::XPoint<A0, B0>& p0, Fun
   for( size_t ia : nbA ) for( size_t ib : nbB )
   {
     auto xid = Collision_NS::makeXPointID( ia, ib );
+    if( xid == makeXPointID( p0 ) ) continue;
 
     auto i = get<A1, B1>().find( xid );
     if( i == get<A1, B1>().end() ) continue;

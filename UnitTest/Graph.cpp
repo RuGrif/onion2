@@ -99,7 +99,7 @@ namespace UnitTest
         Assert::AreEqual( 1u, e.second, L"num of edge cb calls" );
       }
 
-      Assert::AreEqual( 3u, cb.d_posEdges.size() );
+      Assert::AreEqual( 6u, cb.d_posEdges.size() );
 
       XVertCB v0;
 
