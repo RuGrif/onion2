@@ -24,6 +24,29 @@ void Tailor_NS::Graph::forEachXPointType( Func func )
 }
 
 
+template <typename A, typename B, typename Func>
+void Tailor_NS::Graph::forEachXPoint( Func func )
+{
+  for( const auto& i : get<A, B>() )
+  {
+    func( i.second );
+  }
+}
+
+
+template <typename Func>
+void Tailor_NS::Graph::forEachXPoint( Func func )
+{
+  forEachXPointType( [this, func]( auto a, auto b )
+  {
+    using A = decltype( a )::type;
+    using B = decltype( b )::type;
+
+    forEachXPoint<A, B>( func );
+  } );
+}
+
+
 template <typename A0, typename B0, typename A1, typename B1, typename Func>
 void Tailor_NS::Graph::forEachXEdge( Func func )
 {
