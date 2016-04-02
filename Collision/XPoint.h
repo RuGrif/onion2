@@ -2,6 +2,7 @@
 
 
 #include "Primitive.h"
+#include "Barycentric.h"
 
 
 namespace Collision_NS
@@ -19,7 +20,7 @@ namespace Collision_NS
   class BadUpcast;
 
 
-  struct XVert : public Vert
+  struct XVert : public Vert, public BaryV
   {
     XVert( Vert v ) : Vert{ v } {}
 
@@ -28,28 +29,17 @@ namespace Collision_NS
   };
 
 
-  struct XEdge : public Edge
+  struct XEdge : public Edge, public BaryE
   {
-    using Int = Math_NS::Vector3L::Type;
-
-    const Int u;
-    const Int v;
-
-    XEdge( Edge e, Int u, Int v ) : Edge{ e }, u{ u }, v{ v } {}
+    XEdge( Edge e, Int u, Int v ) : Edge{ e }, BaryE{ u, v } {}
 
     XFace toXFace( Face );
   };
 
 
-  struct XFace : public Face
+  struct XFace : public Face, public BaryF
   {
-    using Int = Math_NS::Vector3L::Type;
-
-    const Int a;
-    const Int b;
-    const Int c;
-
-    XFace( Face f, Int a, Int b, Int c ) : Face{ f }, a{ a }, b{ b }, c{ c } {}
+    XFace( Face f, Int a, Int b, Int c ) : Face{ f }, BaryF{ a, b, c } {}
   };
 
 

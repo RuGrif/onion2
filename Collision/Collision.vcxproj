@@ -79,6 +79,7 @@
   <ItemGroup>
     <ClInclude Include="AABB.h" />
     <ClInclude Include="AABBCollider.h" />
+    <ClInclude Include="Barycentric.h" />
     <ClInclude Include="Intersection.h" />
     <ClInclude Include="PrimCollider.h" />
     <ClInclude Include="Primitive.h" />

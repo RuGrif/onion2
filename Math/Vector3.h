@@ -3,7 +3,7 @@
 
 #include <type_traits>
 #include <algorithm>
-#include <boost/multiprecision/cpp_int.hpp>
+#include "IntType.h"
 
 
 namespace Math_NS
@@ -46,5 +46,5 @@ namespace Math_NS
   using Vector3D = Vector3<double>;
   using Vector3F = Vector3<float>;
   using Vector3I = Vector3<int>;
-  using Vector3L = Vector3<boost::multiprecision::int256_t>;
+  using Vector3L = Vector3<IntType>;
 }

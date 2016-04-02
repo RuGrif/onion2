@@ -150,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Sort.h" />
     <ClInclude Include="Spider.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="Graph.h" />
@@ -164,6 +165,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Sort.cpp" />
     <ClCompile Include="Spider.cpp" />
     <ClCompile Include="Graph.cpp" />
   </ItemGroup>
