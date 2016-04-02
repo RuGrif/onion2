@@ -2,7 +2,7 @@
 
 
 #include "../QEdge/Shape.h"
-#include "../Collision/Intersection.h"
+#include "../Collision/XPoint.h"
 #include "Graph.h"
 #include "Data.h"
 #include <map>
@@ -41,7 +41,9 @@ namespace Tailor_NS
 
   private:
 
+    #pragma warning( suppress : 4251 )
     Web d_webA;
+    #pragma warning( suppress : 4251 )
     Web d_webB;
   };
 }

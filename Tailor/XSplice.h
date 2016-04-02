@@ -2,7 +2,7 @@
 
 
 #include "../QEdge/Edge.h"
-#include "../Collision/Intersection.h"
+#include "../Collision/XPoint.h"
 
 
 namespace Tailor_NS

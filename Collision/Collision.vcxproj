@@ -82,6 +82,7 @@
     <ClInclude Include="PrimCollider.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Primitive.h" />
+    <ClInclude Include="XPoint.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AABB.cpp" />
