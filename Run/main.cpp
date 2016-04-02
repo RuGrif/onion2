@@ -1,10 +1,11 @@
 #include <iostream>
-#include "..\Collision\PrimCollider.h"
-#include "..\Collision\AABBCollider.h"
+#include "../Collision/PrimCollider.h"
+#include "../Collision/AABBCollider.h"
 #include "../Tailor/Graph.h"
-#include "..\IO\STL.h"
-#include "..\IO\Mesh.h"
-#include "..\QEdge\Utils.h"
+#include "../Tailor/Spider.h"
+#include "../IO/STL.h"
+#include "../IO/Mesh.h"
+#include "../QEdge/Utils.h"
 #include "Log.h"
 
 
@@ -124,11 +125,14 @@ void wmain( int argc, wchar_t* argv[] )try
 
   /////////////////////////////////////////////////////////////////////////////
 
-  //std::cout << "Save intersection graph ... ";
+  std::cout << "Save intersection graph ... ";
 
-  //IO_NS::writeMesh( graph.d_alpha.d_cut, argv[ 3 ] );
+  Tailor_NS::Spider spider;
+  spider.spin( graph );
 
-  //time.log();
+  IO_NS::writeMesh( spider.webA(), argv[ 3 ] );
+
+  time.log();
 
   /////////////////////////////////////////////////////////////////////////////
 
