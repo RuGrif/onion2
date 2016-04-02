@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include "..\Collision\Primitive.h"
+#include "../Collision/Primitive.h"
 #include <set>
 #include <algorithm>
 

@@ -12,5 +12,5 @@
 
 // TODO: reference additional headers your program requires here
 #include "Tools.h"
-#include "..\QEdge\Shape.h"
+#include "../QEdge/Shape.h"
 #include "DebugData.h"

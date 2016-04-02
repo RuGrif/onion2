@@ -2,8 +2,8 @@
 
 
 #include "Primitive.h"
-#include "..\Math\Box3.h"
-#include "..\Math\Grid.h"
+#include "../Math/Box3.h"
+#include "../Math/Grid.h"
 #include <vector>
 
 

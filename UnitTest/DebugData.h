@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "..\QEdge\Data.h"
+#include "../QEdge/Data.h"
 
 
 namespace QEdge_NS

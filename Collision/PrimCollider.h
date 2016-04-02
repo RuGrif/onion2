@@ -3,7 +3,7 @@
 
 #include "Primitive.h"
 #include "Intersection.h"
-#include "..\Math\Grid.h"
+#include "../Math/Grid.h"
 
 
 namespace Collision_NS

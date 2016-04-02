@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "..\QEdge\Shape.h"
+#include "../QEdge/Shape.h"
 
 
 template <> std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString( const QEdge_NS::Loop<QEdge_NS::VertTraits>& e ) { return L"vert loop"; }

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include "..\QEdge\Quad.h"
+#include "../QEdge/Quad.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

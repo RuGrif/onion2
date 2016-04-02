@@ -1,6 +1,6 @@
 #include "STL.h"
 #include "Constructor.h"
-#include "..\QEdge\Utils.h"
+#include "../QEdge/Utils.h"
 #include <fstream>
 
 

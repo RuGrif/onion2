@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "..\QEdge\Edge.h"
+#include "../QEdge/Edge.h"
 #include <vector>
 #include <memory>
 

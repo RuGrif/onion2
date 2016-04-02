@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include "..\Math\Box3.h"
+#include "../Math/Box3.h"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;

@@ -1,5 +1,5 @@
 #include "PrimCollider.h"
-#include "..\Math\Solve.h"
+#include "../Math/Solve.h"
 
 
 bool Collision_NS::PrimCollider::collide( Vert a, Vert b, bool alter )

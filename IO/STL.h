@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "..\QEdge\Shape.h"
+#include "../QEdge/Shape.h"
 #include <string.h>
 
 

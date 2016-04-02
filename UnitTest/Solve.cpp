@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include "..\Math\Solve.h"
+#include "../Math/Solve.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

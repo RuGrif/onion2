@@ -1,8 +1,8 @@
 #pragma once
 
 
-#include "..\QEdge\Shape.h"
-#include "..\Math\Hash.h"
+#include "../QEdge/Shape.h"
+#include "../Math/Hash.h"
 #include <unordered_map>
 
 

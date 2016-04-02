@@ -1,5 +1,5 @@
-#include "..\QEdge\Data.h"
-#include "..\Math\Vector3.h"
+#include "../QEdge/Data.h"
+#include "../Math/Vector3.h"
 
 
 namespace Test_NS

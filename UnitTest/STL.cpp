@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include "..\IO\STL.h"
-#include "..\QEdge\Utils.h"
+#include "../IO/STL.h"
+#include "../QEdge/Utils.h"
 #include "Point3D.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;

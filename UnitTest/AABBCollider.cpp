@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include "..\IO\STL.h"
-#include "..\IO\Mesh.h"
-#include "..\Collision\PrimCollider.h"
-#include "..\Collision\AABBCollider.h"
+#include "../IO/STL.h"
+#include "../IO/Mesh.h"
+#include "../Collision/PrimCollider.h"
+#include "../Collision/AABBCollider.h"
 #include "Intersection.h"
-#include "..\QEdge\Utils.h"
+#include "../QEdge/Utils.h"
 #include "Point3D.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;

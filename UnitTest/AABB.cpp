@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include "..\Collision\AABB.h"
-#include "..\IO\STL.h"
-#include "..\QEdge\Utils.h"
+#include "../Collision/AABB.h"
+#include "../IO/STL.h"
+#include "../QEdge/Utils.h"
 #include <functional>
 #include <numeric>
 
