@@ -90,6 +90,7 @@
     <ClCompile Include="Intersection.cpp" />
     <ClCompile Include="PrimCollider.cpp" />
     <ClCompile Include="Primitive.cpp" />
+    <ClCompile Include="XPoint.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Math\Math.vcxproj">

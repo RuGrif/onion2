@@ -43,27 +43,3 @@ void Collision_NS::Intersection::operator() ( const XEdge& x, const XFace& y, bo
   if( y.c == 0 ) return operator() ( x, XEdge{ y.AB(), y.a, y.b }, a );
   return add( x, y, a );
 }
-
-
-const Math_NS::Vector3D Collision_NS::point( const XVert& v )
-{
-  return v.point();
-}
-
-
-const Math_NS::Vector3D Collision_NS::point( const XEdge& e )
-{
-  const double u = static_cast<double>( e.u );
-  const double v = static_cast<double>( e.v );
-  return ( u * e.U().point() + v * e.V().point() ) / ( u + v );
-}
-
-
-Math_NS::Vector3D Collision_NS::point( const XVert& x, const XVert& y ) { return ( point( x ) + point( y ) ) / 2.; }
-Math_NS::Vector3D Collision_NS::point( const XVert& x, const XEdge& y ) { return point( x ); }
-Math_NS::Vector3D Collision_NS::point( const XVert& x, const XFace& y ) { return point( x ); }
-Math_NS::Vector3D Collision_NS::point( const XEdge& x, const XVert& y ) { return point( y ); }
-Math_NS::Vector3D Collision_NS::point( const XEdge& x, const XEdge& y ) { return ( point( x ) + point( y ) ) / 2.; }
-Math_NS::Vector3D Collision_NS::point( const XEdge& x, const XFace& y ) { return point( x ); }
-Math_NS::Vector3D Collision_NS::point( const XFace& x, const XVert& y ) { return point( y ); }
-Math_NS::Vector3D Collision_NS::point( const XFace& x, const XEdge& y ) { return point( y ); }
