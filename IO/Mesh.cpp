@@ -86,7 +86,7 @@ void IO_NS::writeMesh( const QEdge_NS::Shape& i_shape, const std::wstring& i_fil
 
   for( QEdge_NS::Edge i : edges )
   {
-    Edge e{ vid.at( i.o().id() ), vid.at( i.o().id() ), label };
+    Edge e{ vid.at( i.o().id() ), vid.at( i.d().id() ), label };
     file.write( reinterpret_cast<char*>( &e ), sizeof( e ) );
   }
 }
