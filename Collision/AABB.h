@@ -5,7 +5,6 @@
 #include "..\Math\Box3.h"
 #include "..\Math\Grid.h"
 #include <vector>
-#include "Collision.h"
 
 
 //  Box storage structure
@@ -21,7 +20,7 @@ namespace Collision_NS
   class AABBTree;
 
 
-  class COLLISION_API AABB
+  class AABB
   {
   public:
 
@@ -48,7 +47,7 @@ namespace Collision_NS
   };
 
 
-  class COLLISION_API AABBTree
+  class AABBTree
   {
   public:
 
@@ -68,9 +67,7 @@ namespace Collision_NS
 
   private:
 
-    #pragma warning( suppress : 4251 )
     std::vector<Face>   d_faces;
-    #pragma warning( suppress : 4251 )
     std::vector<Box>    d_boxes;
   };
 }

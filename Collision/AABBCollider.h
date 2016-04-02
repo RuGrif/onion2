@@ -3,12 +3,11 @@
 
 #include "AABB.h"
 #include <functional>
-#include "Collision.h"
 
 
 namespace Collision_NS
 {
-  class COLLISION_API AABBCollider
+  class AABBCollider
   {
   public:
 
@@ -29,7 +28,6 @@ namespace Collision_NS
 
   private:
 
-    #pragma warning( suppress : 4251 )
     Callback d_callback;
   };
 }

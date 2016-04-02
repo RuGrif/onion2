@@ -6,7 +6,6 @@
 #include "Graph.h"
 #include "Data.h"
 #include <map>
-#include "Tailor.h"
 
 
 namespace Tailor_NS
@@ -30,7 +29,7 @@ namespace Tailor_NS
   };
 
 
-  class TAILOR_API Spider
+  class Spider
   {
   public:
 
@@ -41,9 +40,7 @@ namespace Tailor_NS
 
   private:
 
-    #pragma warning( suppress : 4251 )
     Web d_webA;
-    #pragma warning( suppress : 4251 )
     Web d_webB;
   };
 }

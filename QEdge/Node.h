@@ -1,7 +1,6 @@
 #pragma once
 
 
-#include "QEdge.h"
 #include "Data.h"
 #include "UniqueID.h"
 #include <memory>

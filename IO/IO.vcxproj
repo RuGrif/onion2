@@ -14,16 +14,17 @@
     <ProjectGuid>{785BE8F3-36AC-4D53-9F01-8F470CA72273}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>IO</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -77,7 +78,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Constructor.h" />
-    <ClInclude Include="IO.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="STL.h" />
   </ItemGroup>

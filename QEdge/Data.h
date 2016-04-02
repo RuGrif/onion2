@@ -3,7 +3,6 @@
 
 #include <string>
 #include "..\Math\Vector3.h"
-#include "QEdge.h"
 
 
 namespace QEdge_NS

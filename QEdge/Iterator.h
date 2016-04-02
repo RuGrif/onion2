@@ -4,13 +4,12 @@
 #include <iterator>
 #include "Edge.h"
 #include <memory>
-#include "QEdge.h"
 
 
 namespace QEdge_NS
 {
   
-  class QEDGE_API Iterator : public std::iterator<std::bidirectional_iterator_tag, Edge>
+  class Iterator : public std::iterator<std::bidirectional_iterator_tag, Edge>
   {
   public:
 
@@ -37,7 +36,6 @@ namespace QEdge_NS
 
   private:
 
-    #pragma warning( suppress : 4251 )
     std::unique_ptr<Impl> d_pimpl;
   };
 

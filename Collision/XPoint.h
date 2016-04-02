@@ -57,14 +57,14 @@ namespace Collision_NS
   XPointID makeXPointID( const XPoint<A, B>& p ) { return makeXPointID( p.first, p.second ); }
 
 
-  COLLISION_API Math_NS::Vector3D point( const XVert&, const XVert& );
-  COLLISION_API Math_NS::Vector3D point( const XVert&, const XEdge& );
-  COLLISION_API Math_NS::Vector3D point( const XVert&, const XFace& );
-  COLLISION_API Math_NS::Vector3D point( const XEdge&, const XVert& );
-  COLLISION_API Math_NS::Vector3D point( const XEdge&, const XEdge& );
-  COLLISION_API Math_NS::Vector3D point( const XEdge&, const XFace& );
-  COLLISION_API Math_NS::Vector3D point( const XFace&, const XVert& );
-  COLLISION_API Math_NS::Vector3D point( const XFace&, const XEdge& );
+  Math_NS::Vector3D point( const XVert&, const XVert& );
+  Math_NS::Vector3D point( const XVert&, const XEdge& );
+  Math_NS::Vector3D point( const XVert&, const XFace& );
+  Math_NS::Vector3D point( const XEdge&, const XVert& );
+  Math_NS::Vector3D point( const XEdge&, const XEdge& );
+  Math_NS::Vector3D point( const XEdge&, const XFace& );
+  Math_NS::Vector3D point( const XFace&, const XVert& );
+  Math_NS::Vector3D point( const XFace&, const XEdge& );
 
 
   template <typename A, typename B> Math_NS::Vector3D point( const XPoint<A, B>& p ) { return point( p.first, p.second ); }

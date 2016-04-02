@@ -3,11 +3,10 @@
 
 #include "..\QEdge\Shape.h"
 #include <string.h>
-#include "IO.h"
 
 
 namespace IO_NS
 {
-  IO_API QEdge_NS::Shape readSTL( const std::wstring& );
-  IO_API void writeSTL( const QEdge_NS::Shape&, const std::wstring& );
+  QEdge_NS::Shape readSTL( const std::wstring& );
+  void writeSTL( const QEdge_NS::Shape&, const std::wstring& );
 }

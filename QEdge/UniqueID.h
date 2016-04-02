@@ -1,12 +1,9 @@
 #pragma once
 
 
-#include "QEdge.h"
-
-
 namespace QEdge_NS
 {
-  QEDGE_API size_t makeUniqueID();
+  size_t makeUniqueID();
 
   class UniqueID
   {

@@ -2,7 +2,6 @@
 
 
 #include "Node.h"
-#include "QEdge.h"
 
 
 namespace QEdge_NS
@@ -10,7 +9,7 @@ namespace QEdge_NS
   template <typename T> class Loop;
 
 
-  class QEDGE_API Edge
+  class Edge
   {
   public:
 

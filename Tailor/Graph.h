@@ -3,7 +3,6 @@
 
 #include "../Collision/Intersection.h"
 #include <map>
-#include "Tailor.h"
 
 
 namespace Tailor_NS
@@ -28,7 +27,7 @@ namespace Tailor_NS
   };
 
 
-  class TAILOR_API Graph : public Collision_NS::Intersection
+  class Graph : public Collision_NS::Intersection
   {
   public:
 
@@ -96,7 +95,6 @@ namespace Tailor_NS
 
   private:
 
-    #pragma warning( suppress : 4251 )
     Collection  d_collection;
   };
 }

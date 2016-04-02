@@ -4,7 +4,6 @@
 #include "..\QEdge\Edge.h"
 #include <vector>
 #include <memory>
-#include "Collision.h"
 
 
 namespace Collision_NS
@@ -61,7 +60,7 @@ namespace Collision_NS
   inline size_t id( Face f ) { return f.e().l().id(); }
 
 
-  COLLISION_API std::vector<size_t> nb( Vert );
-  COLLISION_API std::vector<size_t> nb( Edge );
-  COLLISION_API std::vector<size_t> nb( Face );
+  std::vector<size_t> nb( Vert );
+  std::vector<size_t> nb( Edge );
+  std::vector<size_t> nb( Face );
 }

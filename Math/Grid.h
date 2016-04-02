@@ -3,12 +3,11 @@
 
 #include "Vector3.h"
 #include "Box3.h"
-#include "Math.h"
 
 
 namespace Math_NS
 {
-  class MATH_API Grid
+  class Grid
   {
   public:
 
@@ -18,9 +17,7 @@ namespace Math_NS
 
   private:
 
-    #pragma warning( suppress : 4251 )
     const Math_NS::Vector3D d_zero;
-    #pragma warning( suppress : 4251 )
     const Math_NS::Vector3D d_diag;
   };
 }

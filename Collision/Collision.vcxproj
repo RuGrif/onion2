@@ -14,16 +14,17 @@
     <ProjectGuid>{6961285B-38AD-4FC0-B3DA-44747F374FC6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Collision</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -80,7 +81,6 @@
     <ClInclude Include="AABBCollider.h" />
     <ClInclude Include="Intersection.h" />
     <ClInclude Include="PrimCollider.h" />
-    <ClInclude Include="Collision.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="XPoint.h" />
   </ItemGroup>

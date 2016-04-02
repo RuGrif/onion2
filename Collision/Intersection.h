@@ -2,13 +2,12 @@
 
 
 #include "XPoint.h"
-#include "Collision.h"
 
 
 namespace Collision_NS
 {
   //  Callback for Intersection Vertexes
-  class COLLISION_API Intersection
+  class Intersection
   {
   public:
 

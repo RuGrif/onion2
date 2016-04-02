@@ -2,7 +2,6 @@
 
 
 #include "Vector3.h"
-#include "Math.h"
 
 
 namespace Math_NS
@@ -12,7 +11,7 @@ namespace Math_NS
   //  where r is return value
   //  in degenerated case r is 0
   //  in normal case r > 0
-  MATH_API Math_NS::Vector3L::Type solve(
+  Math_NS::Vector3L::Type solve(
     const Math_NS::Vector3L& A,
     const Math_NS::Vector3L& B,
     const Math_NS::Vector3L& C,
@@ -27,7 +26,7 @@ namespace Math_NS
   //  where r is return value
   //  in degenerated case r is 0
   //  in normal case r > 0
-  MATH_API Math_NS::Vector3L::Type solve(
+  Math_NS::Vector3L::Type solve(
     const Math_NS::Vector3L& A,
     const Math_NS::Vector3L& B,
     const Math_NS::Vector3L& R,
@@ -40,7 +39,7 @@ namespace Math_NS
   //  where r is return value
   //  in degenerated case r is 0
   //  in normal case r > 0
-  MATH_API Math_NS::Vector3L::Type solve(
+  Math_NS::Vector3L::Type solve(
     const Math_NS::Vector3L& A,
     const Math_NS::Vector3L& R,
     Math_NS::Vector3L::Type& a );

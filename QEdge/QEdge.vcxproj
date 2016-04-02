@@ -14,16 +14,17 @@
     <ProjectGuid>{242AB1AA-981D-4696-B9DB-3F1C5EF50DBE}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>QEdge</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -82,7 +83,6 @@
     <ClInclude Include="Node.h" />
     <ClInclude Include="Edge.h" />
     <ClInclude Include="Loop.h" />
-    <ClInclude Include="QEdge.h" />
     <ClInclude Include="Quad.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="ShapeImpl.h" />

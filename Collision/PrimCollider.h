@@ -4,12 +4,11 @@
 #include "Primitive.h"
 #include "Intersection.h"
 #include "..\Math\Grid.h"
-#include "Collision.h"
 
 
 namespace Collision_NS
 {
-  class COLLISION_API PrimCollider
+  class PrimCollider
   {
   public:
 
@@ -40,7 +39,6 @@ namespace Collision_NS
 
   private:
 
-    #pragma warning( suppress : 4251 )
     Intersection&   d_callback;
     Math_NS::Grid   d_grid;
   };

@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="IO.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="STL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
