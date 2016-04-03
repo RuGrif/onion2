@@ -110,6 +110,10 @@
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Solve.cpp" />
+    <ClCompile Include="Sort.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Spider.cpp" />
     <ClCompile Include="Splice.cpp" />
     <ClCompile Include="stdafx.cpp">

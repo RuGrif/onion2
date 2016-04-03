@@ -7,7 +7,11 @@ namespace
 {
   //  float to integer
   //  expect -1/2 <= x <= 1/2
+#ifdef LOW_RES
+  Math_NS::Vector3L::Type f2i( double x ) { return ::llround( x * 1024 ); };  //  debug version
+#else
   Math_NS::Vector3L::Type f2i( double x ) { return ::llround( x * std::numeric_limits<long long>::max() ); };
+#endif
 }
 
 
