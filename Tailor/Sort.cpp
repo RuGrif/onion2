@@ -45,16 +45,16 @@ namespace Tailor_NS
 
     Angle( const Int& a, const Int& b, const Int& div ) : d{ div }
     {
-      if( a > 0 )
-        if( b > 0 ) { x =  a; y =  b; q = Q1; }
-        else        { x = -b; y =  a; q = Q4; }
+      if( a < 0 )
+        if( b < 0 ) { x = -a; y = -b; q = Q3; }
+        else        { x =  b; y = -a; q = Q2; }
       else
-        if( b > 0 ) { x =  b; y = -a; q = Q2; }
-        else        { x = -a; y = -b; q = Q3; }
+        if( b < 0 ) { x = -b; y =  a; q = Q4; }
+        else        { x =  a; y =  b; q = Q1; }
     }
 
     //  l.q < ...
-    //  l.x / l.y < ...
+    //  l.y / l.x < ...
     //  ( l.x * l.x + l.y * l.y ) / ( l.d * l.d ) < ...
     friend bool operator < ( const Angle& l, const Angle& r )
     {
@@ -65,7 +65,7 @@ namespace Tailor_NS
         return std::make_tuple
         (
           a.q,
-          makeRational( a.x, a.y ),
+          makeRational( a.y, a.x ),
           makeRational( sqr( a.x ) + sqr( a.y ), sqr( a.d ) )
         );
       };
