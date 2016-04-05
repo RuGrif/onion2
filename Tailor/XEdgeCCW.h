@@ -13,10 +13,11 @@ namespace Tailor_NS
   {
   public:
 
-    bool operator() ( const Collision_NS::XFace& l, const Collision_NS::XFace& r ) const
-    {
-      return id( l ) == id( r ) ? d_baryCCW.at( id( l ) )( l, r ) : d_faceCCW( l, r );
-    }
+    XEdgeCCW( const Collision_NS::XVert& );
+    XEdgeCCW( const Collision_NS::XEdge& );
+    XEdgeCCW( const Collision_NS::XFace& );
+
+    bool operator() ( const Collision_NS::XFace& l, const Collision_NS::XFace& r ) const;
 
   private:
 

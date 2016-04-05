@@ -33,6 +33,12 @@
     <ClInclude Include="FaceCCW.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Splice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XEdgeCCW.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graph.cpp">
@@ -45,6 +51,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FaceCCW.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XEdgeCCW.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Splice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

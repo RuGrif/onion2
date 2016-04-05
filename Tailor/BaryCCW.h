@@ -7,12 +7,18 @@
 namespace Tailor_NS
 {
   //  ccw points comparison with rotation center in point O
-  struct BaryCCW
+  class BaryCCW
   {
+  public:
+
     using BaryF = Collision_NS::BaryF;
 
-    BaryF o;  //  rotation center
+    BaryCCW( const BaryF& o ) : o{ o } {}
 
     bool operator()( const BaryF&, const BaryF& ) const;
+
+  private:
+
+    BaryF o;  //  rotation center
   };
 }
