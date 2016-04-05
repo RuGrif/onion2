@@ -9,10 +9,10 @@ namespace Tailor_NS
   //  ccw points comparison with rotation center in point O
   struct FaceCCW
   {
-    using Point = Collision_NS::BaryF;
+    using BaryF = Collision_NS::BaryF;
 
-    Point o;  //  rotation center
+    BaryF o;  //  rotation center
 
-    bool operator()( const Point&, const Point& ) const;
+    bool operator()( const BaryF&, const BaryF& ) const;
   };
 }

@@ -11,7 +11,7 @@
 
 namespace Tailor_NS
 {
-  using Point = FaceCCW::Point;
+  using BaryF = FaceCCW::BaryF;
 
 
   template <typename Int>
@@ -88,7 +88,7 @@ namespace Tailor_NS
   }
 
 
-  auto makeAngle( const Point& p, const Point& o )
+  auto makeAngle( const BaryF& p, const BaryF& o )
   {
     using Math_NS::prod;
 
@@ -103,7 +103,7 @@ namespace Tailor_NS
 }
 
 
-bool Tailor_NS::FaceCCW::operator()( const Point& l, const Point& r ) const
+bool Tailor_NS::FaceCCW::operator()( const BaryF& l, const BaryF& r ) const
 {
   return makeAngle( l, o ) < makeAngle( r, o );
 }
