@@ -103,6 +103,10 @@
     <ClCompile Include="AABBCollider.cpp" />
     <ClCompile Include="Box3.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="ForEachNb.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="IntProd.cpp">
       <SubType>

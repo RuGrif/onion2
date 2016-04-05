@@ -7,7 +7,7 @@
 template <typename Func>
 void Collision_NS::Vert::forEachNb( Func func ) const
 {
-  func( Vert{ e() }, Vert{ e() } );
+  func( *this, *this );
   
   QEdge_NS::Edge i = e();
   do
@@ -15,14 +15,7 @@ void Collision_NS::Vert::forEachNb( Func func ) const
     func( Edge{ i }, Edge{ i } );
     func( Edge{ i }, Vert{ i.sym() } );
     func( Face{ i }, Face{ i } );
-    
-    QEdge_NS::Edge j = i.lPrev();
-    QEdge_NS::Edge k = i.lNext();
-
-    while( ( j = j.lPrev() )!= k )
-    {
-      func( Face{ j }, Edge{ j } );
-    }
+    func( Face{ i }, Edge{ i.lNext() } );
   }
   while( ( i = i.oNext() ) != e() );
 }
@@ -31,21 +24,15 @@ void Collision_NS::Vert::forEachNb( Func func ) const
 template <typename Func>
 void Collision_NS::Edge::forEachNb( Func func ) const
 {
-  func( Edge{ e() }, Edge{ e() } );
+  func( *this, *this );
 
   for( QEdge_NS::Edge i : { e(), e().sym() } )
   {
-    QEdge_NS::Edge j = i;
-    QEdge_NS::Edge k = i.lNext();
-
-    while( ( j = j.lPrev ) != k )
-    {
-      func( Face{ j }, Edge{ j } );
-      func( Face{ j }, Vert{ j } );
-    }
-
+    func( Face{ i }, Face{ i } );
     func( Edge{ i }, Vert{ i } );
-    func( Face{ k }, Edge{ k } );
+    func( Face{ i }, Edge{ i.lPrev() } );
+    func( Face{ i }, Edge{ i.lNext() } );
+    func( Face{ i }, Vert{ i.lPrev() } );
   }
 }
 
@@ -53,13 +40,13 @@ void Collision_NS::Edge::forEachNb( Func func ) const
 template <typename Func>
 void Collision_NS::Face::forEachNb( Func func ) const
 {
-  func( Face{ e() }, Face{ e() } );
+  func( *this, *this );
 
-  QEdge_NS::Edge i = e();
-  do
-  {
-    func( Face{ i }, Edge{ i } );
-    func( Face{ i }, Vert{ i } );
-  }
-  while( ( i = i.lPrev() ) != e() );
+  func( *this, AB() );
+  func( *this, BC() );
+  func( *this, CA() );
+
+  func( *this, A() );
+  func( *this, B() );
+  func( *this, C() );
 }

@@ -104,5 +104,8 @@
     <ClCompile Include="IntProd.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ForEachNb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

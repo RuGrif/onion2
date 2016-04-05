@@ -71,3 +71,6 @@ namespace Collision_NS
   std::vector<size_t> nb( Edge );
   std::vector<size_t> nb( Face );
 }
+
+
+#include "Primitive.inl"
