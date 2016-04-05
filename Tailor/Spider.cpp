@@ -1,6 +1,6 @@
 #include "Spider.h"
-//#include "XSplice.h"
-#include "Splice.h"
+#include "XSplice.h"
+//#include "Splice.h"
 #include "Data.h"
 
 
@@ -28,10 +28,10 @@ void Tailor_NS::Spider::spin( const Graph& g )
     using A = std::remove_cv_t<decltype( p0.first )>;
     using B = std::remove_cv_t<decltype( p0.second )>;
 
-    //XSplice<A> xA{ p0.first };
-    //XSplice<B> xB{ p0.second };
-    Splice xA{ p0.first };
-    Splice xB{ p0.second };
+    XSplice<A> xA{ p0.first };
+    XSplice<B> xB{ p0.second };
+    //Splice xA{ p0.first };
+    //Splice xB{ p0.second };
 
     auto xidA = []( const auto& p ) { return makeXPointID( p.first, p.second ); };
     auto xidB = []( const auto& p ) { return makeXPointID( p.second, p.first ); };

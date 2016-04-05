@@ -8,9 +8,6 @@
 
 namespace Tailor_NS
 {
-  Collision_NS::Face getSharedFace( Collision_NS::Face p0, Collision_NS::Edge p1 );
-  Collision_NS::Face getSharedFace( Collision_NS::Face p0, Collision_NS::Face p1 );
-
   template <typename P0>
   class XSplice
   {
@@ -31,6 +28,6 @@ namespace Tailor_NS
 
     const P0&       p0;
     QEdge_NS::Edge  o;
-    Splice          d_splice;
+    //Splice          d_splice;
   };
 }
