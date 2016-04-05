@@ -26,6 +26,9 @@ namespace Collision_NS
   {
     Vert( QEdge_NS::Edge i_edge ) : Prim( i_edge ) {}
     const Math_NS::Vector3D         point() const { return e().o()->point(); }
+
+    template <typename Func> void   forEachNb( Func ) const;
+
   };
 
 
@@ -38,6 +41,8 @@ namespace Collision_NS
 
     //  the first edge in a quad is major and the second, the symmetrical, is minor
     bool                            isMajor() const { return e().id() < e().sym().id(); }
+
+    template <typename Func> void   forEachNb( Func ) const;
   };
 
 
@@ -52,6 +57,8 @@ namespace Collision_NS
     Vert                            A() const { return e(); }
     Vert                            B() const { return e().lNext(); }
     Vert                            C() const { return e().lPrev(); }
+
+    template <typename Func> void   forEachNb( Func ) const;
   };
 
 
