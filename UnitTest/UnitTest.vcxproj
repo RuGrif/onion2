@@ -110,7 +110,7 @@
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Solve.cpp" />
-    <ClCompile Include="Sort.cpp">
+    <ClCompile Include="FaceCCW.cpp">
       <SubType>
       </SubType>
     </ClCompile>

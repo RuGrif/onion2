@@ -1,4 +1,4 @@
-#include "Sort.h"
+#include "FaceCCW.h"
 
 
 //  P = ( a * A + b * B + c * C ) / d , d = a + b + c
@@ -11,7 +11,7 @@
 
 namespace Tailor_NS
 {
-  using Point = BarycentricCCW::Point;
+  using Point = FaceCCW::Point;
 
 
   template <typename Int>
@@ -103,7 +103,7 @@ namespace Tailor_NS
 }
 
 
-bool Tailor_NS::BarycentricCCW::operator()( const Point& l, const Point& r ) const
+bool Tailor_NS::FaceCCW::operator()( const Point& l, const Point& r ) const
 {
   return makeAngle( l, o ) < makeAngle( r, o );
 }

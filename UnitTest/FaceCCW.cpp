@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include "../Tailor/Sort.h"
+#include "../Tailor/FaceCCW.h"
 #include <vector>
 
 
@@ -28,7 +28,7 @@ namespace UnitTest
 
   struct MyCCW
   {
-    Tailor_NS::BarycentricCCW ccw;
+    Tailor_NS::FaceCCW ccw;
     Pos                       ref;
     
     MyCCW( const Pos& o ) : ref{ o }, ccw{ makePoint( o ) } {}
@@ -39,18 +39,18 @@ namespace UnitTest
     }
   };
 
-	TEST_CLASS( Sort )
+	TEST_CLASS( FaceCCW )
 	{
 	public:
 
-		TEST_METHOD( Sort_NoOffset )
+		TEST_METHOD( NoOffset )
 		{
       MyCCW c{ { 0, 0 } };
 
       Assert::IsTrue( c.compare( { 2, 1 }, { 1, 2 } ) );
 		}
 
-    TEST_METHOD( Sort_ByAngle )
+    TEST_METHOD( ByAngle )
     {
       MyCCW c{ { 200, 200 } };
 
@@ -71,7 +71,7 @@ namespace UnitTest
       }
     }
 
-    TEST_METHOD( Sort_ByRadius )
+    TEST_METHOD( ByRadius )
     {
       MyCCW c{ { 200, 200 } };
 
@@ -81,14 +81,14 @@ namespace UnitTest
       Assert::IsTrue( c.compare( {-1,-1 }, {-2,-2 } ) );
     }
 
-    TEST_METHOD( Sort_Overturn )
+    TEST_METHOD( Overturn )
     {
       MyCCW c{ { 200, 200 } };
 
       Assert::IsFalse( c.compare( { 100,-1 }, { 100, 1 } ) );
     }
 
-    TEST_METHOD( Sort_Combined )
+    TEST_METHOD( Combined )
     {
       MyCCW cmp{ { 200, 200 } };
 

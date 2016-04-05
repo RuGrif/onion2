@@ -7,7 +7,7 @@
 namespace Tailor_NS
 {
   //  ccw points comparison with rotation center in point O
-  struct BarycentricCCW
+  struct FaceCCW
   {
     using Point = Collision_NS::BaryF;
 
