@@ -98,7 +98,7 @@
     <ClCompile Include="XPoint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FaceCCW.cpp">
+    <ClCompile Include="BaryCCW.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

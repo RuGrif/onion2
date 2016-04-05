@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include "../Tailor/FaceCCW.h"
+#include "../Tailor/BaryCCW.h"
 #include <vector>
 
 
@@ -28,7 +28,7 @@ namespace UnitTest
 
   struct MyCCW
   {
-    Tailor_NS::FaceCCW ccw;
+    Tailor_NS::BaryCCW ccw;
     Pos                       ref;
     
     MyCCW( const Pos& o ) : ref{ o }, ccw{ makePoint( o ) } {}
@@ -39,7 +39,7 @@ namespace UnitTest
     }
   };
 
-	TEST_CLASS( FaceCCW )
+	TEST_CLASS( BaryCCW )
 	{
 	public:
 

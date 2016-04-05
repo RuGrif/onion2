@@ -3,10 +3,22 @@
 
 #include "../QEdge/Edge.h"
 #include "../Collision/XPoint.h"
+#include <array>
+#include <map>
 
 
 namespace Tailor_NS
 {
+  //class XCache
+  //{
+  //  using XFace = Collision_NS::XFace;
+  //  using Edge = QEdge_NS::Edge;
+
+  //  std::array<std::pair<XFace, Edge>, 2> d_cache;
+  //  std::map<XFace, Edge>;
+  //};
+
+
   template <typename P0>
   class XSplice
   {

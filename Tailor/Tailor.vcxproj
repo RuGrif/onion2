@@ -150,10 +150,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="FaceCCW.h" />
+    <ClInclude Include="BaryCCW.h" />
     <ClInclude Include="Spider.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="XFaceCCW.h" />
     <ClInclude Include="XSplice.h" />
   </ItemGroup>
   <ItemGroup>
@@ -165,9 +166,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FaceCCW.cpp" />
+    <ClCompile Include="BaryCCW.cpp" />
     <ClCompile Include="Spider.cpp" />
     <ClCompile Include="Graph.cpp" />
+    <ClCompile Include="XFaceCCW.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Graph.inl" />

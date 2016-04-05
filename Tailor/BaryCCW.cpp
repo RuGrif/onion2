@@ -1,4 +1,4 @@
-#include "FaceCCW.h"
+#include "BaryCCW.h"
 
 
 //  P = ( a * A + b * B + c * C ) / d , d = a + b + c
@@ -11,7 +11,7 @@
 
 namespace Tailor_NS
 {
-  using BaryF = FaceCCW::BaryF;
+  using BaryF = BaryCCW::BaryF;
 
 
   template <typename Int>
@@ -103,7 +103,7 @@ namespace Tailor_NS
 }
 
 
-bool Tailor_NS::FaceCCW::operator()( const BaryF& l, const BaryF& r ) const
+bool Tailor_NS::BaryCCW::operator()( const BaryF& l, const BaryF& r ) const
 {
   return makeAngle( l, o ) < makeAngle( r, o );
 }
