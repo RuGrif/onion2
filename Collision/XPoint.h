@@ -24,8 +24,8 @@ namespace Collision_NS
   {
     XVert( Vert v ) : Vert{ v } {}
 
-    XEdge toXEdge( Edge );
-    XFace toXFace( Face );
+    XEdge toXEdge( Edge ) const;
+    XFace toXFace( Face ) const;
   };
 
 
@@ -33,7 +33,7 @@ namespace Collision_NS
   {
     XEdge( Edge e, Int u, Int v ) : Edge{ e }, BaryE{ u, v } {}
 
-    XFace toXFace( Face );
+    XFace toXFace( Face ) const;
   };
 
 

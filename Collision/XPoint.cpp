@@ -1,7 +1,7 @@
 #include "XPoint.h"
 
 
-Collision_NS::XEdge Collision_NS::XVert::toXEdge( Edge e )
+Collision_NS::XEdge Collision_NS::XVert::toXEdge( Edge e ) const
 {
   if( id( *this ) == id( e.U() ) ) return{ e, 1, 0 };
   if( id( *this ) == id( e.V() ) ) return{ e, 0, 1 };
@@ -9,7 +9,7 @@ Collision_NS::XEdge Collision_NS::XVert::toXEdge( Edge e )
 }
 
 
-Collision_NS::XFace Collision_NS::XVert::toXFace( Face f )
+Collision_NS::XFace Collision_NS::XVert::toXFace( Face f ) const
 {
   if( id( *this ) == id( f.A() ) ) return{ f, 1, 0, 0 };
   if( id( *this ) == id( f.B() ) ) return{ f, 0, 1, 0 };
@@ -18,7 +18,7 @@ Collision_NS::XFace Collision_NS::XVert::toXFace( Face f )
 }
 
 
-Collision_NS::XFace Collision_NS::XEdge::toXFace( Face f )
+Collision_NS::XFace Collision_NS::XEdge::toXFace( Face f ) const
 {
   if( id( *this ) == id( f.AB() ) ) return{ f, u, v, 0 };
   if( id( *this ) == id( f.BC() ) ) return{ f, 0, u, v };
