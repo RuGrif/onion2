@@ -27,10 +27,10 @@
     <ClInclude Include="XSplice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="XFaceCCW.h">
+    <ClInclude Include="BaryCCW.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BaryCCW.h">
+    <ClInclude Include="FaceCCW.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,10 +41,10 @@
     <ClCompile Include="Spider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="XFaceCCW.cpp">
+    <ClCompile Include="BaryCCW.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BaryCCW.cpp">
+    <ClCompile Include="FaceCCW.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

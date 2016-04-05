@@ -1,7 +1,7 @@
-#include "XFaceCCW.h"
+#include "FaceCCW.h"
 
 
-Tailor_NS::XFaceCCW::XFaceCCW( Collision_NS::Vert v )
+Tailor_NS::FaceCCW::FaceCCW( Collision_NS::Vert v )
 {
   QEdge_NS::Edge e = v.e();
   
@@ -13,20 +13,20 @@ Tailor_NS::XFaceCCW::XFaceCCW( Collision_NS::Vert v )
 }
 
 
-Tailor_NS::XFaceCCW::XFaceCCW( Collision_NS::Edge e )
+Tailor_NS::FaceCCW::FaceCCW( Collision_NS::Edge e )
 {
   d_order.emplace( id( Collision_NS::Face{ e.e() } ), 0 );
   d_order.emplace( id( Collision_NS::Face{ e.e().sym() } ), 1 );
 }
 
 
-Tailor_NS::XFaceCCW::XFaceCCW( Collision_NS::Face f )
+Tailor_NS::FaceCCW::FaceCCW( Collision_NS::Face f )
 {
   d_order.emplace( id( f ), 0 );
 }
 
 
-bool Tailor_NS::XFaceCCW::operator()( const Collision_NS::XFace& l, const Collision_NS::XFace& r ) const
+bool Tailor_NS::FaceCCW::operator()( const Collision_NS::Face& l, const Collision_NS::Face& r ) const
 {
   return d_order.at( id( l ) ) < d_order.at( id( r ) );
 }

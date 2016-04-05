@@ -154,7 +154,7 @@
     <ClInclude Include="Spider.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="Graph.h" />
-    <ClInclude Include="XFaceCCW.h" />
+    <ClInclude Include="FaceCCW.h" />
     <ClInclude Include="XSplice.h" />
   </ItemGroup>
   <ItemGroup>
@@ -169,7 +169,7 @@
     <ClCompile Include="BaryCCW.cpp" />
     <ClCompile Include="Spider.cpp" />
     <ClCompile Include="Graph.cpp" />
-    <ClCompile Include="XFaceCCW.cpp" />
+    <ClCompile Include="FaceCCW.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Graph.inl" />
