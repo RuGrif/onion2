@@ -22,5 +22,8 @@ void Tailor_NS::Graph::push( const A& a, const B& b, bool alter )
 template <typename A, typename B>
 void Tailor_NS::Graph::push( const A& a, const B& b )
 {
-  get<A, B>().emplace( std::piecewise_construct, std::forward_as_tuple( makeXPointID( a, b ) ), std::forward_as_tuple( a, b ) );
+  collection().get<A, B>().emplace(
+    std::piecewise_construct,
+    std::forward_as_tuple( makeXPointID( a, b ) ),
+    std::forward_as_tuple( a, b ) );
 }
