@@ -7,9 +7,14 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTest
-{		
+{
 	TEST_CLASS( ForEachNb )
 	{
+    using V = Collision_NS::Vert;
+    using E = Collision_NS::Edge;
+    using F = Collision_NS::Face;
+
+
     struct Counter
     {
       size_t nV = 0;
@@ -30,16 +35,21 @@ namespace UnitTest
 
       Collision_NS::Vert v{ t.a };
 
-      Counter counter;
+      Counter vertCounter, edgeCounter;
 
-      v.forEachNb( [&counter]( auto e, auto v )
+      v.forEachNb( [&]( auto e, auto v )
       {
-        counter( v );
+        edgeCounter( e );
+        vertCounter( v );
       } );
 
-      Assert::AreEqual( 4u, counter.nV );
-      Assert::AreEqual( 6u, counter.nE );
-      Assert::AreEqual( 3u, counter.nF );
+      Assert::AreEqual( 1u, edgeCounter.nV );
+      Assert::AreEqual( 6u, edgeCounter.nE );
+      Assert::AreEqual( 6u, edgeCounter.nF );
+
+      Assert::AreEqual( 4u, vertCounter.nV );
+      Assert::AreEqual( 6u, vertCounter.nE );
+      Assert::AreEqual( 3u, vertCounter.nF );
 		}
 
 
@@ -49,16 +59,21 @@ namespace UnitTest
 
       Collision_NS::Edge e{ t.a };
 
-      Counter counter;
+      Counter vertCounter, edgeCounter;
 
-      e.forEachNb( [&counter]( auto e, auto v )
+      e.forEachNb( [&]( auto e, auto v )
       {
-        counter( v );
+        edgeCounter( e );
+        vertCounter( v );
       } );
 
-      Assert::AreEqual( 4u, counter.nV );
-      Assert::AreEqual( 5u, counter.nE );
-      Assert::AreEqual( 2u, counter.nF );
+      Assert::AreEqual( 0u, edgeCounter.nV );
+      Assert::AreEqual( 3u, edgeCounter.nE );
+      Assert::AreEqual( 8u, edgeCounter.nF );
+
+      Assert::AreEqual( 4u, vertCounter.nV );
+      Assert::AreEqual( 5u, vertCounter.nE );
+      Assert::AreEqual( 2u, vertCounter.nF );
     }
 
 
@@ -68,16 +83,21 @@ namespace UnitTest
 
       Collision_NS::Face f{ t.a };
 
-      Counter counter;
+      Counter vertCounter, edgeCounter;
 
-      f.forEachNb( [&counter]( auto e, auto v )
+      f.forEachNb( [&]( auto e, auto v )
       {
-        counter( v );
+        edgeCounter( e );
+        vertCounter( v );
       } );
 
-      Assert::AreEqual( 3u, counter.nV );
-      Assert::AreEqual( 3u, counter.nE );
-      Assert::AreEqual( 1u, counter.nF );
+      Assert::AreEqual( 0u, edgeCounter.nV );
+      Assert::AreEqual( 0u, edgeCounter.nE );
+      Assert::AreEqual( 7u, edgeCounter.nF );
+
+      Assert::AreEqual( 3u, vertCounter.nV );
+      Assert::AreEqual( 3u, vertCounter.nE );
+      Assert::AreEqual( 1u, vertCounter.nF );
     }
 	};
 }
