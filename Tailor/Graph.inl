@@ -4,6 +4,61 @@
 #include "Graph.h"
 
 
+namespace Tailor_NS
+{
+  template <typename T> struct XType { using type = T; };
+
+  template <> struct XType<Collision_NS::Vert> { using type = Collision_NS::XVert; };
+  template <> struct XType<Collision_NS::Edge> { using type = Collision_NS::XEdge; };
+  template <> struct XType<Collision_NS::Face> { using type = Collision_NS::XFace; };
+
+
+  template <
+    typename A0, typename B0,
+    typename EA, typename EB,
+    typename A1, typename B1,
+    typename Func>
+  void call(
+    const Collection& c,
+    const Collision_NS::XPoint<A0, B0>& p0,
+    EA ea, EB eb,
+    A1 a1, B1 b1,
+    Func func )
+  {
+    if( Collision_NS::makeXPointID( a1, b1 ) != Collision_NS::makeXPointID( p0 ) )
+    {
+      if( auto p1 = c.xfind( a1, b1 ) )
+      {
+        func( p0, makeXEdge( ea, eb ), *p1 );
+      }
+    }
+  }
+
+
+  template <typename A0, typename B0, typename Func>
+  void call(
+    const Collection&,
+    const Collision_NS::XPoint<A0, B0>&,
+    Collision_NS::Face, Collision_NS::Face,
+    Collision_NS::Face, Collision_NS::Face,
+    Func )
+  {
+    //  intersection vertex can't have type { F, F }
+  }
+}
+
+
+template <typename A, typename B>
+auto Tailor_NS::Collection::xfind( A a, B b ) const
+{
+  auto& c = get<typename XType<A>::type, typename XType<B>::type>();
+
+  auto i = c.find( makeXPointID( a, b ) );
+  
+  return ( i == c.end() ) ? nullptr : &i->second;
+}
+
+
 template <typename Func>
 void Tailor_NS::Graph::forEachXPointType( Func func )
 {
@@ -45,7 +100,7 @@ void Tailor_NS::Graph::forEachXPoint( Func func ) const
 template <typename A, typename B, typename Func>
 void Tailor_NS::Graph::forEachXPoint( Func func ) const
 {
-  for( const auto& i : get<A, B>() )
+  for( const auto& i : collection().get<A, B>() )
   {
     func( i.second );
   }
@@ -84,34 +139,11 @@ void Tailor_NS::Graph::forEachXEdge( Func func ) const
 template <typename A0, typename B0, typename Func>
 void Tailor_NS::Graph::forEachXEdge( const Collision_NS::XPoint<A0, B0>& p0, Func func ) const
 {
-  //  for A1, B1
-  forEachXPointType( [this, func, &p0]( auto a1, auto b1 )
+  p0.first.forEachNb( [&]( auto ae, auto a1 )
   {
-    using A1 = decltype( a1 )::type;
-    using B1 = decltype( b1 )::type;
-
-    forEachXEdge<A0, B0, A1, B1>( p0, func );
+    p0.second.forEachNb( [&]( auto be, auto b1 )
+    {
+      call( collection(), p0, ae, be, a1, b1, func );
+    } );
   } );
-}
-
-
-template <typename A0, typename B0, typename A1, typename B1, typename Func>
-void Tailor_NS::Graph::forEachXEdge( const Collision_NS::XPoint<A0, B0>& p0, Func func ) const
-{
-  auto nbA = nb( p0.first );
-  auto nbB = nb( p0.second );
-
-  //  for p1
-  for( size_t ia : nbA ) for( size_t ib : nbB )
-  {
-    auto xid = Collision_NS::makeXPointID( ia, ib );
-    if( xid == makeXPointID( p0 ) ) continue;
-
-    auto i = get<A1, B1>().find( xid );
-    if( i == get<A1, B1>().end() ) continue;
-
-    const auto& p1 = i->second;
-
-    func( p0, p1 );
-  }
 }

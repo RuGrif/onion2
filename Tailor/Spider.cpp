@@ -39,7 +39,7 @@ void Tailor_NS::Spider::spin( const Graph& g )
     auto xidA0 = xidA( p0 );
     auto xidB0 = xidB( p0 );
 
-    g.forEachXEdge( p0, [&]( const auto&, const auto& p1 )
+    g.forEachXEdge( p0, [&]( const auto&, const auto& e, const auto& p1 )
     {
       auto xidA1 = xidA( p1 );
       auto xidB1 = xidB( p1 );

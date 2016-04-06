@@ -41,8 +41,8 @@ namespace UnitTest
       std::map<EID, size_t> d_posEdges;
       std::map<EID, size_t> d_negEdges;
 
-      template <typename A0, typename B0, typename A1, typename B1>
-      void operator() ( const Collision_NS::XPoint<A0, B0>& p0, const Collision_NS::XPoint<A1, B1>& p1 )
+      template <typename A0, typename B0, typename AE, typename BE, typename A1, typename B1>
+      void operator() ( const Collision_NS::XPoint<A0, B0>& p0, const Tailor_NS::XEdge<AE, BE>& e, const Collision_NS::XPoint<A1, B1>& p1 )
       {
         d_alpha( p0 );
         d_beta( p1 );
@@ -53,6 +53,23 @@ namespace UnitTest
     };
 
   public:
+
+    TEST_METHOD( Collection )
+    {
+      Test_NS::Tetrahedron t;
+      Tailor_NS::Collection c;
+
+      Assert::IsNull( c.xfind( Collision_NS::Vert{ t.a }, Collision_NS::Vert{ t.b } ) );
+      Assert::IsNull( c.xfind( Collision_NS::Vert{ t.a }, Collision_NS::Edge{ t.b } ) );
+      Assert::IsNull( c.xfind( Collision_NS::Vert{ t.a }, Collision_NS::Face{ t.b } ) );
+
+      Assert::IsNull( c.xfind( Collision_NS::Edge{ t.a }, Collision_NS::Vert{ t.b } ) );
+      Assert::IsNull( c.xfind( Collision_NS::Edge{ t.a }, Collision_NS::Edge{ t.b } ) );
+      Assert::IsNull( c.xfind( Collision_NS::Edge{ t.a }, Collision_NS::Face{ t.b } ) );
+
+      Assert::IsNull( c.xfind( Collision_NS::Face{ t.a }, Collision_NS::Vert{ t.b } ) );
+      Assert::IsNull( c.xfind( Collision_NS::Face{ t.a }, Collision_NS::Edge{ t.b } ) );
+    }
 
     TEST_METHOD( XEdgesCallback )
     {
