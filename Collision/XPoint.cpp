@@ -27,6 +27,13 @@ Collision_NS::XFace Collision_NS::XEdge::toXFace( Face f ) const
 }
 
 
+Collision_NS::XFace Collision_NS::XFace::toXFace( Face f ) const
+{
+  if( id( *this ) == id( f ) ) return *this;
+  throw BadUpcast( id( *this ), id( f ) );
+}
+
+
 const Math_NS::Vector3D Collision_NS::point( const XVert& v )
 {
   return v.point();

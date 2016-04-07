@@ -40,6 +40,8 @@ namespace Collision_NS
   struct XFace : public Face, public BaryF
   {
     XFace( Face f, Int a, Int b, Int c ) : Face{ f }, BaryF{ a, b, c } {}
+
+    XFace toXFace( Face ) const;
   };
 
 
