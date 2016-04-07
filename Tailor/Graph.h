@@ -32,8 +32,6 @@ namespace Tailor_NS
   {
     template <typename A, typename B> const XPointMap<A, B>& get() const { return *this; }
     template <typename A, typename B>       XPointMap<A, B>& get()       { return *this; }
-
-    template <typename A, typename B> auto xfind( A, B ) const;
   };
 
 

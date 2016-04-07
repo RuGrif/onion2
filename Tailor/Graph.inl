@@ -6,56 +6,46 @@
 
 namespace Tailor_NS
 {
-  template <typename T> struct XType { using type = T; };
+  template <typename T> struct XType;
 
   template <> struct XType<Collision_NS::Vert> { using type = Collision_NS::XVert; };
   template <> struct XType<Collision_NS::Edge> { using type = Collision_NS::XEdge; };
   template <> struct XType<Collision_NS::Face> { using type = Collision_NS::XFace; };
 
 
-  template <
-    typename A0, typename B0,
-    typename EA, typename EB,
-    typename A1, typename B1,
-    typename Func>
-  void call(
-    const Collection& c,
-    const Collision_NS::XPoint<A0, B0>& p0,
-    EA ea, EB eb,
-    A1 a1, B1 b1,
-    Func func )
+  namespace Graph_NS
   {
-    if( Collision_NS::makeXPointID( a1, b1 ) != Collision_NS::makeXPointID( p0 ) )
+    template <typename A, typename B>
+    using IsPossibleXPointType = std::conditional_t<
+      std::is_same<A, Collision_NS::Face>::value &&
+      std::is_same<B, Collision_NS::Face>::value
+      , std::false_type
+      , std::true_type>;
+
+
+    template <typename A0, typename B0, typename EA, typename EB, typename A1, typename B1, typename Func>
+    std::enable_if_t< IsPossibleXPointType<A1, B1>::value >
+    call( const Collection& c, const Collision_NS::XPoint<A0, B0>& p0, EA ea, EB eb, A1 a1, B1 b1, Func func )
     {
-      if( auto p1 = c.xfind( a1, b1 ) )
-      {
-        func( p0, makeXEdge( ea, eb ), *p1 );
-      }
+      Collision_NS::XPointID xid = Collision_NS::makeXPointID( a1, b1 );
+      if( xid == Collision_NS::makeXPointID( p0 ) ) return;
+
+      auto& map = c.get<typename XType<A1>::type, typename XType<B1>::type>();
+
+      auto i = map.find( xid );
+      if( i == map.end() ) return;
+
+      func( p0, makeXEdge( ea, eb ), i->second );
+    }
+
+
+    template <typename A0, typename B0, typename EA, typename EB, typename A1, typename B1, typename Func>
+    std::enable_if_t< !IsPossibleXPointType<A1, B1>::value >
+    call( const Collection&, const Collision_NS::XPoint<A0, B0>&, EA, EB, A1, B1, Func )
+    {
+      //  empty
     }
   }
-
-
-  template <typename A0, typename B0, typename Func>
-  void call(
-    const Collection&,
-    const Collision_NS::XPoint<A0, B0>&,
-    Collision_NS::Face, Collision_NS::Face,
-    Collision_NS::Face, Collision_NS::Face,
-    Func )
-  {
-    //  intersection vertex can't have type { F, F }
-  }
-}
-
-
-template <typename A, typename B>
-auto Tailor_NS::Collection::xfind( A a, B b ) const
-{
-  auto& c = get<typename XType<A>::type, typename XType<B>::type>();
-
-  auto i = c.find( makeXPointID( a, b ) );
-  
-  return ( i == c.end() ) ? nullptr : &i->second;
 }
 
 
@@ -143,7 +133,7 @@ void Tailor_NS::Graph::forEachXEdge( const Collision_NS::XPoint<A0, B0>& p0, Fun
   {
     p0.second.forEachNb( [&]( auto be, auto b1 )
     {
-      call( collection(), p0, ae, be, a1, b1, func );
+      Graph_NS::call( collection(), p0, ae, be, a1, b1, func );
     } );
   } );
 }

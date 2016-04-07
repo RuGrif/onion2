@@ -54,22 +54,22 @@ namespace UnitTest
 
   public:
 
-    TEST_METHOD( Collection )
-    {
-      Test_NS::Tetrahedron t;
-      Tailor_NS::Collection c;
+    //TEST_METHOD( Collection )
+    //{
+    //  Test_NS::Tetrahedron t;
+    //  Tailor_NS::Collection c;
 
-      Assert::IsNull( c.xfind( Collision_NS::Vert{ t.a }, Collision_NS::Vert{ t.b } ) );
-      Assert::IsNull( c.xfind( Collision_NS::Vert{ t.a }, Collision_NS::Edge{ t.b } ) );
-      Assert::IsNull( c.xfind( Collision_NS::Vert{ t.a }, Collision_NS::Face{ t.b } ) );
+    //  Assert::IsNull( c.xfind( Collision_NS::Vert{ t.a }, Collision_NS::Vert{ t.b } ) );
+    //  Assert::IsNull( c.xfind( Collision_NS::Vert{ t.a }, Collision_NS::Edge{ t.b } ) );
+    //  Assert::IsNull( c.xfind( Collision_NS::Vert{ t.a }, Collision_NS::Face{ t.b } ) );
 
-      Assert::IsNull( c.xfind( Collision_NS::Edge{ t.a }, Collision_NS::Vert{ t.b } ) );
-      Assert::IsNull( c.xfind( Collision_NS::Edge{ t.a }, Collision_NS::Edge{ t.b } ) );
-      Assert::IsNull( c.xfind( Collision_NS::Edge{ t.a }, Collision_NS::Face{ t.b } ) );
+    //  Assert::IsNull( c.xfind( Collision_NS::Edge{ t.a }, Collision_NS::Vert{ t.b } ) );
+    //  Assert::IsNull( c.xfind( Collision_NS::Edge{ t.a }, Collision_NS::Edge{ t.b } ) );
+    //  Assert::IsNull( c.xfind( Collision_NS::Edge{ t.a }, Collision_NS::Face{ t.b } ) );
 
-      Assert::IsNull( c.xfind( Collision_NS::Face{ t.a }, Collision_NS::Vert{ t.b } ) );
-      Assert::IsNull( c.xfind( Collision_NS::Face{ t.a }, Collision_NS::Edge{ t.b } ) );
-    }
+    //  Assert::IsNull( c.xfind( Collision_NS::Face{ t.a }, Collision_NS::Vert{ t.b } ) );
+    //  Assert::IsNull( c.xfind( Collision_NS::Face{ t.a }, Collision_NS::Edge{ t.b } ) );
+    //}
 
     TEST_METHOD( XEdgesCallback )
     {
