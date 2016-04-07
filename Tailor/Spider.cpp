@@ -25,11 +25,11 @@ void Tailor_NS::Spider::spin( const Graph& g )
 {
   g.forEachXPoint( [&]( const auto& p0 )
   {
-    using A = std::remove_cv_t<decltype( p0.first )>;
-    using B = std::remove_cv_t<decltype( p0.second )>;
+    //using A = std::remove_cv_t<decltype( p0.first )>;
+    //using B = std::remove_cv_t<decltype( p0.second )>;
 
-    XSplice<A> xA{ p0.first };
-    XSplice<B> xB{ p0.second };
+    XSplice xA{ p0.first };
+    XSplice xB{ p0.second };
     //Splice xA{ p0.first };
     //Splice xB{ p0.second };
 
@@ -47,8 +47,8 @@ void Tailor_NS::Spider::spin( const Graph& g )
       QEdge_NS::Edge eA = d_webA.getOrCreateEdge( xidA0, xidA1 );
       QEdge_NS::Edge eB = d_webB.getOrCreateEdge( xidB0, xidB1 );
 
-      xA( eA, p1.first, xidA1 );
-      xB( eB, p1.second, xidB1 );
+      xA( eA, e.first, p1.first, xidA1 );
+      xB( eB, e.second, p1.second, xidB1 );
 
       setXPointData( eA.sym(), p1.first, p1.second );
       setXPointData( eB.sym(), p1.second, p1.first );

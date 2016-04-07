@@ -18,7 +18,7 @@ namespace Tailor_NS
     using XVertID = Collision_NS::XPointID;
     using XEdgeID = std::pair<XVertID, XVertID>;
 
-    QEdge_NS::Edge getOrCreateEdge( const Collision_NS::XPointID& id0, const Collision_NS::XPointID& id1 );
+    QEdge_NS::Edge getOrCreateEdge( const Collision_NS::XPointID&, const Collision_NS::XPointID& );
 
     const QEdge_NS::Shape& web() const { return d_web; }
 

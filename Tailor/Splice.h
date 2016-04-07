@@ -41,7 +41,7 @@ namespace Tailor_NS
 
   private:
 
-    void insert( Edge, const XFace&, const XPointID& );
+    Edge insert( Edge, const XFace&, const XPointID& );
 
   private:
     

@@ -8,26 +8,25 @@
 
 namespace Tailor_NS
 {
-  template <typename P0>
   class XSplice
   {
   public:
 
-    XSplice( const P0& p0 ) : p0{ p0 } {}
+    using XID = Collision_NS::XPointID;
 
-    template <typename P1>
-    void operator() ( QEdge_NS::Edge e, const P1& p1, const Collision_NS::XPointID& xid1 )
+    template <typename P0>
+    XSplice( const P0& p0 ) : d_splice{ p0 } {}
+
+    template <typename E, typename P1>
+    void operator() ( QEdge_NS::Edge i_edge, E e, const P1& p1, const XID& xid1 )
     {
-      if( o ) e.splice0( o );
-      o = e;
+      d_splice( i_edge, p1.toXFace( e.e() ), xid1 );
     }
 
-    QEdge_NS::Edge edge() const { return o; }
+    QEdge_NS::Edge edge() const { return d_splice.edge(); }
 
   private:
 
-    const P0&       p0;
-    QEdge_NS::Edge  o;
-    //Splice          d_splice;
+    Splice d_splice;
   };
 }

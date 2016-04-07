@@ -5,25 +5,29 @@ void Tailor_NS::Splice::operator()( Edge e, const XFace& f, const XPointID& xid 
 {
   if( d_cached )
   {
-    if( d_cache.size() < 2 )
+    switch( d_cache.size() )
     {
+    case 1:
+      e.splice0( d_cache.front().second );
+      //  fall thru
+    case 0:
       d_cache.emplace_back( std::make_pair( f, xid ), e );
-    }
-    else
-    {
-      d_cached = false;
+      return; //  exit
+
+    default:
       d_edges.insert( d_cache.begin(), d_cache.end() );
-      insert( e, f, xid );
+      d_cached = false;
     }
   }
-  else
+  
+  if( !d_cached )
   {
-    insert( e, f, xid );
+    e.splice0( insert( e, f, xid ) );
   }
 }
 
 
-void Tailor_NS::Splice::insert( Edge e, const XFace& f, const XPointID& xid )
+QEdge_NS::Edge Tailor_NS::Splice::insert( Edge e, const XFace& f, const XPointID& xid )
 {
   //  find edge right after input one
   auto x = d_edges.emplace( std::piecewise_construct, std::forward_as_tuple( f, xid ), std::forward_as_tuple( e ) );
@@ -32,8 +36,7 @@ void Tailor_NS::Splice::insert( Edge e, const XFace& f, const XPointID& xid )
   //  take previous edge
   i = ( i == d_edges.begin() ) ? std::prev( d_edges.end() ) : std::prev( i );
 
-  //  splice
-  e.splice0( i->second );
+  return i->second;
 }
 
 
