@@ -4,7 +4,6 @@
 Tailor_NS::FaceCCW::FaceCCW( Collision_NS::Vert v )
 {
   QEdge_NS::Edge e = v.e();
-  
   do
   {
     d_order.emplace( id( Collision_NS::Face{ e } ), d_order.size() );
@@ -17,15 +16,14 @@ Tailor_NS::FaceCCW::FaceCCW( Collision_NS::Edge e )
 {
   for( QEdge_NS::Edge i : { e.e(), e.e().sym() } )
   {
-    Collision_NS::Face f{ i };
-    d_order.emplace( id( f ), d_order.size() );
+    d_order.emplace( id( Collision_NS::Face{ i } ), d_order.size() );
   }
 }
 
 
 Tailor_NS::FaceCCW::FaceCCW( Collision_NS::Face f )
 {
-  d_order.emplace( id( f ), 0 );
+  d_order.emplace( id( f ), d_order.size() );
 }
 
 

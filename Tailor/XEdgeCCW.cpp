@@ -4,7 +4,6 @@
 Tailor_NS::XEdgeCCW::XEdgeCCW( const Collision_NS::XVert& v ) : d_faceCCW{ v }
 {
   QEdge_NS::Edge e = v.e();
-
   do
   {
     Collision_NS::Face f{ e };

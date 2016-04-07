@@ -9,13 +9,14 @@
 
 namespace Tailor_NS
 {
+  //  counter clockwise intersection edge comparison predicate
   class XEdgeCCW
   {
   public:
 
-    XEdgeCCW( const Collision_NS::XVert& );
-    XEdgeCCW( const Collision_NS::XEdge& );
-    XEdgeCCW( const Collision_NS::XFace& );
+    XEdgeCCW( const Collision_NS::XVert& ); //  path intersection vertex on vertex as rotation center
+    XEdgeCCW( const Collision_NS::XEdge& ); //  path intersection vertex on edge as rotation center
+    XEdgeCCW( const Collision_NS::XFace& ); //  path intersection vertex on face as rotation center
 
     bool operator() ( const Collision_NS::XFace& l, const Collision_NS::XFace& r ) const;
 

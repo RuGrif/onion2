@@ -7,13 +7,16 @@
 
 namespace Tailor_NS
 {
+  //  counter clockwise face comparison predicate
+  //  face are around same vertex or edge
+  //  support degenerated case: rotation around the face
   class FaceCCW
   {
   public:
     
-    FaceCCW( Collision_NS::Vert );
-    FaceCCW( Collision_NS::Edge );
-    FaceCCW( Collision_NS::Face );
+    FaceCCW( Collision_NS::Vert );  //  path vertex as rotation center
+    FaceCCW( Collision_NS::Edge );  //  path edge as rotation center
+    FaceCCW( Collision_NS::Face );  //  oath face as degenerated rotation center
 
     bool operator()( const Collision_NS::Face&, const Collision_NS::Face& ) const;
 

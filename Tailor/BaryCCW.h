@@ -6,14 +6,17 @@
 
 namespace Tailor_NS
 {
-  //  ccw points comparison with rotation center in point O
+  //  counter clockwise points comparison predicate
+  //  points are on same face
+  //  points position are given in barycentric coordinates
+  //  rotation center is O
   class BaryCCW
   {
   public:
 
     using BaryF = Collision_NS::BaryF;
 
-    BaryCCW( const BaryF& o ) : o{ o } {}
+    BaryCCW( const BaryF& o ) : o{ o } {} //  pass rotation center
 
     bool operator()( const BaryF&, const BaryF& ) const;
 
