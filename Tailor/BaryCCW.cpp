@@ -20,8 +20,6 @@ namespace Tailor_NS
     Int n;  //  nominator
     Int d;  //  denominator
 
-    //Rational( Int&& n, Int&& d ) : n{ std::forward<Int>( n ) }, d{ std::forward<Int>( d ) } {}
-
     friend bool operator < ( const Rational& l, const Rational& r )
     {
       return Math_NS::prod( l.n, r.d ) < Math_NS::prod( r.n, l.d );
