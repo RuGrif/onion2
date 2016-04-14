@@ -7,13 +7,13 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 namespace UnitTest
 {
   TEST_CLASS( Solve )
-	{
+  {
     Math_NS::Vector3L rot( const Math_NS::Vector3L& v ) { return{ v.y, v.z, v.x }; }
 
-	public:
-		
+  public:
+    
     TEST_METHOD( Solve_ABC_Pos )
-		{
+    {
       Math_NS::Vector3L::Type a0 = 1, b0 = 2, c0 = 3;
       Math_NS::Vector3L A( 1, 2, 3 );
       Math_NS::Vector3L B( 0, 4, 5 );
@@ -39,7 +39,7 @@ namespace UnitTest
         Assert::AreEqual( b0 * div, b );
         Assert::AreEqual( c0 * div, c );
       }
-		}
+    }
 
 
     TEST_METHOD( Solve_ABC_Neg )
@@ -160,5 +160,5 @@ namespace UnitTest
       }
     }
 
-	};
+  };
 }

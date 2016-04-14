@@ -5,30 +5,30 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTest
-{		
+{    
   using namespace boost::multiprecision;
 
   using std::to_string;
 
-	TEST_CLASS( IntProd )
-	{
+  TEST_CLASS( IntProd )
+  {
     std::string tenpow( size_t pow )
     {
       std::string r( pow + 1, '0' );
       r[ 0 ] = '1';
       return r;
     }
-	public:
+  public:
 
-		TEST_METHOD( Boost_int256 )
-		{
+    TEST_METHOD( Boost_int256 )
+    {
       int256_t x = 10; //  expect int 256 ~ 10^77
 
       for( size_t p = 1; p < 78; ++p, x *= 10 )
       {
         Assert::AreEqual( tenpow( p ), x.str() );
       }
-		}
+    }
 
     TEST_METHOD( MathNS_Prod )
     {
@@ -76,5 +76,5 @@ namespace UnitTest
 
       Assert::AreEqual( tenpow( 70 + 71 + 72 + 73 + 74 + 75 + 76 + 77 ), x0.str() );
     }
-	};
+  };
 }

@@ -7,7 +7,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 namespace UnitTest
 {
   TEST_CLASS( Quad )
-	{
+  {
     template <typename T>
     void testEdgeTopology( QEdge_NS::Loop<T>& e )
     {
@@ -63,14 +63,14 @@ namespace UnitTest
       testEdgeData( e );
     }
 
-	public:
-		
-		TEST_METHOD( EdgeRings )
-		{
+  public:
+    
+    TEST_METHOD( EdgeRings )
+    {
       QEdge_NS::Quad q{ QEdge_NS::Quad::Edge{} };
 
       testEdgeTopology( q.edge() );
-		}
+    }
 
     TEST_METHOD( LoopRings )
     {
@@ -93,5 +93,5 @@ namespace UnitTest
       testFuse( q.edge().dual() );
     }
 
-	};
+  };
 }

@@ -5,10 +5,10 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTest
 {
-	TEST_CLASS( Iterator )
-	{
-	public:
-		
+  TEST_CLASS( Iterator )
+  {
+  public:
+    
     TEST_METHOD( CountEdges )
     {
       QEdge_NS::Shape s;
@@ -128,5 +128,5 @@ namespace UnitTest
       Assert::IsTrue( i == j );
     }
 
-	};
+  };
 }

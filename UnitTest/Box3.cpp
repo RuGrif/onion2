@@ -9,11 +9,11 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 namespace UnitTest
 {
   TEST_CLASS( Box3 )
-	{
-	public:
-		
+  {
+  public:
+    
     TEST_METHOD( Box )
-		{
+    {
       Math_NS::Box3I b;
 
       Assert::IsTrue( b.empty() );
@@ -43,7 +43,7 @@ namespace UnitTest
 
       Assert::AreEqual( Math_NS::Vector3I( -1, -2, -3 ), b.min );
       Assert::AreEqual( Math_NS::Vector3I( 3, 3, 3 ), b.max );
-		}
+    }
 
-	};
+  };
 }

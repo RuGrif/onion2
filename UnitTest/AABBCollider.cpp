@@ -12,8 +12,8 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTest
 {
-	TEST_CLASS( AABBCollider )
-	{
+  TEST_CLASS( AABBCollider )
+  {
     Math_NS::Vector3D distort( const Math_NS::Vector3D& i_point )
     {
       Math_NS::Vector3D ex{ -0.7, 0.2, -0.4 };
@@ -23,10 +23,10 @@ namespace UnitTest
       return{ i_point * ex, i_point * ey, i_point * ez };
     }
 
-	public:
-		
-		TEST_METHOD( AABBCollision )
-		{
+  public:
+    
+    TEST_METHOD( AABBCollision )
+    {
       QEdge_NS::Shape a = IO_NS::readSTL( L"box.stl" );
       QEdge_NS::Shape b = IO_NS::readSTL( L"box.stl" );
 
@@ -60,7 +60,7 @@ namespace UnitTest
       }
       
       Assert::IsTrue( iDirect.d_xpoints == iAABB.d_xpoints, L"intersection" );
-		}
+    }
 
-	};
+  };
 }

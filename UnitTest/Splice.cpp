@@ -5,8 +5,8 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTest
 {
-	TEST_CLASS( SpliceTopology )
-	{
+  TEST_CLASS( SpliceTopology )
+  {
     //  isolated edge
     void checkTopology( QEdge_NS::Edge e )
     {
@@ -45,7 +45,7 @@ namespace UnitTest
       Assert::AreSame( a.o(), b.o(), L"vert loop (o)" );
     }
 
-	public:
+  public:
 
     TEST_METHOD( Splice0 )
     {
@@ -124,7 +124,7 @@ namespace UnitTest
       }
     }
 
-	};
+  };
 
   TEST_CLASS( SpliceData )
   {

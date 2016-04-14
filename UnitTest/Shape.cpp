@@ -7,11 +7,11 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 namespace UnitTest
 {
   TEST_CLASS( Shape )
-	{
-	public:
-		
+  {
+  public:
+    
     TEST_METHOD( Triangle )
-		{
+    {
       QEdge_NS::Shape s;
 
       QEdge_NS::Edge a = s.makeEdge();
@@ -75,7 +75,7 @@ namespace UnitTest
       Assert::AreEqual<std::wstring>( L"B", b.o()->tag() );
       Assert::AreEqual<std::wstring>( L"C", c.o()->tag() );
       Assert::AreEqual<std::wstring>( L"in", a.l()->tag() );
-		}
+    }
 
 
     TEST_METHOD( Node )
@@ -148,5 +148,5 @@ namespace UnitTest
       Assert::AreEqual( 0u, s.size() );
       Assert::AreEqual( 1u, t.size() );
     }
-	};
+  };
 }

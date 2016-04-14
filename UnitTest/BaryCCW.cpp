@@ -8,7 +8,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 
 namespace UnitTest
-{		
+{    
   const int sum = 1000;
 
   struct Pos { int x, y; };
@@ -39,16 +39,16 @@ namespace UnitTest
     }
   };
 
-	TEST_CLASS( BaryCCW )
-	{
-	public:
+  TEST_CLASS( BaryCCW )
+  {
+  public:
 
-		TEST_METHOD( NoOffset )
-		{
+    TEST_METHOD( NoOffset )
+    {
       MyCCW c{ { 0, 0 } };
 
       Assert::IsTrue( c.compare( { 2, 1 }, { 1, 2 } ) );
-		}
+    }
 
     TEST_METHOD( ByAngle )
     {
@@ -100,5 +100,5 @@ namespace UnitTest
       Assert::IsTrue( cmp.compare( c, d ), L"c < d" );
       Assert::IsFalse( cmp.compare( d, a ), L"d > a" );
     }
-	};
+  };
 }

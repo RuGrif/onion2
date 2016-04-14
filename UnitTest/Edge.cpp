@@ -9,8 +9,8 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 namespace UnitTest
 {
   TEST_CLASS( Edge )
-	{
-	public:
+  {
+  public:
 
     TEST_METHOD( Label )
     {
@@ -63,9 +63,9 @@ namespace UnitTest
 
       Assert::IsTrue( c = e );
     }
-		
+    
     TEST_METHOD( EdgeNavigation )
-		{
+    {
       QEdge_NS::Shape s;
       QEdge_NS::Edge e = s.makeEdge();
 
@@ -83,7 +83,7 @@ namespace UnitTest
       Assert::AreEqual( e.sym(), e.lPrev(), L"lPrev" );
       Assert::AreEqual( e.sym(), e.rNext(), L"rNext" );
       Assert::AreEqual( e.sym(), e.rPrev(), L"rPrev" );
-		}
+    }
 
     TEST_METHOD( LoopNavigation )
     {
@@ -149,5 +149,5 @@ namespace UnitTest
 
       Assert::AreEqual( 5u, all.size() );
     }
-	};
+  };
 }

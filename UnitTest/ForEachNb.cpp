@@ -8,8 +8,8 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTest
 {
-	TEST_CLASS( ForEachNb )
-	{
+  TEST_CLASS( ForEachNb )
+  {
     using V = Collision_NS::Vert;
     using E = Collision_NS::Edge;
     using F = Collision_NS::Face;
@@ -27,10 +27,10 @@ namespace UnitTest
     };
 
 
-	public:
+  public:
 
-		TEST_METHOD( VertNb )
-		{
+    TEST_METHOD( VertNb )
+    {
       Test_NS::Tetrahedron t;
 
       Collision_NS::Vert v{ t.a };
@@ -50,7 +50,7 @@ namespace UnitTest
       Assert::AreEqual( 4u, vertCounter.nV );
       Assert::AreEqual( 6u, vertCounter.nE );
       Assert::AreEqual( 3u, vertCounter.nF );
-		}
+    }
 
 
     TEST_METHOD( EdgeNb )
@@ -99,5 +99,5 @@ namespace UnitTest
       Assert::AreEqual( 3u, vertCounter.nE );
       Assert::AreEqual( 1u, vertCounter.nF );
     }
-	};
+  };
 }

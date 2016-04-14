@@ -9,16 +9,16 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 namespace UnitTest
 {
   TEST_CLASS( Neighborhood )
-	{
+  {
     std::set<size_t> ids( const std::vector<size_t>& nb )
     {
       return{ nb.begin(), nb.end() };
     }
 
-	public:
-		
+  public:
+    
     TEST_METHOD( Face )
-		{
+    {
       QEdge_NS::Shape s;
 
       auto a = s.makeEdge();
@@ -46,7 +46,7 @@ namespace UnitTest
       Assert::AreEqual( 7u, expected.size() );
 
       Assert::IsTrue( expected == ids( nb( Collision_NS::Face( a ) ) ) );
-		}
+    }
 
 
     TEST_METHOD( Edge )
@@ -167,7 +167,7 @@ namespace UnitTest
       Assert::IsTrue( expected == actualID );
     }
 
-	};
+  };
 
 
   TEST_CLASS( PrimitiveId )

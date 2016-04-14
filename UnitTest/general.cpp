@@ -4,13 +4,13 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTest
-{		
+{    
   TEST_CLASS( General )
-	{
-	public:
-		
+  {
+  public:
+    
     TEST_METHOD( ref )
-		{
+    {
       int i = 42;
       int j = 13;
 
@@ -34,7 +34,7 @@ namespace UnitTest
 
       Assert::AreEqual( 42, i );
       Assert::AreEqual( 0, j );
-		}
+    }
 
     TEST_METHOD( unique_ptr )
     {
@@ -59,5 +59,5 @@ namespace UnitTest
       Assert::IsTrue( r );
       Assert::AreEqual( 6u, f );
     }
-	};
+  };
 }

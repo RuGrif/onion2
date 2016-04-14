@@ -9,7 +9,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 namespace UnitTest
 {
   TEST_CLASS( STL )
-	{
+  {
     Math_NS::Vector3D distort( const Math_NS::Vector3D& i_point )
     {
       Math_NS::Vector3D ex{ -0.7, 0.2, -0.4 };
@@ -19,7 +19,7 @@ namespace UnitTest
       return{ i_point * ex, i_point * ey, i_point * ez };
     }
 
-	public:
+  public:
 
     TEST_METHOD( ReadBig )
     {
@@ -35,10 +35,10 @@ namespace UnitTest
         Assert::IsTrue( e.d() );
       }
     }
-		
+    
 
-		TEST_METHOD( Read )
-		{
+    TEST_METHOD( Read )
+    {
       QEdge_NS::Shape s;
       
       s = IO_NS::readSTL( L"box.stl" );
@@ -50,7 +50,7 @@ namespace UnitTest
         Assert::IsTrue( e.o() );
         Assert::IsTrue( e.d() );
       }
-		}
+    }
 
 
     TEST_METHOD( AllNodes )
@@ -86,5 +86,5 @@ namespace UnitTest
       IO_NS::writeSTL( s, L"distort torus.stl" );
     }
 
-	};
+  };
 }

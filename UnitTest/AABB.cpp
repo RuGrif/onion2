@@ -11,7 +11,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 namespace UnitTest
 {
   TEST_CLASS( AABB )
-	{
+  {
     void allFaces( const Collision_NS::AABB& b, std::vector<Collision_NS::Face>& fs )
     {
       if( b.isFace() )
@@ -99,10 +99,10 @@ namespace UnitTest
       }
     }
 
-	public:
-		
+  public:
+    
     TEST_METHOD( AABBTree )
-		{
+    {
       QEdge_NS::Shape s = IO_NS::readSTL( L"box.stl" );
 
       Math_NS::Grid g{ box( s ) };
@@ -112,7 +112,7 @@ namespace UnitTest
       Collision_NS::AABB top = tree.top();
 
       check( top, g );
-		}
+    }
 
     TEST_METHOD( TreeQuality )
     {
@@ -134,5 +134,5 @@ namespace UnitTest
       //check( top, g );
     }
 
-	};
+  };
 }
