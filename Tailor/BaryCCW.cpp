@@ -1,4 +1,5 @@
 #include "BaryCCW.h"
+#include "../Math/Rational.h"
 
 
 //  P = ( a * A + b * B + c * C ) / d , d = a + b + c
@@ -12,26 +13,6 @@
 namespace Tailor_NS
 {
   using BaryF = BaryCCW::BaryF;
-
-
-  template <typename Int>
-  struct Rational
-  {
-    Int n;  //  nominator
-    Int d;  //  denominator
-
-    friend bool operator < ( const Rational& l, const Rational& r )
-    {
-      return Math_NS::prod( l.n, r.d ) < Math_NS::prod( r.n, l.d );
-    }
-  };
-
-
-  template <typename Int>
-  auto makeRational( Int&& n, Int&& d )
-  {
-    return Rational<Int>{ std::forward<Int>( n ), std::forward<Int>( d ) };
-  }
 
 
   template <typename Int>
@@ -63,8 +44,8 @@ namespace Tailor_NS
         return std::make_tuple
         (
           a.q,
-          makeRational( a.y, a.x ),
-          makeRational( sqr( a.x ) + sqr( a.y ), sqr( a.d ) )
+          Math_NS::makeRational( a.y, a.x ),
+          Math_NS::makeRational( sqr( a.x ) + sqr( a.y ), sqr( a.d ) )
         );
       };
 

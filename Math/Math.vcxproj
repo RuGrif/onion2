@@ -81,6 +81,7 @@
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Hash.h" />
     <ClInclude Include="IntType.h" />
+    <ClInclude Include="Rational.h" />
     <ClInclude Include="Solve.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>

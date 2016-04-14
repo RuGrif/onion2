@@ -116,6 +116,10 @@
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Quad.cpp" />
     <ClCompile Include="Edge.cpp" />
+    <ClCompile Include="Rational.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Solve.cpp" />
     <ClCompile Include="BaryCCW.cpp">
