@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "Graph.h"
+#include "TopoGraph.h"
 
 
 namespace Tailor_NS

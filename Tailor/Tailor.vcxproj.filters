@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Graph.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Data.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -42,11 +39,11 @@
     <ClInclude Include="Doppelganger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TopoGraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Graph.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Spider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -65,9 +62,12 @@
     <ClCompile Include="Doppelganger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TopoGraph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Graph.inl">
+    <None Include="TopoGraph.inl">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

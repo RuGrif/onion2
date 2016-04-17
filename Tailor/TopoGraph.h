@@ -106,4 +106,4 @@ namespace Tailor_NS
 }
 
 
-#include "Graph.inl"
+#include "TopoGraph.inl"

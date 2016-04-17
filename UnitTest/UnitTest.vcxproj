@@ -108,7 +108,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Graph.cpp" />
+    <ClCompile Include="TopoGraph.cpp" />
     <ClCompile Include="IntProd.cpp">
       <SubType>
       </SubType>

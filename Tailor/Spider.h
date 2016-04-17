@@ -3,7 +3,7 @@
 
 #include "../QEdge/Shape.h"
 #include "../Collision/XPoint.h"
-#include "Graph.h"
+#include "TopoGraph.h"
 #include "Data.h"
 #include <map>
 

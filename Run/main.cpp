@@ -1,7 +1,7 @@
 #include <iostream>
 #include "../Collision/PrimCollider.h"
 #include "../Collision/AABBCollider.h"
-#include "../Tailor/Graph.h"
+#include "../Tailor/TopoGraph.h"
 #include "../Tailor/Spider.h"
 #include "../Tailor/Doppelganger.h"
 #include "../IO/STL.h"

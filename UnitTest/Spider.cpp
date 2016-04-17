@@ -5,7 +5,7 @@
 #include "../QEdge/Utils.h"
 #include "../Collision/AABBCollider.h"
 #include "../Collision/PrimCollider.h"
-#include "../Tailor/Graph.h"
+#include "../Tailor/TopoGraph.h"
 #include "../Tailor/Spider.h"
 #include "../IO/Mesh.h"
 #include "Intersection.h"

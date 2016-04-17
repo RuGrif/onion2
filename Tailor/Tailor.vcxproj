@@ -154,7 +154,7 @@
     <ClInclude Include="Doppelganger.h" />
     <ClInclude Include="Spider.h" />
     <ClInclude Include="Data.h" />
-    <ClInclude Include="Graph.h" />
+    <ClInclude Include="TopoGraph.h" />
     <ClInclude Include="FaceCCW.h" />
     <ClInclude Include="Splice.h" />
     <ClInclude Include="XEdgeCCW.h" />
@@ -172,13 +172,13 @@
     <ClCompile Include="BaryCCW.cpp" />
     <ClCompile Include="Doppelganger.cpp" />
     <ClCompile Include="Spider.cpp" />
-    <ClCompile Include="Graph.cpp" />
+    <ClCompile Include="TopoGraph.cpp" />
     <ClCompile Include="FaceCCW.cpp" />
     <ClCompile Include="Splice.cpp" />
     <ClCompile Include="XEdgeCCW.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Graph.inl" />
+    <None Include="TopoGraph.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
