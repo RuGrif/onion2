@@ -8,6 +8,7 @@
 #include "../Collision/PrimCollider.h"
 #include "../Tailor/Graph.h"
 #include "../IO/Mesh.h"
+#include <array>
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -62,6 +63,31 @@ namespace UnitTest
 
       Assert::AreEqual<size_t>( 4 + 3, QEdge_NS::allVerts( a ).size() );
       Assert::AreEqual<size_t>( 4 + 2 * 3, QEdge_NS::allVerts( b ).size() );
+
+      for( QEdge_NS::Edge e : { y.a.oPrev(), y.b.oPrev(), y.c.oPrev() } )
+      {
+        std::array<Math_NS::Vector3D, 4> p;
+
+        for( size_t i = 0; i < p.size(); ++i )
+        {
+          p[ i ] = e.o()->point();
+          e = e.lNext();
+        }
+
+        //  sorting check
+        std::array<double, 4> d;
+
+        for( size_t i = 0; i < d.size(); ++i )
+        {
+          Math_NS::Vector3D v = p[ i ] - p[ 0 ];
+          d[ i ] = v * v;
+        }
+
+        for( size_t i = 0; i + 1 < d.size(); ++i )
+        {
+          Assert::IsTrue( d[ i ] < d[ i + 1 ] );
+        }
+      }
     }
   };
 }

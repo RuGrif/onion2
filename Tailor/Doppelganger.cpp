@@ -3,7 +3,7 @@
 
 void Tailor_NS::TwinEdge::insert( const Int& u, const Int& v, const Math_NS::Vector3D& p, const Collision_NS::XPointID& xid )
 {
-  Position pos = std::make_pair( Math_NS::makeRational( u, u + v ), xid );
+  Position pos = std::make_pair( Math_NS::makeRational( v, u + v ), xid );
 
   auto i = d_twin.emplace( pos, p );
 
