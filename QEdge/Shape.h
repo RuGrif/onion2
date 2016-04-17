@@ -19,10 +19,12 @@ namespace QEdge_NS
     Edge makeEdge();
     Edge makeLoop();
 
-    Iterator begin() const;
-    Iterator end() const;
+    Iterator begin() const; //  iterate edges
+    Iterator end() const;   //  iterate edges
 
-    size_t size() const;
+    size_t size() const;    //  return number of edges
+
+    //void cleanup();         //  remove edges with no vertex information
 
   public:
 

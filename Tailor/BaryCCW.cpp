@@ -6,8 +6,8 @@
 //  O = ( a'* A + b'* B + c'* C ) / d', d'= a'+ b'+ c'
 //  P - O = 
 //    ( a * d' + a' * d ) / ( d * d' ) * A +
-//    ( a * d' + a' * d ) / ( d * d' ) * B +
-//    ( a * d' + a' * d ) / ( d * d' ) * C
+//    ( b * d' + b' * d ) / ( d * d' ) * B +
+//    ( c * d' + c' * d ) / ( d * d' ) * C
 
 
 namespace Tailor_NS
@@ -67,7 +67,7 @@ namespace Tailor_NS
   }
 
 
-  auto makeAngle( const BaryF& p, const BaryF& o )
+  auto makeAngle( const BaryF& p, const BaryF& o, BaryF::Int( BaryF::*A ), BaryF::Int( BaryF::*B ) )
   {
     using Math_NS::prod;
 
@@ -75,14 +75,19 @@ namespace Tailor_NS
     auto od = o.a + o.b + o.c;
     
     return makeAngle(
-      prod( p.a, od ) - prod( o.a, pd ),
-      prod( p.b, od ) - prod( o.b, pd ),
+      prod( p.*A, od ) - prod( o.*A, pd ),
+      prod( p.*B, od ) - prod( o.*B, pd ),
       prod( od, pd ) );
   }
+
+
+  auto makeAngleA( const BaryF& p, const BaryF& o ) { return makeAngle( p, o, &BaryF::b, &BaryF::c ); }
+  auto makeAngleB( const BaryF& p, const BaryF& o ) { return makeAngle( p, o, &BaryF::c, &BaryF::a ); }
+  auto makeAngleC( const BaryF& p, const BaryF& o ) { return makeAngle( p, o, &BaryF::a, &BaryF::b ); }
 }
 
 
 bool Tailor_NS::BaryCCW::operator()( const BaryF& l, const BaryF& r ) const
 {
-  return makeAngle( l, o ) < makeAngle( r, o );
+  return makeAngleC( l, o ) < makeAngleC( r, o );
 }

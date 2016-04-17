@@ -23,6 +23,6 @@ namespace Tailor_NS
   private:
 
     FaceCCW                     d_faceCCW;
-    std::map<size_t, BaryCCW>   d_baryCCW;
+    std::map<size_t, BaryCCW>   d_baryCCW;  //  face id -> on-face sorter
   };
 }
