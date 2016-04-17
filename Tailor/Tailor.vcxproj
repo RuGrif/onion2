@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BaryCCW.h" />
+    <ClInclude Include="Doppelganger.h" />
     <ClInclude Include="Spider.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="Graph.h" />
@@ -169,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaryCCW.cpp" />
+    <ClCompile Include="Doppelganger.cpp" />
     <ClCompile Include="Spider.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="FaceCCW.cpp" />

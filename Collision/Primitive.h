@@ -67,6 +67,11 @@ namespace Collision_NS
   inline size_t id( Face f ) { return f.e().l().id(); }
 
 
+  template <typename A, typename B>
+  std::enable_if_t<std::is_base_of<Prim, A>::value && std::is_base_of<Prim, B>::value, bool>
+  operator < ( A a, B b ) { return id( a ) < id( b ); }
+
+
   std::vector<size_t> nb( Vert );
   std::vector<size_t> nb( Edge );
   std::vector<size_t> nb( Face );

@@ -103,6 +103,7 @@
     <ClCompile Include="AABBCollider.cpp" />
     <ClCompile Include="Box3.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Doppelganger.cpp" />
     <ClCompile Include="ForEachNb.cpp">
       <SubType>
       </SubType>
