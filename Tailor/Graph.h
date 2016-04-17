@@ -36,6 +36,10 @@ namespace Tailor_NS
 
 
   //  Intersection graph
+  //
+  //  forEachXPoint used to traverse all intersection points
+  //  Callback have to have ( XPoint<A, B> ) interface
+  //
   //  forEachXEdge used to traverse all intersection edges
   //  Callback have to have ( XPoint<A0, B0>, XEdge<EA, EB>, XPoint<A1, B1> ) interface
   class Graph : public Collision_NS::Intersection
