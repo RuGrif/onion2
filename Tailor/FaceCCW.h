@@ -16,7 +16,7 @@ namespace Tailor_NS
     
     FaceCCW( Collision_NS::Vert );  //  path vertex as rotation center
     FaceCCW( Collision_NS::Edge );  //  path edge as rotation center
-    FaceCCW( Collision_NS::Face );  //  oath face as degenerated rotation center
+    FaceCCW( Collision_NS::Face );  //  path face as degenerated rotation center
 
     bool operator()( const Collision_NS::Face&, const Collision_NS::Face& ) const;
 
