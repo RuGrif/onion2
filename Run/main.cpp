@@ -3,6 +3,7 @@
 #include "../Collision/AABBCollider.h"
 #include "../Tailor/Graph.h"
 #include "../Tailor/Spider.h"
+#include "../Tailor/Doppelganger.h"
 #include "../IO/STL.h"
 #include "../IO/Mesh.h"
 #include "../QEdge/Utils.h"
@@ -133,6 +134,26 @@ void wmain( int argc, wchar_t* argv[] )try
   IO_NS::writeMesh( spider.webA(), argv[ 3 ] );
 
   time.log();
+
+  /////////////////////////////////////////////////////////////////////////////
+
+  std::cout << "Trim edges ... ";
+
+  Tailor_NS::Doppelganger doppel;
+  graph.forEachXPoint( std::ref( doppel ) );
+  doppel.forgery( a, b );
+
+  time.log();
+
+  /////////////////////////////////////////////////////////////////////////////
+
+  std::cout << "Save trimmed models ... ";
+
+  IO_NS::writeMesh( a, L"shapeA.mesh" );
+  IO_NS::writeMesh( b, L"shapeB.mesh" );
+
+  time.log();
+
 
   /////////////////////////////////////////////////////////////////////////////
 
