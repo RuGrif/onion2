@@ -21,20 +21,20 @@ namespace UnitTest
 
   public:
 
-    TEST_METHOD( ReadBig )
-    {
-      QEdge_NS::Shape s;
+    //TEST_METHOD( ReadBig )
+    //{
+    //  QEdge_NS::Shape s;
 
-      s = IO_NS::readSTL( L"triple torus.stl" );
-      
-      Assert::AreNotEqual( 0u, s.size() );
+    //  s = IO_NS::readSTL( L"triple torus.stl" );
+    //  
+    //  Assert::AreNotEqual( 0u, s.size() );
 
-      for( QEdge_NS::Edge e : s )
-      {
-        Assert::IsTrue( e.o() );
-        Assert::IsTrue( e.d() );
-      }
-    }
+    //  for( QEdge_NS::Edge e : s )
+    //  {
+    //    Assert::IsTrue( e.o() );
+    //    Assert::IsTrue( e.d() );
+    //  }
+    //}
     
 
     TEST_METHOD( Read )
@@ -74,17 +74,17 @@ namespace UnitTest
     }
 
 
-    TEST_METHOD( WriteBig )
-    {
-      auto s = IO_NS::readSTL( L"triple torus.stl" );
-      
-      for( auto& v : QEdge_NS::allVerts( s ) )
-      {
-        v.o().reset<Test_NS::Point3D>( distort( v.o()->point() ) );
-      }
-      
-      IO_NS::writeSTL( s, L"distort torus.stl" );
-    }
+    //TEST_METHOD( WriteBig )
+    //{
+    //  auto s = IO_NS::readSTL( L"triple torus.stl" );
+    //  
+    //  for( auto& v : QEdge_NS::allVerts( s ) )
+    //  {
+    //    v.o().reset<Test_NS::Point3D>( distort( v.o()->point() ) );
+    //  }
+    //  
+    //  IO_NS::writeSTL( s, L"distort torus.stl" );
+    //}
 
   };
 }

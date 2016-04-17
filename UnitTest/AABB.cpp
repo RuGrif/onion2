@@ -114,25 +114,25 @@ namespace UnitTest
       check( top, g );
     }
 
-    TEST_METHOD( TreeQuality )
-    {
-      QEdge_NS::Shape s = IO_NS::readSTL( L"triple torus.stl" );
+    //TEST_METHOD( TreeQuality )
+    //{
+    //  QEdge_NS::Shape s = IO_NS::readSTL( L"triple torus.stl" );
 
-      Math_NS::Grid g{ box( s ) };
+    //  Math_NS::Grid g{ box( s ) };
 
-      Collision_NS::AABBTree tree( QEdge_NS::allFaces( s ), g );
+    //  Collision_NS::AABBTree tree( QEdge_NS::allFaces( s ), g );
 
-      Collision_NS::AABB top = tree.top();
+    //  Collision_NS::AABB top = tree.top();
 
-      auto b = top.box().volume();
-      auto l = top.left().box().volume();
-      auto r = top.right().box().volume();
+    //  auto b = top.box().volume();
+    //  auto l = top.left().box().volume();
+    //  auto r = top.right().box().volume();
 
-      Assert::IsTrue( 5 * l < 3 * b, L"left volume" );
-      Assert::IsTrue( 5 * r < 3 * b, L"right volume" );
+    //  Assert::IsTrue( 5 * l < 3 * b, L"left volume" );
+    //  Assert::IsTrue( 5 * r < 3 * b, L"right volume" );
 
-      //check( top, g );
-    }
+    //  //check( top, g );
+    //}
 
   };
 }
