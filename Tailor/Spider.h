@@ -33,7 +33,7 @@ namespace Tailor_NS
   {
   public:
 
-    void spin( const Graph& g );
+    void spin( const TopoGraph& g );
 
     const QEdge_NS::Shape& webA() const { return d_webA.web(); }
     const QEdge_NS::Shape& webB() const { return d_webB.web(); }

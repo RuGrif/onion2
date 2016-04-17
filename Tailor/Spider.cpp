@@ -21,7 +21,7 @@ QEdge_NS::Edge Tailor_NS::Web::getOrCreateEdge( const Collision_NS::XPointID& id
 }
 
 
-void Tailor_NS::Spider::spin( const Graph& g )
+void Tailor_NS::Spider::spin( const TopoGraph& g )
 {
   g.forEachXPoint( [&]( const auto& p0 )
   {

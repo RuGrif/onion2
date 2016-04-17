@@ -104,7 +104,7 @@ void wmain( int argc, wchar_t* argv[] )try
 
   /////////////////////////////////////////////////////////////////////////////
 
-  Tailor_NS::Graph graph;
+  Tailor_NS::TopoGraph graph;
   Collision_NS::PrimCollider primCollider{ std::ref( graph ), grid };
   Collision_NS::AABBCollider aabbCollider{ std::ref( primCollider ) };
 

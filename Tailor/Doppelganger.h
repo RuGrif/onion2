@@ -70,7 +70,7 @@ namespace Tailor_NS
   {
   public:
 
-    //  callback for Graph::forEachXPoint
+    //  callback for TopoGraph::forEachXPoint
     template <typename A, typename B>
     void operator() ( const Collision_NS::XPoint<A, B>& v )
     {

@@ -48,7 +48,7 @@ namespace UnitTest
       Collision_NS::AABBTree ta( fa, grid );
       Collision_NS::AABBTree tb( fb, grid );
 
-      Tailor_NS::Graph graph;
+      Tailor_NS::TopoGraph graph;
 
       Assert::IsTrue( Collision_NS::AABBCollider{ Collision_NS::PrimCollider{ std::ref( graph ), grid } }.collide( ta, tb ) );
 

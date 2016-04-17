@@ -50,7 +50,7 @@ namespace Tailor_NS
 
 
 template <typename Func>
-void Tailor_NS::Graph::forEachXPointType( Func func )
+void Tailor_NS::TopoGraph::forEachXPointType( Func func )
 {
   tagV v;
   tagE e;
@@ -74,7 +74,7 @@ void Tailor_NS::Graph::forEachXPointType( Func func )
 
 
 template <typename Func>
-void Tailor_NS::Graph::forEachXPoint( Func func ) const
+void Tailor_NS::TopoGraph::forEachXPoint( Func func ) const
 {
   //  for A, B
   forEachXPointType( [this, func]( auto a, auto b )
@@ -88,7 +88,7 @@ void Tailor_NS::Graph::forEachXPoint( Func func ) const
 
 
 template <typename A, typename B, typename Func>
-void Tailor_NS::Graph::forEachXPoint( Func func ) const
+void Tailor_NS::TopoGraph::forEachXPoint( Func func ) const
 {
   for( const auto& i : collection().get<A, B>() )
   {
@@ -102,7 +102,7 @@ void Tailor_NS::Graph::forEachXPoint( Func func ) const
 
 
 template <typename Func>
-void Tailor_NS::Graph::forEachXEdge( Func func ) const
+void Tailor_NS::TopoGraph::forEachXEdge( Func func ) const
 {
   //  for A0, B0
   forEachXPointType( [this, func]( auto a0, auto b0 )
@@ -116,7 +116,7 @@ void Tailor_NS::Graph::forEachXEdge( Func func ) const
 
 
 template <typename A0, typename B0, typename Func>
-void Tailor_NS::Graph::forEachXEdge( Func func ) const
+void Tailor_NS::TopoGraph::forEachXEdge( Func func ) const
 {
   //  for p0
   forEachXPoint<A0, B0>( [this, func]( const auto& p0 )
@@ -127,7 +127,7 @@ void Tailor_NS::Graph::forEachXEdge( Func func ) const
 
 
 template <typename A0, typename B0, typename Func>
-void Tailor_NS::Graph::forEachXEdge( const Collision_NS::XPoint<A0, B0>& p0, Func func ) const
+void Tailor_NS::TopoGraph::forEachXEdge( const Collision_NS::XPoint<A0, B0>& p0, Func func ) const
 {
   p0.first.forEachNb( [&]( auto ae, auto a1 )
   {
