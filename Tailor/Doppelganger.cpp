@@ -1,7 +1,13 @@
 #include "Doppelganger.h"
 
 
-void Tailor_NS::TwinEdge::insert( const Int& u, const Int& v, const Math_NS::Vector3D& p, const Collision_NS::XPointID& xid )
+Tailor_NS::GeoLocation Tailor_NS::getGeoLocation( Collision_NS::Edge& e )
+{
+  return getGeoLocation( Collision_NS::XVert( e.V() ), e, { id( e ), 0u } );
+}
+
+
+void Tailor_NS::TwinEdge::insert( const Int& u, const Int& v, const Math_NS::Vector3D& p, const XID& xid )
 {
   Position pos = std::make_pair( Math_NS::makeRational( v, u + v ), xid );
 
@@ -11,28 +17,23 @@ void Tailor_NS::TwinEdge::insert( const Int& u, const Int& v, const Math_NS::Vec
 }
 
 
-void Tailor_NS::TwinEdge::forgery( QEdge_NS::Shape& io_shape, QEdge_NS::Edge i_edge ) const
+Tailor_NS::TwinEdge::Map Tailor_NS::TwinEdge::forgery( QEdge_NS::Shape& io_shape ) const
 {
-  QEdge_NS::Edge prev = i_edge;
-  QEdge_NS::Edge dest = prev.sym().oPrev();
+  Map edges;
 
-  //  detach edge.d
-  dest.splice0( prev.sym() );
+  QEdge_NS::Edge prev = io_shape.makeEdge();
 
   //  construct a chain of new edges, starting from a given one
   for( const auto& t : d_twin )
   {
-    QEdge_NS::Edge next = io_shape.makeEdge();
-    
-    prev.sym().splice0( next );
-    
-    next.o().reset<TwinStar>( t.second );
-    
-    prev = next;
+    QEdge_NS::Edge next = io_shape.makeEdge();  //  new link in the chain
+    prev.sym().splice0( next );                 //  attach new link to last link in a chain
+    next.o().reset<TwinStar>( t.second );       //  set geometrical data
+    edges[ t.first.second ] = next;             //  memorize XID -> Edge function
+    prev = next;                                //  move to next iteration
   }
 
-  //  attach new edge.d back
-  dest.splice0( prev.sym() );
+  return edges;
 }
 
 
@@ -51,10 +52,16 @@ void Tailor_NS::TwinEdgeCollection::insert( const Collision_NS::XEdge& x, const 
 }
 
 
-void Tailor_NS::TwinEdgeCollection::forgery( QEdge_NS::Shape& io_shape ) const
+Tailor_NS::TwinEdgeCollection::Map Tailor_NS::TwinEdgeCollection::forgery( QEdge_NS::Shape& io_shape ) const
 {
+  Map edges;
+
   for( const auto& t : d_collection )
   {
-    t.second.forgery( io_shape, t.first.isMajor() ? t.first.e() : t.first.e().sym() );
+    edges.emplace(
+      t.first.isMajor() ? t.first.e() : t.first.e().sym(),
+      t.second.forgery( io_shape ) );
   }
+
+  return edges;
 }

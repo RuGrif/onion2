@@ -1,10 +1,11 @@
 #pragma once
 
 
-#include <map>
+#include "GeoLocation.h"
 #include "../Math/Rational.h"
 #include "../Collision/XPoint.h"
 #include "../QEdge/Shape.h"
+#include <map>
 
 
 //  Doppelganger is a mechanism to cut edge by intersection vertexes into sequence of new edges
@@ -13,6 +14,10 @@
 namespace Tailor_NS
 {
   class DuplicatedIntersectionPoint;
+
+
+  //  for doppelganger edge sorting
+  GeoLocation getGeoLocation( Collision_NS::Edge& );
 
 
   class TwinStar : public QEdge_NS::VertData
@@ -34,12 +39,14 @@ namespace Tailor_NS
   public:
 
     using Int = Math_NS::Vector3L::Type;
+    using XID = Collision_NS::XPointID;
+    using Map = std::map<XID, QEdge_NS::Edge>;
 
     //  add intersection point on twin edge
-    void insert( const Int& u, const Int& v, const Math_NS::Vector3D& p, const Collision_NS::XPointID& );
+    void insert( const Int& u, const Int& v, const Math_NS::Vector3D& p, const XID& );
 
-    //  replace real edge with a sequence of new edge
-    void forgery( QEdge_NS::Shape&, QEdge_NS::Edge ) const;
+    //  prepare a sequence of new edges to replace real edge
+    Map forgery( QEdge_NS::Shape& ) const;
 
   private:
 
@@ -53,12 +60,14 @@ namespace Tailor_NS
   {
   public:
 
+    using Map = std::map<Collision_NS::Edge, TwinEdge::Map>;
+
     void insert( const Collision_NS::XVert&, const Math_NS::Vector3D&, const Collision_NS::XPointID& ) {}  //  empty
     void insert( const Collision_NS::XEdge&, const Math_NS::Vector3D&, const Collision_NS::XPointID& );
     void insert( const Collision_NS::XFace&, const Math_NS::Vector3D&, const Collision_NS::XPointID& ) {}  //  empty
 
-    //  cut real edges
-    void forgery( QEdge_NS::Shape& ) const;
+    //  prepare a sequence of new edges to replace real edge
+    Map forgery( QEdge_NS::Shape& ) const;
 
   private:
 
@@ -79,11 +88,10 @@ namespace Tailor_NS
       d_doppelB.insert( v.second, p, Collision_NS::makeXPointID( v.second, v.first ) );
     }
 
-    //  cut real edges
-    void forgery( QEdge_NS::Shape& io_shapeA, QEdge_NS::Shape& io_shapeB ) const
+    //  prepare a sequence of new edges to replace real edge
+    auto forgery( QEdge_NS::Shape& io_shapeA, QEdge_NS::Shape& io_shapeB ) const
     {
-      d_doppelA.forgery( io_shapeA );
-      d_doppelB.forgery( io_shapeB );
+      return std::make_pair( d_doppelA.forgery( io_shapeA ), d_doppelB.forgery( io_shapeB ) );
     }
 
   private:
