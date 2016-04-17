@@ -21,9 +21,8 @@ namespace Math_NS
   }
 
 
-  template <typename Int>
-  auto makeRational( Int&& n, Int&& d )
-  {
-    return Rational<Int>{ std::forward<Int>( n ), std::forward<Int>( d ) };
-  }
+  template <typename Int> auto makeRational( const Int& n, const Int& d ) { return Rational<Int>{ n, d }; }
+
+
+  using RationalType = Rational<IntType>;
 }
