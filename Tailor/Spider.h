@@ -1,10 +1,9 @@
 #pragma once
 
 
+#include "TopoGraph.h"
 #include "../QEdge/Shape.h"
 #include "../Collision/XPoint.h"
-#include "TopoGraph.h"
-#include "Data.h"
 #include <map>
 
 

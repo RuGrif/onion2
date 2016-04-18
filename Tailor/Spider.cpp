@@ -20,12 +20,32 @@ QEdge_NS::Edge Tailor_NS::Web::getOrCreateEdge( const Collision_NS::XPointID& id
 }
 
 
+namespace Tailor_NS
+{
+  template <typename P>
+  void spliceOrDefer( XSplice&& io_splice, std::list<XSplice>& io_deferred )
+  {
+    io_deferred.emplace_back( std::move( io_splice ) );
+  }
+
+  template <>
+  void spliceOrDefer<Collision_NS::XFace>( XSplice&& io_splice, std::list<XSplice>& )
+  {
+    io_splice.splice();
+    io_splice.setVert();
+  }
+}
+
+
 void Tailor_NS::Spider::spin( const TopoGraph& g )
 {
   std::list<XSplice> deferredSplice;
 
   g.forEachXPoint( [&]( const auto& p0 )
   {
+    using A0 = std::decay_t<decltype( p0.first )>;
+    using B0 = std::decay_t<decltype( p0.second )>;
+
     XSplice xA;
     XSplice xB;
 
@@ -53,8 +73,8 @@ void Tailor_NS::Spider::spin( const TopoGraph& g )
       xB( eB, p0.second, fB, p1.second, Collision_NS::makeXSegmentID( e.second, e.first ) );
     } );
 
-    deferredSplice.emplace_back( std::move( xA ) );
-    deferredSplice.emplace_back( std::move( xB ) );
+    spliceOrDefer<A0>( std::move( xA ), deferredSplice );
+    spliceOrDefer<B0>( std::move( xB ), deferredSplice );
   } );
 
   std::for_each( deferredSplice.begin(), deferredSplice.end(), std::mem_fn( &XSplice::splice ) );
