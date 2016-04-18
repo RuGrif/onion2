@@ -76,5 +76,5 @@ Tailor_NS::Segment::Segment( Collision_NS::Vert v )
 
 bool Tailor_NS::operator < ( const Segment& l, const Segment& r )
 {
-  return std::tie( l.d_orbit, l.d_angle, l.d_sid ) < std::tie( l.d_orbit, l.d_angle, l.d_sid );
+  return std::tie( l.d_orbit, l.d_angle, l.d_sid ) < std::tie( r.d_orbit, r.d_angle, r.d_sid );
 }
