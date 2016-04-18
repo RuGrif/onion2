@@ -72,6 +72,14 @@ namespace QEdge_NS
     const Data* operator -> () const;   //  throw Null on empty node
     Data*       operator -> ();         //  throw Null on empty node
 
+  public:
+
+    Node() = default;
+    Node( Node&& ) = default;
+    Node& operator = ( Node&& ) = default;
+    Node( const Node& ) = delete;
+    Node* operator = ( const Node& ) = delete;
+
   protected:
 
     ~Node() = default;

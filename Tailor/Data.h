@@ -23,9 +23,16 @@ namespace Tailor_NS
 
 
   template <typename A, typename B>
+  void resetXPointData( QEdge_NS::Vert& v, const A& a, const B& b )
+  {
+    v.reset<XPointData<A, B>>( a, b );
+  }
+
+
+  template <typename A, typename B>
   void resetXPointData( QEdge_NS::Edge e, const A& a, const B& b )
   {
-    e.o().reset<XPointData<A, B>>( a, b );
+    resetXPointData( e.o(), a, b );
   }
 
 

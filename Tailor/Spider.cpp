@@ -1,5 +1,6 @@
 #include "Spider.h"
 #include "XSplice.h"
+#include <list>
 
 
 QEdge_NS::Edge Tailor_NS::Web::getOrCreateEdge( const Collision_NS::XPointID& id0, const Collision_NS::XPointID& id1 )
@@ -21,10 +22,15 @@ QEdge_NS::Edge Tailor_NS::Web::getOrCreateEdge( const Collision_NS::XPointID& id
 
 void Tailor_NS::Spider::spin( const TopoGraph& g )
 {
+  std::list<XSplice> deferredSplice;
+
   g.forEachXPoint( [&]( const auto& p0 )
   {
     XSplice xA;
     XSplice xB;
+
+    xA.saveVert( p0.first, p0.second );
+    xB.saveVert( p0.second, p0.first );
 
     auto xidA = []( const auto& p ) { return makeXPointID( p.first, p.second ); };
     auto xidB = []( const auto& p ) { return makeXPointID( p.second, p.first ); };
@@ -45,12 +51,12 @@ void Tailor_NS::Spider::spin( const TopoGraph& g )
 
       xA( eA, p0.first,  fA, p1.first,  Collision_NS::makeXSegmentID( e.first, e.second ) );
       xB( eB, p0.second, fB, p1.second, Collision_NS::makeXSegmentID( e.second, e.first ) );
-
-      setXPointData( eA.sym(), p1.first, p1.second );
-      setXPointData( eB.sym(), p1.second, p1.first );
     } );
 
-    xA.splice( p0.first, p0.second );
-    xB.splice( p0.second, p0.first );
+    deferredSplice.emplace_back( std::move( xA ) );
+    deferredSplice.emplace_back( std::move( xB ) );
   } );
+
+  std::for_each( deferredSplice.begin(), deferredSplice.end(), std::mem_fn( &XSplice::splice ) );
+  std::for_each( deferredSplice.begin(), deferredSplice.end(), std::mem_fn( &XSplice::setVert ) );
 }

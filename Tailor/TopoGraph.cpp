@@ -5,6 +5,20 @@ using Collision_NS::makeXPoint;
 using Collision_NS::makeXPointID;
 
 
+size_t Tailor_NS::Collection::size() const
+{
+  return
+    get<Collision_NS::XVert, Collision_NS::XVert>().size() +
+    get<Collision_NS::XVert, Collision_NS::XEdge>().size() +
+    get<Collision_NS::XVert, Collision_NS::XFace>().size() +
+    get<Collision_NS::XEdge, Collision_NS::XVert>().size() +
+    get<Collision_NS::XEdge, Collision_NS::XEdge>().size() +
+    get<Collision_NS::XEdge, Collision_NS::XFace>().size() +
+    get<Collision_NS::XFace, Collision_NS::XVert>().size() +
+    get<Collision_NS::XFace, Collision_NS::XEdge>().size();
+}
+
+
 void Tailor_NS::TopoGraph::add( const V& a, const V& b, bool alter ) { push( a, b, alter ); }
 void Tailor_NS::TopoGraph::add( const V& a, const E& b, bool alter ) { push( a, b, alter ); }
 void Tailor_NS::TopoGraph::add( const V& a, const F& b, bool alter ) { push( a, b, alter ); }
