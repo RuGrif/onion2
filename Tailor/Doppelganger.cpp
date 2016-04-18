@@ -1,12 +1,6 @@
 #include "Doppelganger.h"
 
 
-Tailor_NS::GeoLocation Tailor_NS::getGeoLocation( Collision_NS::Edge& e )
-{
-  return getGeoLocation( Collision_NS::XVert( e.V() ), e, { id( e ), 0u } );
-}
-
-
 void Tailor_NS::TwinEdge::insert( const Int& u, const Int& v, const Math_NS::Vector3D& p, const XID& xid )
 {
   Position pos = std::make_pair( Math_NS::makeRational( v, u + v ), xid );

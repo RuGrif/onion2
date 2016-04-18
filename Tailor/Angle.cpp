@@ -44,7 +44,7 @@ namespace
   //    ( a * d' + a' * d ) / ( d * d' ) * A +
   //    ( b * d' + b' * d ) / ( d * d' ) * B +
   //    ( c * d' + c' * d ) / ( d * d' ) * C
-  Angle makeAngle( const Dot& p, const Dot& o, Dot::Int( Dot::*A ), Dot::Int( Dot::*B ) )
+  Angle makeAngleX( const Dot& p, const Dot& o, Dot::Int( Dot::*A ), Dot::Int( Dot::*B ) )
   {
     using Math_NS::prod;
 
@@ -61,6 +61,6 @@ namespace
 }
 
 
-Tailor_NS::Angle Tailor_NS::makeAngleA( const Dot& p, const Dot& o ) { return makeAngle( p, o, &Dot::b, &Dot::c ); }
-Tailor_NS::Angle Tailor_NS::makeAngleB( const Dot& p, const Dot& o ) { return makeAngle( p, o, &Dot::c, &Dot::a ); }
-Tailor_NS::Angle Tailor_NS::makeAngleC( const Dot& p, const Dot& o ) { return makeAngle( p, o, &Dot::a, &Dot::b ); }
+Tailor_NS::Angle Tailor_NS::makeAngleA( const Dot& p, const Dot& o ) { return makeAngleX( p, o, &Dot::b, &Dot::c ); }
+Tailor_NS::Angle Tailor_NS::makeAngleB( const Dot& p, const Dot& o ) { return makeAngleX( p, o, &Dot::c, &Dot::a ); }
+Tailor_NS::Angle Tailor_NS::makeAngleC( const Dot& p, const Dot& o ) { return makeAngleX( p, o, &Dot::a, &Dot::b ); }

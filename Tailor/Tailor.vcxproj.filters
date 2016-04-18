@@ -13,43 +13,13 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="odd">
-      <UniqueIdentifier>{13c5fb01-9a12-47d9-8550-844ba3f96690}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BaryCCW.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FaceCCW.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Doppelganger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TopoGraph.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeoGraph.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeoLocation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeoLocationCCW.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="XSplice.h">
-      <Filter>odd</Filter>
-    </ClInclude>
-    <ClInclude Include="Splice.h">
-      <Filter>odd</Filter>
-    </ClInclude>
-    <ClInclude Include="Spider.h">
-      <Filter>odd</Filter>
-    </ClInclude>
-    <ClInclude Include="Data.h">
-      <Filter>odd</Filter>
     </ClInclude>
     <ClInclude Include="Angle.h">
       <Filter>Header Files</Filter>
@@ -57,39 +27,30 @@
     <ClInclude Include="Segment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Spider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XSplice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BaryCCW.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FaceCCW.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Doppelganger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TopoGraph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeoGraph.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeoLocation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeoLocationCCW.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Spider.cpp">
-      <Filter>odd</Filter>
-    </ClCompile>
-    <ClCompile Include="Splice.cpp">
-      <Filter>odd</Filter>
-    </ClCompile>
     <ClCompile Include="Angle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Segment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Spider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

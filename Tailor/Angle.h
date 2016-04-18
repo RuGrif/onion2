@@ -46,4 +46,8 @@ namespace Tailor_NS
   Angle makeAngleA( const Dot& p, const Dot& o );
   Angle makeAngleB( const Dot& p, const Dot& o );
   Angle makeAngleC( const Dot& p, const Dot& o );
+
+
+  //  default version
+  inline Angle makeAngle( const Dot& p, const Dot& o ) { return makeAngleC( p, o ); }
 }

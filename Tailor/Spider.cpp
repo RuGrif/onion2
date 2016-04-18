@@ -1,7 +1,5 @@
 #include "Spider.h"
 #include "XSplice.h"
-//#include "Splice.h"
-#include "Data.h"
 
 
 QEdge_NS::Edge Tailor_NS::Web::getOrCreateEdge( const Collision_NS::XPointID& id0, const Collision_NS::XPointID& id1 )
@@ -25,13 +23,8 @@ void Tailor_NS::Spider::spin( const TopoGraph& g )
 {
   g.forEachXPoint( [&]( const auto& p0 )
   {
-    //using A = std::remove_cv_t<decltype( p0.first )>;
-    //using B = std::remove_cv_t<decltype( p0.second )>;
-
-    XSplice xA{ p0.first };
-    XSplice xB{ p0.second };
-    //Splice xA{ p0.first };
-    //Splice xB{ p0.second };
+    XSplice xA;
+    XSplice xB;
 
     auto xidA = []( const auto& p ) { return makeXPointID( p.first, p.second ); };
     auto xidB = []( const auto& p ) { return makeXPointID( p.second, p.first ); };
@@ -47,14 +40,17 @@ void Tailor_NS::Spider::spin( const TopoGraph& g )
       QEdge_NS::Edge eA = d_webA.getOrCreateEdge( xidA0, xidA1 );
       QEdge_NS::Edge eB = d_webB.getOrCreateEdge( xidB0, xidB1 );
 
-      xA( eA, e.first, p1.first, xidA1 );
-      xB( eB, e.second, p1.second, xidB1 );
+      Collision_NS::Face fA{ e.first.e() };
+      Collision_NS::Face fB{ e.second.e() };
+
+      xA( eA, p0.first,  fA, p1.first,  Collision_NS::makeXSegmentID( e.first, e.second ) );
+      xB( eB, p0.second, fB, p1.second, Collision_NS::makeXSegmentID( e.second, e.first ) );
 
       setXPointData( eA.sym(), p1.first, p1.second );
       setXPointData( eB.sym(), p1.second, p1.first );
     } );
 
-    if( xA.edge() ) setXPointData( xA.edge(), p0.first, p0.second );
-    if( xB.edge() ) setXPointData( xB.edge(), p0.second, p0.first );
+    xA.splice( p0.first, p0.second );
+    xB.splice( p0.second, p0.first );
   } );
 }

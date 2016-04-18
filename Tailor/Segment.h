@@ -51,7 +51,7 @@ namespace Tailor_NS
   template <typename P0, typename P1>
   Segment::Segment( const P0& p0, Collision_NS::Face f, const P1& p1, const Collision_NS::XSegmentID& i_sid )
     : d_orbit{ orbit( f, p0 ) }
-    , d_angle{ makeAngleC( p1.toXFace( f ), p0.toXFace( f ) ) }
+    , d_angle{ makeAngle( p1.toXFace( f ), p0.toXFace( f ) ) }
     , d_sid{ i_sid }
   {
   }

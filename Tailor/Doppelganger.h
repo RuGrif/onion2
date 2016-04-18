@@ -1,7 +1,6 @@
 #pragma once
 
 
-#include "GeoLocation.h"
 #include "../Math/Rational.h"
 #include "../Collision/XPoint.h"
 #include "../QEdge/Shape.h"
@@ -14,10 +13,6 @@
 namespace Tailor_NS
 {
   class DuplicatedIntersectionPoint;
-
-
-  //  for doppelganger edge sorting
-  GeoLocation getGeoLocation( Collision_NS::Edge& );
 
 
   class TwinStar : public QEdge_NS::VertData

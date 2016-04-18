@@ -95,9 +95,6 @@
     <ClCompile Include="XPoint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BaryCCW.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="IntProd.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

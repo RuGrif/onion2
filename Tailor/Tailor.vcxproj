@@ -151,17 +151,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Angle.h" />
-    <ClInclude Include="BaryCCW.h" />
     <ClInclude Include="Doppelganger.h" />
-    <ClInclude Include="GeoGraph.h" />
-    <ClInclude Include="GeoLocation.h" />
     <ClInclude Include="Segment.h" />
     <ClInclude Include="Spider.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="TopoGraph.h" />
-    <ClInclude Include="FaceCCW.h" />
-    <ClInclude Include="Splice.h" />
-    <ClInclude Include="GeoLocationCCW.h" />
     <ClInclude Include="XSplice.h" />
   </ItemGroup>
   <ItemGroup>
@@ -174,16 +168,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Angle.cpp" />
-    <ClCompile Include="BaryCCW.cpp" />
     <ClCompile Include="Doppelganger.cpp" />
-    <ClCompile Include="GeoGraph.cpp" />
-    <ClCompile Include="GeoLocation.cpp" />
     <ClCompile Include="Segment.cpp" />
     <ClCompile Include="Spider.cpp" />
     <ClCompile Include="TopoGraph.cpp" />
-    <ClCompile Include="FaceCCW.cpp" />
-    <ClCompile Include="Splice.cpp" />
-    <ClCompile Include="GeoLocationCCW.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TopoGraph.inl" />
