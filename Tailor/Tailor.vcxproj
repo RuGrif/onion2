@@ -154,6 +154,7 @@
     <ClInclude Include="call_if.h" />
     <ClInclude Include="Doppelganger.h" />
     <ClInclude Include="DeferSplice.h" />
+    <ClInclude Include="checked_insert.h" />
     <ClInclude Include="Segment.h" />
     <ClInclude Include="Spider.h" />
     <ClInclude Include="Data.h" />
