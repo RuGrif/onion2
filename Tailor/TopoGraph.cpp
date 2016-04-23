@@ -1,4 +1,5 @@
 #include "TopoGraph.h"
+#include "checked_insert.h"
 
 
 using Collision_NS::makeXPoint;
@@ -36,8 +37,10 @@ void Tailor_NS::TopoGraph::push( const A& a, const B& b, bool alter )
 template <typename A, typename B>
 void Tailor_NS::TopoGraph::push( const A& a, const B& b )
 {
-  collection().get<A, B>().emplace(
+  auto i = collection().get<A, B>().emplace(
     std::piecewise_construct,
     std::forward_as_tuple( makeXPointID( a, b ) ),
     std::forward_as_tuple( a, b ) );
+
+  if( !i.second ) throw DuplicatedMapEntry{};
 }

@@ -1,9 +1,12 @@
 #include "XSplice.h"
+#include "checked_insert.h"
 
 
 void Tailor_NS::XSplice::operator()( QEdge_NS::Edge e, Segment&& s )
 {
-  d_edges.emplace( std::move( s ), e );
+  auto i = d_edges.emplace( std::move( s ), e );
+
+  if( !i.second ) throw DuplicatedMapEntry{};
 }
 
 

@@ -4,7 +4,9 @@
 
 void Tailor_NS::TwinEdge::insert( const Int& u, const Int& v, const XID& xid )
 {
-  d_verts.emplace( Math_NS::makeRational( v, u + v ), xid );
+  auto i = d_verts.emplace( Math_NS::makeRational( v, u + v ), xid );
+  
+  if( !i.second ) throw DuplicatedMapEntry{};
 }
 
 
@@ -48,16 +50,21 @@ void Tailor_NS::TwinEdge::substitute( QEdge_NS::Edge e ) const
 
 void Tailor_NS::TwinEdgeCollection::insert( const Collision_NS::XEdge& x, const Collision_NS::XPointID& xid )
 {
+  auto i = d_collection.find( id( x ) );
+
+  if( i == d_collection.end() )
+  {
+    Collision_NS::Edge m = x.isMajor() ? x : Collision_NS::Edge{ x.e().sym() };
+    i = d_collection.emplace( id( x ), std::make_pair( m, TwinEdge{} ) ).first;
+  }
+
   if( x.isMajor() )
   {
-    auto i = d_collection.emplace( id( x ), std::make_pair( x, TwinEdge{} ) );
-    i.first->second.second.insert( x.u, x.v, xid );
+    i->second.second.insert( x.u, x.v, xid );
   }
   else
   {
-    Collision_NS::Edge y{ x.e().sym() };
-    auto i = d_collection.emplace( id( x ), std::make_pair( y, TwinEdge{} ) );
-    i.first->second.second.insert( x.v, x.u, xid );
+    i->second.second.insert( x.v, x.u, xid );
   }
 }
 
