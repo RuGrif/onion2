@@ -1,10 +1,12 @@
 #pragma once
 
 
+#include "TopoGraph.h"
 #include "../Math/Rational.h"
 #include "../Collision/XPoint.h"
 #include "../QEdge/Shape.h"
 #include <map>
+#include <set>
 
 
 //  Doppelganger is a mechanism to cut edge by intersection vertexes into sequence of new edges
@@ -12,23 +14,6 @@
 
 namespace Tailor_NS
 {
-  class DuplicatedIntersectionPoint;
-
-
-  class TwinStar : public QEdge_NS::VertData
-  {
-  public:
-
-    TwinStar( const Math_NS::Vector3D& i_point ) : d_point{ i_point } {}
-
-    virtual const Math_NS::Vector3D point() const override { return d_point; }
-
-  private:
-
-    Math_NS::Vector3D d_point;
-  };
-
-
   class TwinEdge
   {
   public:
@@ -37,24 +22,31 @@ namespace Tailor_NS
     using XID = Collision_NS::XPointID;
     using Map = std::map<XID, QEdge_NS::Edge>;
 
+    using Position = std::pair<Math_NS::RationalType, XID>;
+    using EdgePair = std::pair<QEdge_NS::Edge, QEdge_NS::Edge>;
+
     //  add intersection point on twin edge
-    void insert( const Int& u, const Int& v, const Math_NS::Vector3D& p, const XID& );
+    void insert( const Int& u, const Int& v, const XID& );
 
     //  prepare a sequence of new edges to replace real edge
     void makeTwins( QEdge_NS::Shape& );
 
-    QEdge_NS::Edge prev( const XID& ) const;
-    QEdge_NS::Edge next( const XID& ) const;
+    //  a pair of previous and next edges for given intersection point
+    //  geometrically both edges have origin in intersection point
+    //  topologically both edges are not connected
+    EdgePair edgePair( const XID& ) const;
 
     //  replace edge with a sequence of twin edges
     void substitute( QEdge_NS::Edge ) const;
 
+  public:
+
+    const auto& collection() const { return d_edges; } //  for unit tests
+
   private:
 
-    using Position = std::pair<Math_NS::RationalType, Collision_NS::XPointID>;
-
-    std::map<Position, Math_NS::Vector3D>                     d_verts;
-    std::map<XID, std::pair<QEdge_NS::Edge, QEdge_NS::Edge>>  d_edges;
+    std::set<Position>        d_verts;
+    std::map<XID, EdgePair>   d_edges;
   };
 
 
@@ -62,18 +54,24 @@ namespace Tailor_NS
   {
   public:
 
-    void insert( const Collision_NS::XVert&, const Math_NS::Vector3D&, const Collision_NS::XPointID& ) {}  //  empty
-    void insert( const Collision_NS::XEdge&, const Math_NS::Vector3D&, const Collision_NS::XPointID& );
-    void insert( const Collision_NS::XFace&, const Math_NS::Vector3D&, const Collision_NS::XPointID& ) {}  //  empty
+    void insert( const Collision_NS::XVert&, const Collision_NS::XPointID& ) {}  //  empty
+    void insert( const Collision_NS::XEdge&, const Collision_NS::XPointID& );
+    void insert( const Collision_NS::XFace&, const Collision_NS::XPointID& ) {}  //  empty
 
     //  prepare a sequence of new edges to replace real edge
     void makeTwins( QEdge_NS::Shape& );
 
-    QEdge_NS::Edge prev( const Collision_NS::XPointID& ) const;
-    QEdge_NS::Edge next( const Collision_NS::XPointID& ) const;
+    using EdgePair = std::pair<QEdge_NS::Edge, QEdge_NS::Edge>;
+
+    //  get twin for given edge id
+    const TwinEdge& twinEdge( size_t ) const;
 
     //  replace edge with a sequence of twin edges
     void substitute() const;
+
+  public:
+
+    const auto& collection() const { return d_collection; } //  for unit tests
 
   private:
 
@@ -85,14 +83,8 @@ namespace Tailor_NS
   {
   public:
 
-    //  callback for TopoGraph::forEachXPoint
-    template <typename A, typename B>
-    void operator() ( const Collision_NS::XPoint<A, B>& v )
-    {
-      const Math_NS::Vector3D p = point( v );
-      d_doppelA.insert( v.first, p, Collision_NS::makeXPointID( v.first, v.second ) );
-      d_doppelB.insert( v.second, p, Collision_NS::makeXPointID( v.second, v.first ) );
-    }
+    //  add intersection points on edges
+    void shadow( const TopoGraph& g );
 
     //  prepare a sequence of new edges to replace real edge
     void makeTwins( QEdge_NS::Shape&, QEdge_NS::Shape& );
@@ -103,24 +95,13 @@ namespace Tailor_NS
     //  replace edge with a sequence of twin edges
     void substitute() const;
 
+    //  callback for TopoGraph::forEachXPoint
+    template <typename A, typename B>
+    void operator() ( const Collision_NS::XPoint<A, B>& );
+
   private:
 
     TwinEdgeCollection d_doppelA;
     TwinEdgeCollection d_doppelB;
-  };
-
-
-  class DuplicatedIntersectionPoint : public std::exception
-  {
-  public:
-
-    DuplicatedIntersectionPoint( const Collision_NS::XPointID& i_xid ) : d_xid{ i_xid } {}
-
-    virtual const char*             what()  const override  { return "duplicated intersection vertex on edge"; }
-    const Collision_NS::XPointID&   xid()   const           { return d_xid; }
-
-  private:
-
-    const Collision_NS::XPointID d_xid;
   };
 }

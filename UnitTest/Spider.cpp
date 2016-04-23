@@ -52,41 +52,15 @@ namespace UnitTest
       Assert::IsTrue( Collision_NS::AABBCollider{ Collision_NS::PrimCollider{ std::ref( graph ), grid } }.collide( ta, tb ) );
       Assert::IsTrue( Collision_NS::AABBCollider{ Collision_NS::PrimCollider{ std::ref( check ), grid } }.collide( ta, tb ) );
 
+      Tailor_NS::Doppelganger doppel;
       Tailor_NS::Spider spider;
 
-      spider.spin( graph );
+      doppel.shadow( graph );
+      doppel.makeTwins( a, b );
 
-      const QEdge_NS::Shape& wA = spider.webA();
-      const QEdge_NS::Shape& wB = spider.webB();
+      Tailor_NS::DeferSplice defer = spider.spin( graph, doppel );
 
-      IO_NS::writeMesh( wA, L"webA.mesh" );
-      IO_NS::writeMesh( wB, L"webB.mesh" );
-
-      using Set = std::multiset<std::tuple<double, double, double>>;
-
-      Set vA, vB, vC;
-
-      for( const auto& p : check.d_xpoints )
-      {
-        vC.emplace( p.second.x, p.second.y, p.second.z );
-      }
-      
-      for( QEdge_NS::Edge e : allVerts( wA ) )
-      {
-        Assert::IsTrue( e.o() );
-        Math_NS::Vector3D p = e.o()->point();
-        vA.emplace( p.x, p.y, p.z );
-      }
-
-      for( QEdge_NS::Edge e : allVerts( wB ) )
-      {
-        Assert::IsTrue( e.o() );
-        Math_NS::Vector3D p = e.o()->point();
-        vB.emplace( p.x, p.y, p.z );
-      }
-
-      Assert::IsTrue( vA == vC, L"verts A" );
-      Assert::IsTrue( vB == vC, L"verts B" );
+      Assert::AreEqual( 3u, defer.collection().size() );
     }
   };
 }

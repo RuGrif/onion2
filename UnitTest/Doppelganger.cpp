@@ -20,75 +20,58 @@ namespace UnitTest
   {
   public:
 
-    //TEST_METHOD( Forgery )
-    //{
-    //  Test_NS::Tetrahedron x, y;
+    TEST_METHOD( Twins )
+    {
+      Test_NS::Tetrahedron x, y;
 
-    //  x.a.o().reset<Test_NS::Point3D>( 1, 0, 0 );
-    //  x.b.o().reset<Test_NS::Point3D>( 0, 1, 0 );
-    //  x.c.o().reset<Test_NS::Point3D>( 0, 0, 1 );
-    //  x.A.o().reset<Test_NS::Point3D>( 0, 0, 0 );
+      x.a.o().reset<Test_NS::Point3D>( 1, 0, 0 );
+      x.b.o().reset<Test_NS::Point3D>( 0, 1, 0 );
+      x.c.o().reset<Test_NS::Point3D>( 0, 0, 1 );
+      x.A.o().reset<Test_NS::Point3D>( 0, 0, 0 );
 
-    //  y.a.o().reset<Test_NS::Point3D>( 4, 3, 3 );
-    //  y.b.o().reset<Test_NS::Point3D>( 3, 4, 3 );
-    //  y.c.o().reset<Test_NS::Point3D>( 3, 3, 4 );
-    //  y.A.o().reset<Test_NS::Point3D>( -1, -1, -1 );
+      y.a.o().reset<Test_NS::Point3D>( 4, 3, 3 );
+      y.b.o().reset<Test_NS::Point3D>( 3, 4, 3 );
+      y.c.o().reset<Test_NS::Point3D>( 3, 3, 4 );
+      y.A.o().reset<Test_NS::Point3D>( -1, -1, -1 );
 
-    //  QEdge_NS::Shape& a = x.d_shape;
-    //  QEdge_NS::Shape& b = y.d_shape;
+      QEdge_NS::Shape& a = x.d_shape;
+      QEdge_NS::Shape& b = y.d_shape;
 
-    //  IO_NS::writeMesh( a, L"Forgery.A.in.mesh" );
-    //  IO_NS::writeMesh( b, L"Forgery.B.in.mesh" );
+      IO_NS::writeMesh( a, L"Forgery.A.in.mesh" );
+      IO_NS::writeMesh( b, L"Forgery.B.in.mesh" );
 
-    //  auto fa = QEdge_NS::allFaces( a );
-    //  auto fb = QEdge_NS::allFaces( b );
+      auto fa = QEdge_NS::allFaces( a );
+      auto fb = QEdge_NS::allFaces( b );
 
-    //  Math_NS::Grid grid{ box( a ) + box( b ) };
+      Math_NS::Grid grid{ box( a ) + box( b ) };
 
-    //  Collision_NS::AABBTree ta( fa, grid );
-    //  Collision_NS::AABBTree tb( fb, grid );
+      Collision_NS::AABBTree ta( fa, grid );
+      Collision_NS::AABBTree tb( fb, grid );
 
-    //  Tailor_NS::TopoGraph graph;
+      Tailor_NS::TopoGraph graph;
 
-    //  Assert::IsTrue( Collision_NS::AABBCollider{ Collision_NS::PrimCollider{ std::ref( graph ), grid } }.collide( ta, tb ) );
+      Assert::IsTrue( Collision_NS::AABBCollider{ Collision_NS::PrimCollider{ std::ref( graph ), grid } }.collide( ta, tb ) );
 
-    //  Tailor_NS::Doppelganger doppel;
+      Tailor_NS::Doppelganger doppel;
 
-    //  graph.forEachXPoint( std::ref( doppel ) );
+      doppel.shadow( graph );
 
-    //  doppel.makeTwins( a, b );
-    //  doppel.substitute();
+      doppel.makeTwins( a, b );
+      
+      Assert::AreEqual( 3u, doppel.getDoppelgangerA().collection().size() );
+      Assert::AreEqual( 3u, doppel.getDoppelgangerB().collection().size() );
 
-    //  IO_NS::writeMesh( a, L"Forgery.A.out.mesh" );
-    //  IO_NS::writeMesh( b, L"Forgery.B.out.mesh" );
+      for( auto& i : doppel.getDoppelgangerA().collection() )
+      {
+        const Tailor_NS::TwinEdge& t = i.second.second;
+        Assert::AreEqual( 1u, t.collection().size() );
+      }
 
-    //  Assert::AreEqual<size_t>( 4 + 3, QEdge_NS::allVerts( a ).size() );
-    //  Assert::AreEqual<size_t>( 4 + 2 * 3, QEdge_NS::allVerts( b ).size() );
-
-    //  for( QEdge_NS::Edge e : { y.a.oPrev(), y.b.oPrev(), y.c.oPrev() } )
-    //  {
-    //    std::array<Math_NS::Vector3D, 4> p;
-
-    //    for( size_t i = 0; i < p.size(); ++i )
-    //    {
-    //      p[ i ] = e.o()->point();
-    //      e = e.lNext();
-    //    }
-
-    //    //  sorting check
-    //    std::array<double, 4> d;
-
-    //    for( size_t i = 0; i < d.size(); ++i )
-    //    {
-    //      Math_NS::Vector3D v = p[ i ] - p[ 0 ];
-    //      d[ i ] = v * v;
-    //    }
-
-    //    for( size_t i = 0; i + 1 < d.size(); ++i )
-    //    {
-    //      Assert::IsTrue( d[ i ] < d[ i + 1 ] );
-    //    }
-    //  }
-    //}
+      for( auto& i : doppel.getDoppelgangerB().collection() )
+      {
+        const Tailor_NS::TwinEdge& t = i.second.second;
+        Assert::AreEqual( 2u, t.collection().size() );
+      }
+    }
   };
 }

@@ -2,7 +2,7 @@
 
 
 #include "XSplice.h"
-#include <forward_list>
+#include <list>
 
 
 namespace Tailor_NS
@@ -17,12 +17,16 @@ namespace Tailor_NS
     
     void splice();
 
+  public:
+
+    const auto& collection() const { return d_splices; }  //  for unit tests
+
   private:
 
     void defer( XSplice&& );
 
   private:
 
-    std::forward_list<XSplice> d_splices;
+    std::list<XSplice> d_splices;
   };
 }

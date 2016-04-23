@@ -3,7 +3,7 @@
 
 void Tailor_NS::DeferSplice::defer( XSplice&& i_splice )
 {
-  d_splices.emplace_front( std::move( i_splice ) );
+  d_splices.emplace_back( std::move( i_splice ) );
 }
 
 

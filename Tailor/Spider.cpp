@@ -1,7 +1,5 @@
 #include "Spider.h"
 #include "XSplice.h"
-#include "DeferSplice.h"
-#include "Doppelganger.h"
 
 
 QEdge_NS::Edge Tailor_NS::Web::getOrCreateEdge( const Collision_NS::XPointID& id0, const Collision_NS::XPointID& id1 )
@@ -37,18 +35,17 @@ namespace Tailor_NS
     const TwinEdgeCollection& collection,
     const Collision_NS::XPointID& xid )
   {
-    xsplice( collection.prev( xid ), Segment( Collision_NS::Edge{ e.e().sym() } ) );
-    xsplice( collection.next( xid ), Segment( Collision_NS::Edge{ e.e() } ) );
+    auto edges = collection.twinEdge( id( e ) ).edgePair( xid );
+    xsplice( edges.first,  Segment( Collision_NS::Edge{ e.e().sym() } ) );
+    xsplice( edges.second, Segment( Collision_NS::Edge{ e.e() } ) );
   };
 }
 
 
-void Tailor_NS::Spider::spin( const TopoGraph& g )
+Tailor_NS::DeferSplice Tailor_NS::Spider::spin( const TopoGraph& g, const Doppelganger& twin )
 {
-  Doppelganger doppelganger;
-  g.forEachXPoint( std::ref( doppelganger ) );
-
   DeferSplice defer;
+
   g.forEachXPoint( [&]( const auto& p0 )
   {
     XSplice xA;
@@ -78,13 +75,12 @@ void Tailor_NS::Spider::spin( const TopoGraph& g )
       xB( eB, std::move( sB ) );
     } );
 
-    feed( xA, p0.first,  doppelganger.getDoppelgangerA(), xidA0 );
-    feed( xB, p0.second, doppelganger.getDoppelgangerB(), xidB0 );
+    feed( xA, p0.first,  twin.getDoppelgangerA(), xidA0 );
+    feed( xB, p0.second, twin.getDoppelgangerB(), xidB0 );
 
     defer.spliceOrDefer( std::move( xA ), p0.first );
     defer.spliceOrDefer( std::move( xB ), p0.second );
   } );
 
-  defer.splice();
-  doppelganger.substitute();
+  return defer;
 }
