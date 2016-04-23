@@ -1,6 +1,7 @@
 #include "Spider.h"
 #include "XSplice.h"
-#include <list>
+#include "DeferSplice.h"
+#include "Doppelganger.h"
 
 
 QEdge_NS::Edge Tailor_NS::Web::getOrCreateEdge( const Collision_NS::XPointID& id0, const Collision_NS::XPointID& id1 )
@@ -23,29 +24,33 @@ QEdge_NS::Edge Tailor_NS::Web::getOrCreateEdge( const Collision_NS::XPointID& id
 namespace Tailor_NS
 {
   template <typename P>
-  void spliceOrDefer( XSplice&& io_splice, std::list<XSplice>& io_deferred )
+  void feed( XSplice&, const P&, const TwinEdgeCollection&, const Collision_NS::XPointID& )
   {
-    io_deferred.emplace_back( std::move( io_splice ) );
+    //  empty
   }
 
+
   template <>
-  void spliceOrDefer<Collision_NS::XFace>( XSplice&& io_splice, std::list<XSplice>& )
+  void feed(
+    XSplice& xsplice,
+    const Collision_NS::XEdge& e,
+    const TwinEdgeCollection& collection,
+    const Collision_NS::XPointID& xid )
   {
-    io_splice.splice();
-    io_splice.setVert();
-  }
+    xsplice( collection.prev( xid ), Segment( Collision_NS::Edge{ e.e().sym() } ) );
+    xsplice( collection.next( xid ), Segment( Collision_NS::Edge{ e.e() } ) );
+  };
 }
 
 
 void Tailor_NS::Spider::spin( const TopoGraph& g )
 {
-  std::list<XSplice> deferredSplice;
+  Doppelganger doppelganger;
+  g.forEachXPoint( std::ref( doppelganger ) );
 
+  DeferSplice defer;
   g.forEachXPoint( [&]( const auto& p0 )
   {
-    using A0 = std::decay_t<decltype( p0.first )>;
-    using B0 = std::decay_t<decltype( p0.second )>;
-
     XSplice xA;
     XSplice xB;
 
@@ -66,17 +71,20 @@ void Tailor_NS::Spider::spin( const TopoGraph& g )
       QEdge_NS::Edge eA = d_webA.getOrCreateEdge( xidA0, xidA1 );
       QEdge_NS::Edge eB = d_webB.getOrCreateEdge( xidB0, xidB1 );
 
-      Collision_NS::Face fA{ e.first.e() };
-      Collision_NS::Face fB{ e.second.e() };
+      Segment sA{ p0.first,  e.first.e(),  p1.first,  Collision_NS::makeXSegmentID( e.first, e.second ) };
+      Segment sB{ p0.second, e.second.e(), p1.second, Collision_NS::makeXSegmentID( e.second, e.first ) };
 
-      xA( eA, p0.first,  fA, p1.first,  Collision_NS::makeXSegmentID( e.first, e.second ) );
-      xB( eB, p0.second, fB, p1.second, Collision_NS::makeXSegmentID( e.second, e.first ) );
+      xA( eA, std::move( sA ) );
+      xB( eB, std::move( sB ) );
     } );
 
-    spliceOrDefer<A0>( std::move( xA ), deferredSplice );
-    spliceOrDefer<B0>( std::move( xB ), deferredSplice );
+    feed( xA, p0.first,  doppelganger.getDoppelgangerA(), xidA0 );
+    feed( xB, p0.second, doppelganger.getDoppelgangerB(), xidB0 );
+
+    defer.spliceOrDefer( std::move( xA ), p0.first );
+    defer.spliceOrDefer( std::move( xB ), p0.second );
   } );
 
-  std::for_each( deferredSplice.begin(), deferredSplice.end(), std::mem_fn( &XSplice::splice ) );
-  std::for_each( deferredSplice.begin(), deferredSplice.end(), std::mem_fn( &XSplice::setVert ) );
+  defer.splice();
+  doppelganger.substitute();
 }

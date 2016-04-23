@@ -56,7 +56,8 @@ namespace UnitTest
 
       graph.forEachXPoint( std::ref( doppel ) );
 
-      doppel.forgery( a, b );
+      doppel.makeTwins( a, b );
+      doppel.substitute();
 
       IO_NS::writeMesh( a, L"Forgery.A.out.mesh" );
       IO_NS::writeMesh( b, L"Forgery.B.out.mesh" );

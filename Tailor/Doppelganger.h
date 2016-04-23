@@ -41,13 +41,20 @@ namespace Tailor_NS
     void insert( const Int& u, const Int& v, const Math_NS::Vector3D& p, const XID& );
 
     //  prepare a sequence of new edges to replace real edge
-    Map forgery( QEdge_NS::Shape& ) const;
+    void makeTwins( QEdge_NS::Shape& );
+
+    QEdge_NS::Edge prev( const XID& ) const;
+    QEdge_NS::Edge next( const XID& ) const;
+
+    //  replace edge with a sequence of twin edges
+    void substitute( QEdge_NS::Edge ) const;
 
   private:
 
     using Position = std::pair<Math_NS::RationalType, Collision_NS::XPointID>;
 
-    std::map<Position, Math_NS::Vector3D> d_twin;
+    std::map<Position, Math_NS::Vector3D>                     d_verts;
+    std::map<XID, std::pair<QEdge_NS::Edge, QEdge_NS::Edge>>  d_edges;
   };
 
 
@@ -55,18 +62,22 @@ namespace Tailor_NS
   {
   public:
 
-    using Map = std::map<Collision_NS::Edge, TwinEdge::Map>;
-
     void insert( const Collision_NS::XVert&, const Math_NS::Vector3D&, const Collision_NS::XPointID& ) {}  //  empty
     void insert( const Collision_NS::XEdge&, const Math_NS::Vector3D&, const Collision_NS::XPointID& );
     void insert( const Collision_NS::XFace&, const Math_NS::Vector3D&, const Collision_NS::XPointID& ) {}  //  empty
 
     //  prepare a sequence of new edges to replace real edge
-    Map forgery( QEdge_NS::Shape& ) const;
+    void makeTwins( QEdge_NS::Shape& );
+
+    QEdge_NS::Edge prev( const Collision_NS::XPointID& ) const;
+    QEdge_NS::Edge next( const Collision_NS::XPointID& ) const;
+
+    //  replace edge with a sequence of twin edges
+    void substitute() const;
 
   private:
 
-    std::map<Collision_NS::Edge, TwinEdge> d_collection;
+    std::map<size_t, std::pair<Collision_NS::Edge, TwinEdge>> d_collection;
   };
 
 
@@ -84,10 +95,13 @@ namespace Tailor_NS
     }
 
     //  prepare a sequence of new edges to replace real edge
-    auto forgery( QEdge_NS::Shape& io_shapeA, QEdge_NS::Shape& io_shapeB ) const
-    {
-      return std::make_pair( d_doppelA.forgery( io_shapeA ), d_doppelB.forgery( io_shapeB ) );
-    }
+    void makeTwins( QEdge_NS::Shape&, QEdge_NS::Shape& );
+
+    const TwinEdgeCollection& getDoppelgangerA() const { return d_doppelA; }
+    const TwinEdgeCollection& getDoppelgangerB() const { return d_doppelB; }
+
+    //  replace edge with a sequence of twin edges
+    void substitute() const;
 
   private:
 

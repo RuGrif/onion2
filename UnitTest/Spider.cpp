@@ -59,6 +59,9 @@ namespace UnitTest
       const QEdge_NS::Shape& wA = spider.webA();
       const QEdge_NS::Shape& wB = spider.webB();
 
+      IO_NS::writeMesh( wA, L"webA.mesh" );
+      IO_NS::writeMesh( wB, L"webB.mesh" );
+
       using Set = std::multiset<std::tuple<double, double, double>>;
 
       Set vA, vB, vC;
@@ -84,9 +87,6 @@ namespace UnitTest
 
       Assert::IsTrue( vA == vC, L"verts A" );
       Assert::IsTrue( vB == vC, L"verts B" );
-
-      IO_NS::writeMesh( wA, L"webA.mesh" );
-      IO_NS::writeMesh( wB, L"webB.mesh" );
     }
   };
 }

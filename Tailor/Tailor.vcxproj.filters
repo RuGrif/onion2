@@ -36,6 +36,12 @@
     <ClInclude Include="Data.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DeferSplice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="call_if.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Doppelganger.cpp">
@@ -51,6 +57,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Spider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DeferSplice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XSplice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

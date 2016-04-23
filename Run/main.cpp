@@ -141,7 +141,8 @@ void wmain( int argc, wchar_t* argv[] )try
 
   Tailor_NS::Doppelganger doppel;
   graph.forEachXPoint( std::ref( doppel ) );
-  doppel.forgery( a, b );
+  doppel.makeTwins( a, b );
+  doppel.substitute();
 
   time.log();
 

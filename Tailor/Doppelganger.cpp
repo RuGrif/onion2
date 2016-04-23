@@ -5,57 +5,111 @@ void Tailor_NS::TwinEdge::insert( const Int& u, const Int& v, const Math_NS::Vec
 {
   Position pos = std::make_pair( Math_NS::makeRational( v, u + v ), xid );
 
-  auto i = d_twin.emplace( pos, p );
+  auto i = d_verts.emplace( pos, p );
 
   if( !i.second ) throw DuplicatedIntersectionPoint{ xid };
 }
 
 
-Tailor_NS::TwinEdge::Map Tailor_NS::TwinEdge::forgery( QEdge_NS::Shape& io_shape ) const
+void Tailor_NS::TwinEdge::makeTwins( QEdge_NS::Shape& io_shape )
 {
-  Map edges;
-
   QEdge_NS::Edge prev = io_shape.makeEdge();
 
-  //  construct a chain of new edges, starting from a given one
-  for( const auto& t : d_twin )
+  for( const auto& t : d_verts )
   {
-    QEdge_NS::Edge next = io_shape.makeEdge();  //  new link in the chain
-    prev.sym().splice0( next );                 //  attach new link to last link in a chain
-    next.o().reset<TwinStar>( t.second );       //  set geometrical data
-    edges[ t.first.second ] = next;             //  memorize XID -> Edge function
-    prev = next;                                //  move to next iteration
+    QEdge_NS::Edge next = io_shape.makeEdge();
+    d_edges[ t.first.second ] = std::make_pair( prev.sym(), next );
+    prev = next;
   }
+}
 
-  return edges;
+
+QEdge_NS::Edge Tailor_NS::TwinEdge::prev( const XID& i_xid ) const
+{
+  return d_edges.at( i_xid ).first;
+}
+
+
+QEdge_NS::Edge Tailor_NS::TwinEdge::next( const XID& i_xid ) const
+{
+  return d_edges.at( i_xid ).second;
+}
+
+
+void Tailor_NS::TwinEdge::substitute( QEdge_NS::Edge e ) const
+{
+  auto sub = []( QEdge_NS::Edge who, QEdge_NS::Edge with )
+  {
+    QEdge_NS::Edge prev = who.oPrev();
+    prev.splice0( who );
+    prev.splice0( with );
+  };
+
+  if( d_verts.empty() ) throw std::logic_error( __FUNCTION__ );
+
+  XID first = d_verts.begin()->first.second;
+  XID last = d_verts.rbegin()->first.second;
+
+  sub( e, prev( first ).sym() );
+  sub( e.sym(), next( last ).sym() );
 }
 
 
 void Tailor_NS::TwinEdgeCollection::insert( const Collision_NS::XEdge& x, const Math_NS::Vector3D& p, const Collision_NS::XPointID& xid )
 {
-  TwinEdge& twin = d_collection[ x ];
-  
   if( x.isMajor() )
   {
-    twin.insert( x.u, x.v, p, xid );
+    auto i = d_collection.emplace( id( x ), std::make_pair( x, TwinEdge{} ) );
+    i.first->second.second.insert( x.u, x.v, p, xid );
   }
   else
   {
-    twin.insert( x.v, x.u, p, xid );
+    Collision_NS::Edge y{ x.e().sym() };
+    auto i = d_collection.emplace( id( x ), std::make_pair( y, TwinEdge{} ) );
+    i.first->second.second.insert( x.v, x.u, p, xid );
   }
 }
 
 
-Tailor_NS::TwinEdgeCollection::Map Tailor_NS::TwinEdgeCollection::forgery( QEdge_NS::Shape& io_shape ) const
+void Tailor_NS::TwinEdgeCollection::makeTwins( QEdge_NS::Shape& io_shape )
 {
-  Map edges;
-
-  for( const auto& t : d_collection )
+  for( auto& t : d_collection )
   {
-    edges.emplace(
-      t.first.isMajor() ? t.first.e() : t.first.e().sym(),
-      t.second.forgery( io_shape ) );
+    t.second.second.makeTwins( io_shape );
   }
+}
 
-  return edges;
+
+QEdge_NS::Edge Tailor_NS::TwinEdgeCollection::prev( const Collision_NS::XPointID& i_xid ) const
+{
+  return d_collection.at( i_xid.first ).second.prev( i_xid );
+}
+
+
+QEdge_NS::Edge Tailor_NS::TwinEdgeCollection::next( const Collision_NS::XPointID& i_xid ) const
+{
+  return d_collection.at( i_xid.first ).second.next( i_xid );
+}
+
+
+void Tailor_NS::TwinEdgeCollection::substitute() const
+{
+  for( auto& t : d_collection )
+  {
+    t.second.second.substitute( t.second.first.e() );
+  }
+}
+
+
+void Tailor_NS::Doppelganger::makeTwins( QEdge_NS::Shape& a, QEdge_NS::Shape& b )
+{
+  d_doppelA.makeTwins( a );
+  d_doppelB.makeTwins( b );
+}
+
+
+void Tailor_NS::Doppelganger::substitute() const
+{
+  d_doppelA.substitute();
+  d_doppelB.substitute();
 }

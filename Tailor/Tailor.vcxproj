@@ -151,7 +151,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Angle.h" />
+    <ClInclude Include="call_if.h" />
     <ClInclude Include="Doppelganger.h" />
+    <ClInclude Include="DeferSplice.h" />
     <ClInclude Include="Segment.h" />
     <ClInclude Include="Spider.h" />
     <ClInclude Include="Data.h" />
@@ -168,10 +170,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Angle.cpp" />
+    <ClCompile Include="DeferSplice.cpp" />
     <ClCompile Include="Doppelganger.cpp" />
     <ClCompile Include="Segment.cpp" />
     <ClCompile Include="Spider.cpp" />
     <ClCompile Include="TopoGraph.cpp" />
+    <ClCompile Include="XSplice.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TopoGraph.inl" />

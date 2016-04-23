@@ -4,6 +4,7 @@
 #include "Segment.h"
 #include "Data.h"
 #include "../Collision/XPoint.h"
+#include <map>
 
 
 namespace Tailor_NS
@@ -12,11 +13,7 @@ namespace Tailor_NS
   {
   public:
 
-    template <typename P0, typename P1>
-    void operator() ( QEdge_NS::Edge e, const P0& p0, Collision_NS::Face f, const P1& p1, const Collision_NS::XSegmentID& sid )
-    {
-      d_edges.emplace( std::piecewise_construct, std::forward_as_tuple( p0, f, p1, sid ), std::forward_as_tuple( e ) );
-    }
+    void operator() ( QEdge_NS::Edge e, Segment&& s );
 
     template <typename A, typename B>
     void saveVert( const A& a, const B& b )
@@ -24,24 +21,9 @@ namespace Tailor_NS
       resetXPointData( d_vert, a, b );
     }
 
-    void splice()
-    {
-      if( !d_edges.empty() )
-      {
-        for( auto i = std::next( d_edges.begin() ); i != d_edges.end(); ++i )
-        {
-          i->second.splice0( std::prev( i )->second );
-        }
-      }
-    }
+    void splice();
 
-    void setVert()
-    {
-      if( !d_edges.empty() )
-      {
-        d_edges.begin()->second.o().swap( d_vert );
-      }
-    }
+    void setVert();
 
   private:
 
