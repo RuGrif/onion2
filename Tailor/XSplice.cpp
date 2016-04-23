@@ -6,7 +6,7 @@ void Tailor_NS::XSplice::operator()( QEdge_NS::Edge e, Segment&& s )
 {
   auto i = d_edges.emplace( std::move( s ), e );
 
-  if( !i.second ) throw DuplicatedMapEntry{};
+  if( !i.second ) throw DuplicatedMapEntry{ s.sid().first, s.sid().second };
 }
 
 

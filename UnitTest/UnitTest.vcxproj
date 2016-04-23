@@ -109,6 +109,11 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Orbit.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Segment.cpp" />
     <ClCompile Include="TopoGraph.cpp" />
     <ClCompile Include="IntProd.cpp">
       <SubType>

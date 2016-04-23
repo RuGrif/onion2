@@ -21,6 +21,7 @@ namespace UnitTest
   public:
 
     TEST_METHOD( Twins )
+    try
     {
       Test_NS::Tetrahedron x, y;
 
@@ -72,6 +73,10 @@ namespace UnitTest
         const Tailor_NS::TwinEdge& t = i.second.second;
         Assert::AreEqual( 2u, t.collection().size() );
       }
+    }
+    catch( const std::exception& e )
+    {
+      Assert::IsTrue( false, ToString( e.what() ).c_str() );
     }
   };
 }

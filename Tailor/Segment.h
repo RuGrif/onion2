@@ -37,6 +37,8 @@ namespace Tailor_NS
 
     friend bool operator < ( const Segment&, const Segment& );
 
+    const SID& sid() const { return d_sid; }
+
   private:
 
     size_t    d_orbit;

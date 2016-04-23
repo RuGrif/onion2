@@ -6,7 +6,7 @@ void Tailor_NS::TwinEdge::insert( const Int& u, const Int& v, const XID& xid )
 {
   auto i = d_verts.emplace( Math_NS::makeRational( v, u + v ), xid );
   
-  if( !i.second ) throw DuplicatedMapEntry{};
+  if( !i.second ) throw DuplicatedMapEntry{ xid.first, xid.second };
 }
 
 
