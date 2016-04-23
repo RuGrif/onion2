@@ -152,6 +152,7 @@
   <ItemGroup>
     <ClInclude Include="Angle.h" />
     <ClInclude Include="call_if.h" />
+    <ClInclude Include="Cut.h" />
     <ClInclude Include="Doppelganger.h" />
     <ClInclude Include="DeferSplice.h" />
     <ClInclude Include="checked_insert.h" />
@@ -171,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Angle.cpp" />
+    <ClCompile Include="Cut.cpp" />
     <ClCompile Include="DeferSplice.cpp" />
     <ClCompile Include="Doppelganger.cpp" />
     <ClCompile Include="Segment.cpp" />
