@@ -32,7 +32,7 @@ namespace Tailor_NS
     //  construct segment from real edge with intersection point on it
     Segment( Collision_NS::Edge );
 
-    //  construct segment from real edge with intersection point in edge origin
+    //  construct segment from real edge with intersection point in vertex in edge origin
     Segment( Collision_NS::Vert );
 
     friend bool operator < ( const Segment&, const Segment& );

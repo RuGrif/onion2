@@ -74,11 +74,11 @@ namespace QEdge_NS
 
   public:
 
-    Node() = default;
-    Node( Node&& ) = default;
-    Node& operator = ( Node&& ) = default;
-    Node( const Node& ) = delete;
-    Node* operator = ( const Node& ) = delete;
+    Node()                            = default;
+    Node( Node&& )                    = default;
+    Node& operator = ( Node&& )       = default;
+    Node( const Node& )               = delete;
+    Node* operator = ( const Node& )  = delete;
 
   protected:
 
