@@ -50,14 +50,8 @@ size_t Tailor_NS::orbit( Collision_NS::Face f, Collision_NS::Face o )
 }
 
 
-namespace
-{
-  Collision_NS::Face major( Collision_NS::Edge e ) { return e.isMajor() ? e.e() : e.e().sym(); }
-}
-
-
 Tailor_NS::Segment::Segment( Collision_NS::Edge e )
-  : d_orbit{ orbit( major( e ), e ) }
+  : d_orbit{ e.isMajor() ? 0u : 1u }
   , d_angle{}
   , d_sid{}
 {
