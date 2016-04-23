@@ -77,7 +77,7 @@ template <typename Func>
 void Tailor_NS::TopoGraph::forEachXPoint( Func func ) const
 {
   //  for A, B
-  forEachXPointType( [this, func]( auto a, auto b )
+  forEachXPointType( [&]( auto a, auto b )
   {
     using A = decltype( a )::type;
     using B = decltype( b )::type;
@@ -105,7 +105,7 @@ template <typename Func>
 void Tailor_NS::TopoGraph::forEachXEdge( Func func ) const
 {
   //  for A0, B0
-  forEachXPointType( [this, func]( auto a0, auto b0 )
+  forEachXPointType( [&]( auto a0, auto b0 )
   {
     using A0 = decltype( a0 )::type;
     using B0 = decltype( b0 )::type;
@@ -119,7 +119,7 @@ template <typename A0, typename B0, typename Func>
 void Tailor_NS::TopoGraph::forEachXEdge( Func func ) const
 {
   //  for p0
-  forEachXPoint<A0, B0>( [this, func]( const auto& p0 )
+  forEachXPoint<A0, B0>( [&]( const auto& p0 )
   {
     forEachXEdge( p0, func );
   } );
