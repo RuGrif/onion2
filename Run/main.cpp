@@ -128,10 +128,10 @@ void wmain( int argc, wchar_t* argv[] )try
 
   std::cout << "Save intersection graph ... ";
 
-  Tailor_NS::Spider spider;
-  spider.spin( graph );
+  //Tailor_NS::Spider spider;
+  //spider.spin( graph );
 
-  IO_NS::writeMesh( spider.webA(), argv[ 3 ] );
+  //IO_NS::writeMesh( spider.webA(), argv[ 3 ] );
 
   time.log();
 
@@ -139,10 +139,10 @@ void wmain( int argc, wchar_t* argv[] )try
 
   std::cout << "Trim edges ... ";
 
-  Tailor_NS::Doppelganger doppel;
-  graph.forEachXPoint( std::ref( doppel ) );
-  doppel.makeTwins( a, b );
-  doppel.substitute();
+  //Tailor_NS::Doppelganger doppel;
+  //graph.forEachXPoint( std::ref( doppel ) );
+  //doppel.makeTwins( a, b );
+  //doppel.substitute();
 
   time.log();
 
