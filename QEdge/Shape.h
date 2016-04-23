@@ -24,7 +24,9 @@ namespace QEdge_NS
 
     size_t size() const;    //  return number of edges
 
-    //void cleanup();         //  remove edges with no vertex information
+    void cleanup();         //  remove edges with no vertex information
+
+    void merge( Shape&& );  //  move all edges from other shape to this one
 
   public:
 

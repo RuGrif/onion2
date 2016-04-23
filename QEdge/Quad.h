@@ -23,6 +23,9 @@ namespace QEdge_NS
     const Prim& edge() const { return o; }
     Prim&       edge()       { return o; }
 
+    bool isIsolatedEdge() const { return &o.next() == &o && &d.next() == &d; }
+    bool isIsolatedLoop() const { return &l.next() == &l && &r.next() == &r; }
+
   private:
 
     Prim o, d;

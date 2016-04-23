@@ -148,5 +148,62 @@ namespace UnitTest
       Assert::AreEqual( 0u, s.size() );
       Assert::AreEqual( 1u, t.size() );
     }
+
+    TEST_METHOD( Cleanup )
+    {
+      QEdge_NS::Shape s;
+
+      Assert::AreEqual( 0u, s.size() );
+
+      {
+        s.makeEdge();
+
+        Assert::AreEqual( 1u, s.size() );
+
+        s.cleanup();
+
+        Assert::AreEqual( 0u, s.size() );
+      }
+
+      {
+        s.makeLoop();
+
+        Assert::AreEqual( 1u, s.size() );
+
+        s.cleanup();
+
+        Assert::AreEqual( 0u, s.size() );
+      }
+
+      {
+        auto a = s.makeEdge();
+        auto b = s.makeEdge();
+
+        a.splice0( b );
+
+        Assert::AreEqual( 2u, s.size() );
+
+        s.cleanup();
+
+        Assert::AreEqual( 2u, s.size() );
+      }
+    }
+
+
+    TEST_METHOD( Merge )
+    {
+      QEdge_NS::Shape s, t;
+
+      s.makeEdge();
+      t.makeEdge();
+
+      Assert::AreEqual( 1u, s.size() );
+      Assert::AreEqual( 1u, t.size() );
+
+      s.merge( std::move( t ) );
+
+      Assert::AreEqual( 2u, s.size() );
+      Assert::AreEqual( 0u, t.size() );
+    }
   };
 }

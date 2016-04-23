@@ -57,3 +57,16 @@ size_t QEdge_NS::Shape::size() const
 {
   return d_pimpl->d_quads.size();
 }
+
+
+void QEdge_NS::Shape::cleanup()
+{
+  impl().d_quads.remove_if( std::mem_fn( &Quad::isIsolatedEdge ) );
+  impl().d_quads.remove_if( std::mem_fn( &Quad::isIsolatedLoop ) );
+}
+
+
+void QEdge_NS::Shape::merge( Shape&& io_other )
+{
+  impl().d_quads.splice( impl().d_quads.end(), std::move( io_other.impl().d_quads ) );
+}
