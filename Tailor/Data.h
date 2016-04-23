@@ -11,14 +11,19 @@ namespace Tailor_NS
   {
   public:
 
-    XPointData( const A& a, const B& b ) : a{ a }, b{ b } {}
+    XPointData( const A& a, const B& b )
+      : d_point{ Collision_NS::point( a, b ) }
+      , d_idA{ id( a ) }
+      , d_idB{ id( b ) }
+    {}
 
-    virtual const Math_NS::Vector3D point() const override { return Collision_NS::point( a, b ); }
+    virtual const Math_NS::Vector3D point() const override { return d_point; }
 
   private:
 
-    A a;
-    B b;
+    Math_NS::Vector3D d_point;
+    size_t            d_idA;
+    size_t            d_idB;
   };
 
 
