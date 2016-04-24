@@ -51,6 +51,12 @@ Edge #(E-1)
 Edges are optional.
 */
 
+size_t makeLabel()
+{
+  static size_t s_label = 0;
+  return ++s_label;
+}
+
 
 void IO_NS::writeMesh( const QEdge_NS::Shape& i_shape, const std::wstring& i_fileName )
 {
@@ -58,7 +64,7 @@ void IO_NS::writeMesh( const QEdge_NS::Shape& i_shape, const std::wstring& i_fil
   std::ofstream file( i_fileName, std::ofstream::binary );
   file.exceptions( file.badbit | file.failbit );
 
-  uint32_t label = 1;
+  uint32_t label = makeLabel();
   uint32_t size = 0;
 
   //  Verts
