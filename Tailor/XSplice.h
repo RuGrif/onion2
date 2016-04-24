@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "Segment.h"
+#include "Ray.h"
 #include "Data.h"
 #include "../Collision/XPoint.h"
 #include <map>

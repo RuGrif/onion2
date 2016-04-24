@@ -156,7 +156,7 @@
     <ClInclude Include="Doppelganger.h" />
     <ClInclude Include="DeferSplice.h" />
     <ClInclude Include="checked_insert.h" />
-    <ClInclude Include="Segment.h" />
+    <ClInclude Include="Ray.h" />
     <ClInclude Include="Spider.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="TopoGraph.h" />
@@ -175,7 +175,7 @@
     <ClCompile Include="Cut.cpp" />
     <ClCompile Include="DeferSplice.cpp" />
     <ClCompile Include="Doppelganger.cpp" />
-    <ClCompile Include="Segment.cpp" />
+    <ClCompile Include="Ray.cpp" />
     <ClCompile Include="Spider.cpp" />
     <ClCompile Include="TopoGraph.cpp" />
     <ClCompile Include="XSplice.cpp" />

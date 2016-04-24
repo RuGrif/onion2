@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include "../Tailor/Segment.h"
+#include "../Tailor/Ray.h"
 #include "Tetrahedron.h"
 #include "Point3D.h"
 #include <algorithm>

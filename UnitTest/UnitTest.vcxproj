@@ -113,7 +113,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Segment.cpp" />
+    <ClCompile Include="Ray.cpp" />
     <ClCompile Include="TopoGraph.cpp" />
     <ClCompile Include="IntProd.cpp">
       <SubType>

@@ -1,4 +1,4 @@
-#include "Segment.h"
+#include "Ray.h"
 
 
 size_t Tailor_NS::orbit( Collision_NS::Face f, Collision_NS::Vert o )

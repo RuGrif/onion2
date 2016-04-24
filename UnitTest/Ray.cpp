@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include "../Tailor/Segment.h"
+#include "../Tailor/Ray.h"
 #include "Tetrahedron.h"
 #include "Point3D.h"
 
@@ -10,7 +10,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTest
 {
-  TEST_CLASS( Segment )
+  TEST_CLASS( Ray )
   {
     auto makeTetra()
     {

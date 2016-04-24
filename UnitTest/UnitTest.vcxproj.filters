@@ -116,7 +116,7 @@
     <ClCompile Include="Orbit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Segment.cpp">
+    <ClCompile Include="Ray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
