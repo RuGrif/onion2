@@ -5,6 +5,7 @@
 #include "../QEdge/Utils.h"
 #include "../Tailor/Cut.h"
 #include "../IO/Mesh.h"
+#include "../IO/STL.h"
 #include "Intersection.h"
 #include <set>
 
@@ -18,7 +19,7 @@ namespace UnitTest
   {
   public:
 
-    TEST_METHOD( ShapeCut )
+    TEST_METHOD( TetrahedronCut )
     {
       Test_NS::Tetrahedron x, y;
 
@@ -38,10 +39,22 @@ namespace UnitTest
       IO_NS::writeMesh( a, L"Cut.A.in.mesh" );
       IO_NS::writeMesh( b, L"Cut.B.in.mesh" );
 
-      Tailor_NS::cut( a, b, Tailor_NS::intersect( a, b ) );
+      Tailor_NS::cut( a, b );
 
       IO_NS::writeMesh( a, L"Cut.A.out.mesh" );
       IO_NS::writeMesh( b, L"Cut.B.out.mesh" );
+    }
+
+
+    TEST_METHOD( TorusCut )
+    {
+      QEdge_NS::Shape a = IO_NS::readSTL( L"triple torus.stl" );
+      QEdge_NS::Shape b = IO_NS::readSTL( L"box.stl" );
+
+      Tailor_NS::cut( a, b );
+
+      IO_NS::writeMesh( a, L"Cut.Torus.mesh" );
+      IO_NS::writeMesh( b, L"Cut.Box.mesh" );
     }
   };
 }

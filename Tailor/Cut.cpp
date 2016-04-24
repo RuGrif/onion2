@@ -58,3 +58,9 @@ void Tailor_NS::cut( QEdge_NS::Shape& a, QEdge_NS::Shape& b, const TopoGraph& g 
   a.cleanup();
   b.cleanup();
 }
+
+
+void Tailor_NS::cut( QEdge_NS::Shape& a, QEdge_NS::Shape& b )
+{
+  cut( a, b, intersect( a, b ) );
+}
