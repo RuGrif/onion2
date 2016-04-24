@@ -81,10 +81,16 @@ namespace UnitTest
       Assert::AreEqual( 6u, a.size() );
       Assert::AreEqual( 6u, b.size() );
 
+      Assert::AreEqual( 4u, allVerts( a ).size() );
+      Assert::AreEqual( 4u, allVerts( b ).size() );
+
       Tailor_NS::cut( a, b );
 
       Assert::AreEqual( 15u, a.size() );
       Assert::AreEqual( 15u, b.size() );
+
+      Assert::AreEqual( 10u, allVerts( a ).size() );
+      Assert::AreEqual( 10u, allVerts( b ).size() );
 
       IO_NS::writeMesh( a, L"Overlap.A.out.mesh" );
       IO_NS::writeMesh( b, L"Overlap.B.out.mesh" );
