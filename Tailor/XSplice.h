@@ -28,6 +28,6 @@ namespace Tailor_NS
   private:
 
     std::map<Ray, QEdge_NS::Edge> d_edges;
-    QEdge_NS::Vert                    d_vert;
+    QEdge_NS::Vert                d_vert;
   };
 }
