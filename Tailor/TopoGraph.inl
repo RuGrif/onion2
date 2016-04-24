@@ -133,7 +133,10 @@ void Tailor_NS::TopoGraph::forEachXEdge( const Collision_NS::XPoint<A0, B0>& p0,
   {
     p0.second.forEachNb( [&]( auto be, auto b1 )
     {
-      Graph_NS::call( collection(), p0, ae, be, a1, b1, func );
+      if( !areOverlap( Collision_NS::makeXSegmentID( ae, be ) ) )
+      {
+        Graph_NS::call( collection(), p0, ae, be, a1, b1, func );
+      }
     } );
   } );
 }

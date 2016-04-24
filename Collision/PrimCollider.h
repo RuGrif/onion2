@@ -39,6 +39,10 @@ namespace Collision_NS
 
   private:
 
+    size_t          d_ffOverlapCounter = 0;
+
+  private:
+
     Intersection&   d_callback;
     Math_NS::Grid   d_grid;
   };

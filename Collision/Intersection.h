@@ -2,6 +2,7 @@
 
 
 #include "XPoint.h"
+#include <set>
 
 
 namespace Collision_NS
@@ -19,6 +20,9 @@ namespace Collision_NS
     void operator() ( const XEdge&, const XEdge&, bool );
     void operator() ( const XEdge&, const XFace&, bool );
 
+    void markOverlap( const XSegmentID& );
+    bool areOverlap( const XSegmentID& ) const;
+
     virtual ~Intersection() = default;
 
   private:
@@ -28,5 +32,9 @@ namespace Collision_NS
     virtual void add( const XVert&, const XFace&, bool ) = 0;
     virtual void add( const XEdge&, const XEdge&, bool ) = 0;
     virtual void add( const XEdge&, const XFace&, bool ) = 0;
+
+  private:
+
+    std::set<XSegmentID> d_overlaps;
   };
 }

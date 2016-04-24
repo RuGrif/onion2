@@ -56,5 +56,38 @@ namespace UnitTest
       IO_NS::writeMesh( a, L"Cut.Torus.mesh" );
       IO_NS::writeMesh( b, L"Cut.Box.mesh" );
     }
+
+
+    TEST_METHOD( Overlap )
+    {
+      Test_NS::Tetrahedron x, y;
+
+      x.a.o().reset<Test_NS::Point3D>( 0, 0, 0 );
+      x.b.o().reset<Test_NS::Point3D>( 3, 0, 0 );
+      x.c.o().reset<Test_NS::Point3D>( 0, 3, 0 );
+      x.A.o().reset<Test_NS::Point3D>( 0, 0, 1 );
+
+      y.a.o().reset<Test_NS::Point3D>( 2, 2, 0 );
+      y.b.o().reset<Test_NS::Point3D>(-1, 2, 0 );
+      y.c.o().reset<Test_NS::Point3D>( 2,-1, 0 );
+      y.A.o().reset<Test_NS::Point3D>( 0, 0,-1 );
+
+      QEdge_NS::Shape& a = x.d_shape;
+      QEdge_NS::Shape& b = y.d_shape;
+
+      IO_NS::writeMesh( a, L"Overlap.A.in.mesh" );
+      IO_NS::writeMesh( b, L"Overlap.B.in.mesh" );
+
+      Assert::AreEqual( 6u, a.size() );
+      Assert::AreEqual( 6u, b.size() );
+
+      Tailor_NS::cut( a, b );
+
+      Assert::AreEqual( 15u, a.size() );
+      Assert::AreEqual( 15u, b.size() );
+
+      IO_NS::writeMesh( a, L"Overlap.A.out.mesh" );
+      IO_NS::writeMesh( b, L"Overlap.B.out.mesh" );
+    }
   };
 }

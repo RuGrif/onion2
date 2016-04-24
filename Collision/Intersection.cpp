@@ -43,3 +43,15 @@ void Collision_NS::Intersection::operator() ( const XEdge& x, const XFace& y, bo
   if( y.c == 0 ) return operator() ( x, XEdge{ y.AB(), y.a, y.b }, a );
   return add( x, y, a );
 }
+
+
+void Collision_NS::Intersection::markOverlap( const XSegmentID& sid )
+{
+  d_overlaps.insert( sid );
+}
+
+
+bool Collision_NS::Intersection::areOverlap( const XSegmentID& sid ) const
+{
+  return d_overlaps.find( sid ) != d_overlaps.end();
+}

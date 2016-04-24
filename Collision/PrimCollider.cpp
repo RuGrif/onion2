@@ -177,6 +177,8 @@ bool Collision_NS::PrimCollider::collide( Edge e, Face f, bool alter )
   else
   {
     //  edge parallel to face
+    ++d_ffOverlapCounter;
+
     bool r = false;
 
     r |= collide( e, f.AB(), alter );
@@ -192,6 +194,8 @@ bool Collision_NS::PrimCollider::collide( Edge e, Face f, bool alter )
 
 bool Collision_NS::PrimCollider::operator() ( Face a, Face b )
 {
+  d_ffOverlapCounter = 0;
+
   bool r = false;
   
   if( a.AB().isMajor() ) r |= collide( a.AB(), b, false );
@@ -200,6 +204,8 @@ bool Collision_NS::PrimCollider::operator() ( Face a, Face b )
   if( b.AB().isMajor() ) r |= collide( b.AB(), a, true );
   if( b.BC().isMajor() ) r |= collide( b.BC(), a, true );
   if( b.CA().isMajor() ) r |= collide( b.CA(), a, true );
+
+  if( d_ffOverlapCounter == 6 && r ) d_callback.markOverlap( makeXSegmentID( a, b ) );
 
   return r;
 }
