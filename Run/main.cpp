@@ -4,6 +4,7 @@
 #include "../Tailor/TopoGraph.h"
 #include "../Tailor/Spider.h"
 #include "../Tailor/Doppelganger.h"
+#include "../Tailor/DeferSplice.h"
 #include "../IO/STL.h"
 #include "../IO/Mesh.h"
 #include "../QEdge/Utils.h"
@@ -54,9 +55,9 @@ void wmain( int argc, wchar_t* argv[] )try
 {
   auto t0 = std::chrono::high_resolution_clock::now();
 
-  if( argc != 1 + 3 )
+  if( argc != 1 + 4 )
   {
-    std::cout << "run.exe <mesh1.stl> <mesh2.stl> <intersection.mesh>" << std::endl;
+    std::cout << "run.exe <mesh1.stl> <mesh2.stl> <out1.mesh> <out2.mesh>" << std::endl;
     return;
   }
   else
@@ -126,23 +127,35 @@ void wmain( int argc, wchar_t* argv[] )try
 
   /////////////////////////////////////////////////////////////////////////////
 
-  std::cout << "Save intersection graph ... ";
+  std::cout << "Make twin edges ... ";
 
-  //Tailor_NS::Spider spider;
-  //spider.spin( graph );
-
-  //IO_NS::writeMesh( spider.webA(), argv[ 3 ] );
+  Tailor_NS::Doppelganger doppelganger;
+  doppelganger.shadow( graph );
+  doppelganger.makeTwins( a, b );
 
   time.log();
 
   /////////////////////////////////////////////////////////////////////////////
 
-  std::cout << "Trim edges ... ";
+  std::cout << "Make spider web ... ";
 
-  //Tailor_NS::Doppelganger doppel;
-  //graph.forEachXPoint( std::ref( doppel ) );
-  //doppel.makeTwins( a, b );
-  //doppel.substitute();
+  Tailor_NS::Spider spider;
+  Tailor_NS::DeferSplice defer = spider.spin( graph, doppelganger );
+  defer.splice();
+
+  time.log();
+
+  /////////////////////////////////////////////////////////////////////////////
+
+  std::cout << "Merge web ... ";
+
+  a.merge( std::move( spider.webA() ) );
+  b.merge( std::move( spider.webB() ) );
+
+  doppelganger.substitute();
+
+  a.cleanup();
+  b.cleanup();
 
   time.log();
 
@@ -150,8 +163,8 @@ void wmain( int argc, wchar_t* argv[] )try
 
   std::cout << "Save trimmed models ... ";
 
-  IO_NS::writeMesh( a, L"shapeA.mesh" );
-  IO_NS::writeMesh( b, L"shapeB.mesh" );
+  IO_NS::writeMesh( a, argv[ 3 ] );
+  IO_NS::writeMesh( b, argv[ 4 ] );
 
   time.log();
 
