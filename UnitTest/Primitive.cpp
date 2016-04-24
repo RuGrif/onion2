@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "../Collision/Primitive.h"
+#include "Tetrahedron.h"
 #include <set>
 #include <algorithm>
 
@@ -240,6 +241,40 @@ namespace UnitTest
       Assert::AreEqual<size_t>( a.d().id(), id( Collision_NS::Vert( a.sym() ) ) );
       Assert::AreEqual<size_t>( b.d().id(), id( Collision_NS::Vert( b.sym() ) ) );
       Assert::AreEqual<size_t>( c.d().id(), id( Collision_NS::Vert( c.sym() ) ) );
+    }
+  };
+
+  TEST_CLASS( Major )
+  {
+  public:
+    
+    TEST_METHOD( Vert )
+    {
+      Test_NS::Tetrahedron t;
+
+      Assert::AreEqual( id( major( Collision_NS::Vert( t.A ) ) ), id( major( Collision_NS::Vert( t.B ) ) ) );
+      Assert::AreEqual( id( major( Collision_NS::Vert( t.B ) ) ), id( major( Collision_NS::Vert( t.C ) ) ) );
+
+      Assert::AreNotEqual( id( major( Collision_NS::Vert( t.a ) ) ), id( major( Collision_NS::Vert( t.A ) ) ) );
+    }
+
+    TEST_METHOD( Edge )
+    {
+      Test_NS::Tetrahedron t;
+
+      Assert::AreEqual( id( major( Collision_NS::Edge( t.a ) ) ), id( major( Collision_NS::Edge( t.a.sym() ) ) ) );
+
+      Assert::AreNotEqual( id( major( Collision_NS::Edge( t.a ) ) ), id( major( Collision_NS::Edge( t.b ) ) ) );
+    }
+
+    TEST_METHOD( Face )
+    {
+      Test_NS::Tetrahedron t;
+
+      Assert::AreEqual( id( major( Collision_NS::Face( t.a ) ) ), id( major( Collision_NS::Face( t.b ) ) ) );
+      Assert::AreEqual( id( major( Collision_NS::Face( t.a ) ) ), id( major( Collision_NS::Face( t.c ) ) ) );
+
+      Assert::AreNotEqual( id( major( Collision_NS::Face( t.a ) ) ), id( major( Collision_NS::Face( t.A ) ) ) );
     }
   };
 }

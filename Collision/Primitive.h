@@ -80,6 +80,11 @@ namespace Collision_NS
   std::vector<size_t> nb( Vert );
   std::vector<size_t> nb( Edge );
   std::vector<size_t> nb( Face );
+
+
+  Vert major( Vert ); //  for all possible edges representin Vert, return the major one
+  Edge major( Edge ); //  for all possible edges representin Edge, return the major one
+  Face major( Face ); //  for all possible edges representin Face, return the major one
 }
 
 
