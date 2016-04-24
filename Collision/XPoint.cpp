@@ -29,13 +29,12 @@ Collision_NS::XFace Collision_NS::XEdge::toXFace( Face f ) const
 
 Collision_NS::XFace Collision_NS::XFace::toXFace( Face f ) const
 {
-  if( e() == f.e() ) return *this;
-  //if( id( *this ) == id( f ) )
-  //{
-  //  if( id( A() ) == id( f.A() ) ) return{ f, a, b, c };
-  //  if( id( B() ) == id( f.A() ) ) return{ f, b, c, a };
-  //  if( id( C() ) == id( f.A() ) ) return{ f, c, a, b };
-  //}
+  if( id( *this ) == id( f ) )
+  {
+    if( id( A() ) == id( f.A() ) ) return{ f, a, b, c };
+    if( id( B() ) == id( f.A() ) ) return{ f, b, c, a };
+    if( id( C() ) == id( f.A() ) ) return{ f, c, a, b };
+  }
   throw BadUpcast( id( *this ), id( f ) );
 }
 
