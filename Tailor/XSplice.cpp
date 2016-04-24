@@ -2,7 +2,7 @@
 #include "checked_insert.h"
 
 
-void Tailor_NS::XSplice::operator()( QEdge_NS::Edge e, Segment&& s )
+void Tailor_NS::XSplice::operator()( QEdge_NS::Edge e, Ray&& s )
 {
   auto i = d_edges.emplace( std::move( s ), e );
 

@@ -50,7 +50,7 @@ size_t Tailor_NS::orbit( Collision_NS::Face f, Collision_NS::Face o )
 }
 
 
-Tailor_NS::Segment::Segment( Collision_NS::Edge e )
+Tailor_NS::Ray::Ray( Collision_NS::Edge e )
   : d_orbit{ e.isMajor() ? 0u : 1u }
   , d_angle{}
   , d_sid{}
@@ -59,7 +59,7 @@ Tailor_NS::Segment::Segment( Collision_NS::Edge e )
 }
 
 
-Tailor_NS::Segment::Segment( Collision_NS::Vert v )
+Tailor_NS::Ray::Ray( Collision_NS::Vert v )
   : d_orbit{ orbit( Collision_NS::Face{ v.e() }, v ) }
   , d_angle{}
   , d_sid{}
@@ -68,7 +68,7 @@ Tailor_NS::Segment::Segment( Collision_NS::Vert v )
 }
 
 
-bool Tailor_NS::operator < ( const Segment& l, const Segment& r )
+bool Tailor_NS::operator < ( const Ray& l, const Ray& r )
 {
   return std::tie( l.d_orbit, l.d_angle, l.d_sid ) < std::tie( r.d_orbit, r.d_angle, r.d_sid );
 }

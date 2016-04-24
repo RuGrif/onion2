@@ -12,7 +12,7 @@ void Tailor_NS::DeferSplice::spliceOrDefer( XSplice&& i_splice, const Collision_
   QEdge_NS::Edge e = i_vert.e();
   do
   {
-    i_splice( e, Segment{ Collision_NS::Vert{ e } } );
+    i_splice( e, Ray{ Collision_NS::Vert{ e } } );
   }
   while( ( e = e.oNext() ) != i_vert.e() );
 

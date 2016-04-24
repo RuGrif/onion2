@@ -19,7 +19,7 @@ namespace Tailor_NS
   size_t orbit( Collision_NS::Face f, Collision_NS::Face o );
 
 
-  class Segment
+  class Ray
   {
   public:
 
@@ -27,15 +27,15 @@ namespace Tailor_NS
 
     //  construct segment from intersection edge
     template <typename P0, typename P1>
-    Segment( const P0& p0, Collision_NS::Face, const P1& p1, const Collision_NS::XSegmentID& );
+    Ray( const P0& p0, Collision_NS::Face, const P1& p1, const Collision_NS::XSegmentID& );
 
     //  construct segment from real edge with intersection point on it
-    Segment( Collision_NS::Edge );
+    Ray( Collision_NS::Edge );
 
     //  construct segment from real edge with intersection point in vertex in edge origin
-    Segment( Collision_NS::Vert );
+    Ray( Collision_NS::Vert );
 
-    friend bool operator < ( const Segment&, const Segment& );
+    friend bool operator < ( const Ray&, const Ray& );
 
     const SID& sid() const { return d_sid; }
 
@@ -47,11 +47,11 @@ namespace Tailor_NS
   };
 
 
-  bool operator < ( const Segment& l, const Segment& r );
+  bool operator < ( const Ray& l, const Ray& r );
 
 
   template <typename P0, typename P1>
-  Segment::Segment( const P0& p0, Collision_NS::Face f, const P1& p1, const Collision_NS::XSegmentID& i_sid )
+  Ray::Ray( const P0& p0, Collision_NS::Face f, const P1& p1, const Collision_NS::XSegmentID& i_sid )
     : d_orbit{ orbit( f, p0 ) }
     , d_angle{ makeAngle( p1.toXFace( f ), p0.toXFace( f ) ) }
     , d_sid{ i_sid }

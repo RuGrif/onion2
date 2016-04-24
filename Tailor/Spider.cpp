@@ -36,8 +36,8 @@ namespace Tailor_NS
     const Collision_NS::XPointID& xid )
   {
     auto edges = collection.twinEdge( id( e ) ).edgePair( xid );
-    xsplice( edges.first,  Segment( Collision_NS::Edge{ e.e().sym() } ) );
-    xsplice( edges.second, Segment( Collision_NS::Edge{ e.e() } ) );
+    xsplice( edges.first,  Ray( Collision_NS::Edge{ e.e().sym() } ) );
+    xsplice( edges.second, Ray( Collision_NS::Edge{ e.e() } ) );
   };
 }
 
@@ -68,8 +68,8 @@ Tailor_NS::DeferSplice Tailor_NS::Spider::spin( const TopoGraph& g, const Doppel
       QEdge_NS::Edge eA = d_webA.getOrCreateEdge( xidA0, xidA1 );
       QEdge_NS::Edge eB = d_webB.getOrCreateEdge( xidB0, xidB1 );
 
-      Segment sA{ p0.first,  e.first.e(),  p1.first,  Collision_NS::makeXSegmentID( e.first, e.second ) };
-      Segment sB{ p0.second, e.second.e(), p1.second, Collision_NS::makeXSegmentID( e.second, e.first ) };
+      Ray sA{ p0.first,  e.first.e(),  p1.first,  Collision_NS::makeXSegmentID( e.first, e.second ) };
+      Ray sB{ p0.second, e.second.e(), p1.second, Collision_NS::makeXSegmentID( e.second, e.first ) };
 
       xA( eA, std::move( sA ) );
       xB( eB, std::move( sB ) );

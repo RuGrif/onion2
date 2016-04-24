@@ -13,7 +13,7 @@ namespace Tailor_NS
   {
   public:
 
-    void operator() ( QEdge_NS::Edge e, Segment&& s );
+    void operator() ( QEdge_NS::Edge e, Ray&& s );
 
     template <typename A, typename B>
     void saveVert( const A& a, const B& b )
@@ -27,7 +27,7 @@ namespace Tailor_NS
 
   private:
 
-    std::map<Segment, QEdge_NS::Edge> d_edges;
+    std::map<Ray, QEdge_NS::Edge> d_edges;
     QEdge_NS::Vert                    d_vert;
   };
 }

@@ -34,8 +34,8 @@ namespace UnitTest
     {
       auto t = makeTetra();
 
-      Tailor_NS::Segment s0{ E{ t.a } };
-      Tailor_NS::Segment s1{ E{ t.a.sym() } };
+      Tailor_NS::Ray s0{ E{ t.a } };
+      Tailor_NS::Ray s1{ E{ t.a.sym() } };
 
       Assert::IsTrue( s0 < s1 || s1 < s0 );
     }
@@ -44,9 +44,9 @@ namespace UnitTest
     {
       auto t = makeTetra();
 
-      Tailor_NS::Segment s0{ V{ t.a } };
-      Tailor_NS::Segment s1{ V{ t.a.oNext() } };
-      Tailor_NS::Segment s2{ V{ t.a.oNext().oNext() } };
+      Tailor_NS::Ray s0{ V{ t.a } };
+      Tailor_NS::Ray s1{ V{ t.a.oNext() } };
+      Tailor_NS::Ray s2{ V{ t.a.oNext().oNext() } };
 
       Assert::IsTrue(
         ( s0 < s1 && s1 < s2 ) ||
