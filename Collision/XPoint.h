@@ -100,41 +100,6 @@ namespace Collision_NS
   template <typename A, typename B>
   bool operator == ( const XPoint<A, B>& l, const XPoint<A, B>& r ) { return makeXPointID( l ) == makeXPointID( r ); }
 
-
-  //
-  //  Intersection segment as a pair of two intersecting primitives
-  //
-
-
-  template <typename A, typename B>
-  struct XSegment : std::pair<A, B> { using std::pair<A, B>::pair; };
-
-  template <typename A, typename B>
-  XSegment<A, B> makeXSegment( const A& a, const B& b ) { return std::make_pair( a, b ); }
-
-
-  //
-  //  Intersection segment id
-  //
-
-
-  struct XSegmentID : std::pair<size_t, size_t> { using std::pair<size_t, size_t>::pair; };
-
-  inline XSegmentID makeXSegmentID( size_t a, size_t b ) { return std::make_pair( a, b ); }
-
-  template <typename A, typename B>
-  XSegmentID makeXSegmentID( const A& a, const B& b ) { return makeXSegmentID( id( a ), id( b ) ); }
-
-  template <typename A, typename B>
-  XSegmentID makeXSegmentID( const XSegment<A, B>& p ) { return makeXPointID( p.first, p.second ); }
-
-  template <typename A, typename B>
-  bool operator < ( const XSegment<A, B>& l, const XSegment<A, B>& r ) { return makeXSegmentID( l ) < makeXSegmentID( r ); }
-
-  template <typename A, typename B>
-  bool operator == ( const XSegment<A, B>& l, const XSegment<A, B>& r ) { return makeXSegmentID( l ) == makeXSegmentID( r ); }
-
-
   //
   //  Intersection point coordinates in global space
   //

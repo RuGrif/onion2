@@ -20,10 +20,12 @@ namespace Collision_NS
     void operator() ( const XEdge&, const XEdge&, bool );
     void operator() ( const XEdge&, const XFace&, bool );
 
-    void markOverlap( const XSegmentID& );
-    bool areOverlap( const XSegmentID& ) const;
-
     virtual ~Intersection() = default;
+
+  public:
+
+    void markOverlap( Face, Face );
+    bool areOverlap( Face, Face ) const;
 
   private:
 
@@ -35,6 +37,6 @@ namespace Collision_NS
 
   private:
 
-    std::set<XSegmentID> d_overlaps;
+    std::set<std::pair<size_t, size_t>> d_overlaps;
   };
 }

@@ -45,6 +45,19 @@ namespace Tailor_NS
     {
       //  empty
     }
+
+
+    template <typename EA, typename EB>
+    bool areOverlap( const Collision_NS::Intersection& i, EA ea, EB eb )
+    {
+      return false;
+    }
+
+    template <>
+    inline bool areOverlap( const Collision_NS::Intersection& i, Collision_NS::Face ea, Collision_NS::Face eb )
+    {
+      return i.areOverlap( ea, eb );
+    }
   }
 }
 
@@ -133,7 +146,7 @@ void Tailor_NS::TopoGraph::forEachXEdge( const Collision_NS::XPoint<A0, B0>& p0,
   {
     p0.second.forEachNb( [&]( auto be, auto b1 )
     {
-      if( !areOverlap( Collision_NS::makeXSegmentID( ae, be ) ) )
+      if( !Graph_NS::areOverlap( *this, ae, be ) )
       {
         Graph_NS::call( collection(), p0, ae, be, a1, b1, func );
       }

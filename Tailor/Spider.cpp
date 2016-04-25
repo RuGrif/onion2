@@ -68,8 +68,8 @@ Tailor_NS::DeferSplice Tailor_NS::Spider::spin( const TopoGraph& g, const Doppel
       QEdge_NS::Edge eA = d_webA.getOrCreateEdge( xidA0, xidA1 );
       QEdge_NS::Edge eB = d_webB.getOrCreateEdge( xidB0, xidB1 );
 
-      Ray sA{ p0.first,  e.first,  p1.first,  Collision_NS::makeXSegmentID( e.first, e.second ) };
-      Ray sB{ p0.second, e.second, p1.second, Collision_NS::makeXSegmentID( e.second, e.first ) };
+      Ray sA{ p0.first,  e.first,  p1.first,  xidA1 };
+      Ray sB{ p0.second, e.second, p1.second, xidB1 };
 
       xA( eA, std::move( sA ) );
       xB( eB, std::move( sB ) );

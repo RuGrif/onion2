@@ -2,11 +2,11 @@
 #include "checked_insert.h"
 
 
-void Tailor_NS::XSplice::operator()( QEdge_NS::Edge e, Ray&& s )
+void Tailor_NS::XSplice::operator()( QEdge_NS::Edge e, Ray&& r )
 {
-  auto i = d_edges.emplace( std::move( s ), e );
+  auto i = d_edges.emplace( std::move( r ), e );
 
-  if( !i.second ) throw DuplicatedMapEntry{ s.sid().first, s.sid().second };
+  if( !i.second ) throw DuplicatedMapEntry{ r.pid1().first, r.pid1().second };
 }
 
 

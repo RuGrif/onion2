@@ -205,7 +205,7 @@ bool Collision_NS::PrimCollider::operator() ( Face a, Face b )
   if( b.BC().isMajor() ) r |= collide( b.BC(), a, true );
   if( b.CA().isMajor() ) r |= collide( b.CA(), a, true );
 
-  if( d_ffOverlapCounter == 6 && r ) d_callback.markOverlap( makeXSegmentID( a, b ) );
+  if( d_ffOverlapCounter == 6 && r ) d_callback.markOverlap( a, b );
 
   return r;
 }

@@ -45,13 +45,13 @@ void Collision_NS::Intersection::operator() ( const XEdge& x, const XFace& y, bo
 }
 
 
-void Collision_NS::Intersection::markOverlap( const XSegmentID& sid )
+void Collision_NS::Intersection::markOverlap( Face a, Face b )
 {
-  d_overlaps.insert( sid );
+  d_overlaps.insert( std::make_pair( id( a ), id( b ) ) );
 }
 
 
-bool Collision_NS::Intersection::areOverlap( const XSegmentID& sid ) const
+bool Collision_NS::Intersection::areOverlap( Face a, Face b ) const
 {
-  return d_overlaps.find( sid ) != d_overlaps.end();
+  return d_overlaps.find( std::make_pair( id( a ), id( b ) ) ) != d_overlaps.end();
 }
