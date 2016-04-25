@@ -83,7 +83,7 @@ namespace Collision_NS
   //
 
 
-  using XPointID = std::pair<size_t, size_t>;
+  struct XPointID : std::pair<size_t, size_t> { using std::pair<size_t, size_t>::pair; };
 
   inline XPointID makeXPointID( size_t a, size_t b ) { return std::make_pair( a, b ); }
 
@@ -118,7 +118,7 @@ namespace Collision_NS
   //
 
 
-  using XSegmentID = std::pair<size_t, size_t>;
+  struct XSegmentID : std::pair<size_t, size_t> { using std::pair<size_t, size_t>::pair; };
 
   inline XSegmentID makeXSegmentID( size_t a, size_t b ) { return std::make_pair( a, b ); }
 
