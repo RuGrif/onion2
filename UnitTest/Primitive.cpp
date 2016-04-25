@@ -11,163 +11,39 @@ namespace UnitTest
 {
   TEST_CLASS( Neighborhood )
   {
-    std::set<size_t> ids( const std::vector<size_t>& nb )
+    template <typename A, typename B>
+    void check( A a, B b )
     {
-      return{ nb.begin(), nb.end() };
+      std::set<std::pair<size_t, size_t>> ids;
+
+      a.forEachNb( [&ids, b]( auto, auto pa )
+      {
+        b.forEachNb( [&ids, pa]( auto, auto pb )
+        {
+          Assert::IsTrue( ids.insert( { id( pa ), id( pb ) } ).second );
+        } );
+      } );
     }
 
   public:
     
-    TEST_METHOD( Face )
+    TEST_METHOD( UniqueNbId )
     {
-      QEdge_NS::Shape s;
+      Test_NS::Tetrahedron x, y;
 
-      auto a = s.makeEdge();
-      auto b = s.makeEdge();
-      auto c = s.makeEdge();
+      using V = Collision_NS::Vert;
+      using E = Collision_NS::Edge;
+      using F = Collision_NS::Face;
 
-      a.splice0( b.sym() );
-      b.splice0( c.sym() );
-      c.splice0( a.sym() );
-
-      std::set<size_t> expected = 
-      {
-        //  face
-        a.l().id(),
-        //  edges
-        a.id(),
-        b.id(),
-        c.id(),
-        //  verts
-        a.o().id(),
-        b.o().id(),
-        c.o().id()
-      };
-
-      Assert::AreEqual( 7u, expected.size() );
-
-      Assert::IsTrue( expected == ids( nb( Collision_NS::Face( a ) ) ) );
+      check<V, V>( x.a, y.a );
+      check<V, E>( x.a, y.a );
+      check<V, F>( x.a, y.a );
+      check<E, V>( x.a, y.a );
+      check<E, E>( x.a, y.a );
+      check<E, F>( x.a, y.a );
+      check<F, V>( x.a, y.a );
+      check<F, E>( x.a, y.a );
     }
-
-
-    TEST_METHOD( Edge )
-    {
-      QEdge_NS::Shape s;
-
-      auto a = s.makeEdge();
-      auto b = s.makeEdge();
-      auto c = s.makeEdge();
-      auto d = s.makeEdge();
-      auto m = s.makeEdge();
-
-      a.splice0( b.sym() );
-      b.splice0( c.sym() );
-      c.splice0( d.sym() );
-      d.splice0( a.sym() );
-      
-      a.splice0( m );
-      c.splice0( m.sym() );
-
-      std::set<size_t> expected =
-      {
-        //  faces
-        m.l().id(),
-        m.r().id(),
-        //  edges
-        a.id(),
-        b.id(),
-        c.id(),
-        d.id(),
-        m.id(),
-        //  verts
-        a.o().id(),
-        b.o().id(),
-        c.o().id(),
-        d.o().id(),
-      };
-
-      Assert::AreEqual( 11u, expected.size() );
-
-      Assert::IsTrue( expected == ids( nb( Collision_NS::Edge( m ) ) ) );
-    }
-
-
-    TEST_METHOD( Vert )
-    {
-      QEdge_NS::Shape s;
-
-      auto a = s.makeEdge();
-      auto b = s.makeEdge();
-      auto c = s.makeEdge();
-      auto x = s.makeEdge();
-      auto y = s.makeEdge();
-      auto z = s.makeEdge();
-
-      label( a, L"a" );
-      label( b, L"b" );
-      label( c, L"c" );
-      label( x, L"x" );
-      label( y, L"y" );
-      label( z, L"z" );
-
-      a.sym().splice0( b );
-      b.sym().splice0( c );
-      c.sym().splice0( a );
-
-      Assert::AreEqual( b, a.lNext(), L"stage 1" );
-      Assert::AreEqual( c, b.lNext(), L"stage 1" );
-      Assert::AreEqual( a, c.lNext(), L"stage 1" );
-      
-      x.splice0( a );
-      y.splice0( b );
-      z.splice0( c );
-
-      Assert::AreEqual( x, a.oNext(), L"stage 2" );
-      Assert::AreEqual( y, b.oNext(), L"stage 2" );
-      Assert::AreEqual( z, c.oNext(), L"stage 2" );
-
-      Assert::AreEqual( c.sym(), x.oNext(), L"stage 2" );
-      Assert::AreEqual( a.sym(), y.oNext(), L"stage 2" );
-      Assert::AreEqual( b.sym(), z.oNext(), L"stage 2" );
-
-      x.sym().splice0( y.sym() );
-      y.sym().splice0( z.sym() );
-
-      Assert::AreEqual( y, x.dNext(), L"stage 3" );
-      Assert::AreEqual( z, y.dNext(), L"stage 3" );
-      Assert::AreEqual( x, z.dNext(), L"stage 3" );
-
-      std::set<size_t> expected =
-      {
-        //  faces
-        x.l().id(),
-        y.l().id(),
-        z.l().id(),
-        //  edges
-        a.id(),
-        b.id(),
-        c.id(),
-        x.id(),
-        y.id(),
-        z.id(),
-        //  verts
-        x.d().id(),
-        a.o().id(),
-        b.o().id(),
-        c.o().id()
-      };
-
-      Assert::AreEqual( 13u, expected.size() );
-
-      auto actual = nb( Collision_NS::Vert( z.sym() ) );
-      Assert::AreEqual( expected.size(), actual.size(), L"size" );
-
-      auto actualID = ids( actual );
-      Assert::AreEqual( expected.size(), actualID.size(), L"size ids" );
-
-      Assert::IsTrue( expected == actualID );
-    }
-
   };
 
 
