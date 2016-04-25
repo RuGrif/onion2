@@ -15,17 +15,8 @@ namespace Tailor_NS
 
   namespace Graph_NS
   {
-    template <typename A, typename B>
-    using IsPossibleXPointType = std::conditional_t<
-      std::is_same<A, Collision_NS::Face>::value &&
-      std::is_same<B, Collision_NS::Face>::value
-      , std::false_type
-      , std::true_type>;
-
-
     template <typename A0, typename B0, typename EA, typename EB, typename A1, typename B1, typename Func>
-    std::enable_if_t< IsPossibleXPointType<A1, B1>::value >
-    call( const Collection& c, const Collision_NS::XPoint<A0, B0>& p0, EA ea, EB eb, A1 a1, B1 b1, Func func )
+    void call( const Collection& c, const Collision_NS::XPoint<A0, B0>& p0, EA ea, EB eb, A1 a1, B1 b1, Func func )
     {
       Collision_NS::XPointID xid = Collision_NS::makeXPointID( a1, b1 );
       if( xid == Collision_NS::makeXPointID( p0 ) ) return;
@@ -39,9 +30,8 @@ namespace Tailor_NS
     }
 
 
-    template <typename A0, typename B0, typename EA, typename EB, typename A1, typename B1, typename Func>
-    std::enable_if_t< !IsPossibleXPointType<A1, B1>::value >
-    call( const Collection&, const Collision_NS::XPoint<A0, B0>&, EA, EB, A1, B1, Func )
+    template <typename A0, typename B0, typename EA, typename EB, typename Func>
+    void call( const Collection&, const Collision_NS::XPoint<A0, B0>&, EA, EB, Collision_NS::Face, Collision_NS::Face, Func )
     {
       //  empty
     }
@@ -53,7 +43,7 @@ namespace Tailor_NS
       return false;
     }
 
-    template <>
+
     inline bool areOverlap( const Collision_NS::Intersection& i, Collision_NS::Face ea, Collision_NS::Face eb )
     {
       return i.areOverlap( ea, eb );
