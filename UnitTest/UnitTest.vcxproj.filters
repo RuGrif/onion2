@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{2b5fee05-3a5a-4a16-9b15-a74257edb53d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\QEdge">
+      <UniqueIdentifier>{338086b7-df87-4a21-b781-cbf294ff2579}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Math">
+      <UniqueIdentifier>{80b93b47-83b6-4140-b65c-0dba92af8c7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Collision">
+      <UniqueIdentifier>{a056785d-9b2d-4363-940f-37e0abacd9e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\IO">
+      <UniqueIdentifier>{17558c80-50ef-4490-9e00-cd586a850362}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Tailor">
+      <UniqueIdentifier>{575cc5a0-24e7-4fd0-b4df-5a50106ecd0d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -47,77 +65,77 @@
     <ClCompile Include="Tools.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Quad.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Edge.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Splice.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Shape.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Iterator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="STL.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Primitive.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Solve.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Collider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Box3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AABB.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AABBCollider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Tetrahedron.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Spider.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="AABB.cpp">
+      <Filter>Tests\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="XPoint.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="AABBCollider.cpp">
+      <Filter>Tests\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="IntProd.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Box3.cpp">
+      <Filter>Tests\Math</Filter>
     </ClCompile>
-    <ClCompile Include="ForEachNb.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Rational.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Doppelganger.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TopoGraph.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Tests\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Cut.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Tests\Tailor</Filter>
+    </ClCompile>
+    <ClCompile Include="Doppelganger.cpp">
+      <Filter>Tests\Tailor</Filter>
+    </ClCompile>
+    <ClCompile Include="Edge.cpp">
+      <Filter>Tests\QEdge</Filter>
+    </ClCompile>
+    <ClCompile Include="ForEachNb.cpp">
+      <Filter>Tests\QEdge</Filter>
+    </ClCompile>
+    <ClCompile Include="IntProd.cpp">
+      <Filter>Tests\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Iterator.cpp">
+      <Filter>Tests\QEdge</Filter>
     </ClCompile>
     <ClCompile Include="Orbit.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Tests\Tailor</Filter>
+    </ClCompile>
+    <ClCompile Include="STL.cpp">
+      <Filter>Tests\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Primitive.cpp">
+      <Filter>Tests\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Quad.cpp">
+      <Filter>Tests\QEdge</Filter>
+    </ClCompile>
+    <ClCompile Include="Rational.cpp">
+      <Filter>Tests\Math</Filter>
     </ClCompile>
     <ClCompile Include="Ray.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Tests\Tailor</Filter>
+    </ClCompile>
+    <ClCompile Include="Shape.cpp">
+      <Filter>Tests\QEdge</Filter>
+    </ClCompile>
+    <ClCompile Include="Solve.cpp">
+      <Filter>Tests\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Spider.cpp">
+      <Filter>Tests\Tailor</Filter>
+    </ClCompile>
+    <ClCompile Include="Splice.cpp">
+      <Filter>Tests\QEdge</Filter>
+    </ClCompile>
+    <ClCompile Include="TopoGraph.cpp">
+      <Filter>Tests\Tailor</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>Tests\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="XPoint.cpp">
+      <Filter>Tests\Collision</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
