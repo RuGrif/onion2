@@ -86,8 +86,8 @@ namespace UnitTest
 
       Tailor_NS::cut( a, b );
 
-      Assert::AreEqual( 15u, a.size() );
-      Assert::AreEqual( 15u, b.size() );
+      Assert::AreEqual( 18u, a.size() );
+      Assert::AreEqual( 18u, b.size() );
 
       Assert::AreEqual( 10u, allVerts( a ).size() );
       Assert::AreEqual( 10u, allVerts( b ).size() );
