@@ -16,7 +16,13 @@ void Tailor_NS::XSplice::splice()
   {
     for( auto i = std::next( d_edges.begin() ); i != d_edges.end(); ++i )
     {
-      i->second.splice0( std::prev( i )->second );
+      QEdge_NS::Edge prev = std::prev( i )->second;
+      QEdge_NS::Edge next = i->second;
+
+      if( prev.oNext() != next )
+      {
+        next.splice0( prev );
+      }
     }
   }
 }
