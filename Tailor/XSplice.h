@@ -9,6 +9,12 @@
 
 namespace Tailor_NS
 {
+  struct EmptyXSplice : std::exception
+  {
+    virtual const char* what() const override { return "Empty XSplice edge collection"; }
+  };
+
+
   class XSplice
   {
   public:
