@@ -42,9 +42,6 @@
     <ClInclude Include="call_if.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="checked_insert.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
     <ClInclude Include="Cut.h">
       <Filter>Header Files</Filter>
     </ClInclude>

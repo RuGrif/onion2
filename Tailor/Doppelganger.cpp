@@ -1,12 +1,11 @@
 #include "Doppelganger.h"
-#include "checked_insert.h"
 
 
 void Tailor_NS::TwinEdge::insert( const Int& u, const Int& v, const XID& xid )
 {
   auto i = d_verts.emplace( Math_NS::makeRational( v, u + v ), xid );
   
-  if( !i.second ) throw DuplicatedMapEntry{ xid.first, xid.second };
+  if( !i.second ) throw DuplicatedTwinPosition{ xid.first, xid.second };
 }
 
 

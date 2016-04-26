@@ -14,6 +14,17 @@
 
 namespace Tailor_NS
 {
+  struct DuplicatedTwinPosition : std::exception
+  {
+    DuplicatedTwinPosition( size_t id0, size_t id1 ) : d_id0{ id0 }, d_id1{ id1 } {}
+
+    virtual const char* what() const override { return "Duplicated twin position"; }
+
+    const size_t d_id0;
+    const size_t d_id1;
+  };
+
+
   class TwinEdge
   {
   public:
