@@ -177,6 +177,10 @@ void wmain( int argc, wchar_t* argv[] )try
 
   std::cout << "Overall executing time = " << std::chrono::duration_cast<std::chrono::milliseconds>( t1 - t0 ).count() << " ms" << std::endl;
 }
+catch( const Tailor_NS::DuplicatedXSpliceRay& e )
+{
+  std::cout << e.what() << " -> { " << e.id0 << ", " << e.id1 << " }" << std::endl;
+}
 catch( const std::exception& e )
 {
   std::cout << e.what() << std::endl;

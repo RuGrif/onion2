@@ -21,12 +21,12 @@ namespace Tailor_NS
 
   struct DuplicatedXSpliceRay : std::exception
   {
-    DuplicatedXSpliceRay( size_t id0, size_t id1 ) : d_id0{ id0 }, d_id1{ id1 } {}
+    DuplicatedXSpliceRay( size_t id0, size_t id1 ) : id0{ id0 }, id1{ id1 } {}
 
     virtual const char* what() const override { return "Duplicated XSplice ray"; }
 
-    const size_t d_id0;
-    const size_t d_id1;
+    const size_t id0;
+    const size_t id1;
   };
 
 
