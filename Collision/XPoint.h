@@ -17,7 +17,7 @@ namespace Collision_NS
   struct XFace;
 
 
-  class BadUpcast;
+  struct BadUpcast;
 
 
   struct XVert : public Vert, public BaryV
@@ -45,20 +45,14 @@ namespace Collision_NS
   };
 
 
-  class BadUpcast : public std::exception
+  struct BadUpcast : std::exception
   {
-  public:
-
-    BadUpcast( const size_t i_from, const size_t i_to ) : d_from{ i_from }, d_to{ i_to } {}
+    BadUpcast( size_t from, size_t to ) : from{ from }, to{ to } {}
 
     virtual const char* what() const override { return "Upcast intersection primitive X to unrelated primitive Y"; }
-    const size_t        from() const          { return d_from; }
-    const size_t        to()   const          { return d_to; }
 
-  private:
-
-    const size_t d_from;
-    const size_t d_to;
+    const size_t from;
+    const size_t to;
   };
 
 

@@ -15,9 +15,9 @@ namespace Tailor_NS
 {
   struct BadOrbit : std::exception
   {
-    virtual const char* what() const override { return "Bad orbit"; }
-
     BadOrbit( size_t fid, size_t oid ) : fid{ fid }, oid{ oid } {}
+
+    virtual const char* what() const override { return "Bad orbit"; }
 
     const size_t fid;
     const size_t oid;

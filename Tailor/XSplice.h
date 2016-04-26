@@ -11,7 +11,11 @@ namespace Tailor_NS
 {
   struct EmptyXSplice : std::exception
   {
+    EmptyXSplice( size_t id ) : id{ id } {}
+
     virtual const char* what() const override { return "Empty XSplice edge collection"; }
+
+    const size_t id;
   };
 
 

@@ -12,7 +12,7 @@ void Tailor_NS::XSplice::operator()( QEdge_NS::Edge e, Ray&& r )
 
 void Tailor_NS::XSplice::splice()
 {
-  if( d_edges.empty() ) throw EmptyXSplice{};
+  if( d_edges.empty() ) throw EmptyXSplice{ d_vert.id() };
 
   for( auto i = std::next( d_edges.begin() ); i != d_edges.end(); ++i )
   {
@@ -29,7 +29,7 @@ void Tailor_NS::XSplice::splice()
 
 void Tailor_NS::XSplice::setVert()
 {
-  if( d_edges.empty() ) throw EmptyXSplice{};
+  if( d_edges.empty() ) throw EmptyXSplice{ d_vert.id() };
   
   d_edges.begin()->second.o().swap( d_vert );
 }

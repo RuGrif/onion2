@@ -48,7 +48,7 @@ namespace QEdge_NS
   //  Generic node type
   //
 
-  class Null;
+  struct Null;
 
 
   template <typename Data>
@@ -105,18 +105,13 @@ namespace QEdge_NS
   //  Null node handling
   //
 
-  class Null : public std::exception
+  struct Null : std::exception
   {
-  public:
-
-    Null( const size_t i_id ) : d_id( i_id ) {}
+    Null( size_t id ) : id{ id } {}
 
     virtual const char* what()  const override  { return "null node data"; }
-    const size_t        id()    const           { return d_id; }
 
-  private:
-
-    const size_t d_id;
+    const size_t id;
   };
 }
 
