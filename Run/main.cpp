@@ -131,7 +131,7 @@ void wmain( int argc, wchar_t* argv[] )try
 
   Tailor_NS::Doppelganger doppelganger;
   doppelganger.shadow( graph );
-  doppelganger.makeTwins( a, b );
+  doppelganger.makeTwins();
 
   time.log();
 
@@ -149,6 +149,8 @@ void wmain( int argc, wchar_t* argv[] )try
 
   std::cout << "Merge web ... ";
 
+  a.merge( std::move( doppelganger.twinA() ) );
+  b.merge( std::move( doppelganger.twinB() ) );
   a.merge( std::move( spider.webA() ) );
   b.merge( std::move( spider.webB() ) );
 

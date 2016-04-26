@@ -56,7 +56,7 @@ namespace UnitTest
       Tailor_NS::Spider spider;
 
       doppel.shadow( graph );
-      doppel.makeTwins( a, b );
+      doppel.makeTwins();
 
       Tailor_NS::DeferSplice defer = spider.spin( graph, doppel );
 

@@ -69,11 +69,11 @@ void Tailor_NS::TwinEdgeCollection::insert( const Collision_NS::XEdge& x, const 
 }
 
 
-void Tailor_NS::TwinEdgeCollection::makeTwins( QEdge_NS::Shape& io_shape )
+void Tailor_NS::TwinEdgeCollection::makeTwins()
 {
   for( auto& t : d_collection )
   {
-    t.second.second.makeTwins( io_shape );
+    t.second.second.makeTwins( d_twin );
   }
 }
 
@@ -99,10 +99,10 @@ void Tailor_NS::Doppelganger::shadow( const TopoGraph & g )
 }
 
 
-void Tailor_NS::Doppelganger::makeTwins( QEdge_NS::Shape& a, QEdge_NS::Shape& b )
+void Tailor_NS::Doppelganger::makeTwins()
 {
-  d_doppelA.makeTwins( a );
-  d_doppelB.makeTwins( b );
+  d_doppelA.makeTwins();
+  d_doppelB.makeTwins();
 }
 
 

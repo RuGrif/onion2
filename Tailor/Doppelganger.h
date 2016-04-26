@@ -59,7 +59,7 @@ namespace Tailor_NS
     void insert( const Collision_NS::XFace&, const Collision_NS::XPointID& ) {}  //  empty
 
     //  prepare a sequence of new edges to replace real edge
-    void makeTwins( QEdge_NS::Shape& );
+    void makeTwins();
 
     using EdgePair = std::pair<QEdge_NS::Edge, QEdge_NS::Edge>;
 
@@ -69,13 +69,19 @@ namespace Tailor_NS
     //  replace edge with a sequence of twin edges
     void substitute() const;
 
+    const QEdge_NS::Shape& twin() const { return d_twin; }
+    QEdge_NS::Shape&       twin()       { return d_twin; }
+
   public:
 
     const auto& collection() const { return d_collection; } //  for unit tests
 
   private:
 
-    std::map<size_t, std::pair<Collision_NS::Edge, TwinEdge>> d_collection;
+    using Replica = std::pair<Collision_NS::Edge, TwinEdge>;
+    
+    std::map<size_t, Replica> d_collection;
+    QEdge_NS::Shape           d_twin;
   };
 
 
@@ -87,13 +93,19 @@ namespace Tailor_NS
     void shadow( const TopoGraph& g );
 
     //  prepare a sequence of new edges to replace real edge
-    void makeTwins( QEdge_NS::Shape&, QEdge_NS::Shape& );
+    void makeTwins();
 
     const TwinEdgeCollection& getDoppelgangerA() const { return d_doppelA; }
     const TwinEdgeCollection& getDoppelgangerB() const { return d_doppelB; }
 
     //  replace edge with a sequence of twin edges
     void substitute() const;
+
+    const QEdge_NS::Shape& twinA() const { return d_doppelA.twin(); }
+    const QEdge_NS::Shape& twinB() const { return d_doppelB.twin(); }
+
+    QEdge_NS::Shape& twinA() { return d_doppelA.twin(); }
+    QEdge_NS::Shape& twinB() { return d_doppelB.twin(); }
 
     //  callback for TopoGraph::forEachXPoint
     template <typename A, typename B>

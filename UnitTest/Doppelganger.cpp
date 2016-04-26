@@ -57,7 +57,7 @@ namespace UnitTest
 
       doppel.shadow( graph );
 
-      doppel.makeTwins( a, b );
+      doppel.makeTwins();
       
       Assert::AreEqual( 3u, doppel.getDoppelgangerA().collection().size() );
       Assert::AreEqual( 3u, doppel.getDoppelgangerB().collection().size() );

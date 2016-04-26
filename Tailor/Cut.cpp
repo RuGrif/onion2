@@ -37,7 +37,7 @@ void Tailor_NS::cut( QEdge_NS::Shape& a, QEdge_NS::Shape& b, const TopoGraph& g 
   //
   Doppelganger doppelganger;
   doppelganger.shadow( g );
-  doppelganger.makeTwins( a, b );
+  doppelganger.makeTwins();
 
   //
   //  build new edges for intersection graph
@@ -50,6 +50,9 @@ void Tailor_NS::cut( QEdge_NS::Shape& a, QEdge_NS::Shape& b, const TopoGraph& g 
   //
   //  merge intersection edges into shape
   //
+  a.merge( std::move( doppelganger.twinA() ) );
+  b.merge( std::move( doppelganger.twinB() ) );
+
   a.merge( std::move( spider.webA() ) );
   b.merge( std::move( spider.webB() ) );
   
