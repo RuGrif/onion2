@@ -31,6 +31,9 @@
     <Filter Include="Tests\Tailor">
       <UniqueIdentifier>{575cc5a0-24e7-4fd0-b4df-5a50106ecd0d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Triangulation">
+      <UniqueIdentifier>{d9247209-8c2f-4c92-8cf3-2b86d4804520}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -136,6 +139,9 @@
     </ClCompile>
     <ClCompile Include="XPoint.cpp">
       <Filter>Tests\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="InsideTest.cpp">
+      <Filter>Tests\Triangulation</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

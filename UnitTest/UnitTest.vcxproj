@@ -113,6 +113,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="InsideTest.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="TopoGraph.cpp" />
     <ClCompile Include="IntProd.cpp">
@@ -157,6 +161,9 @@
     </ProjectReference>
     <ProjectReference Include="..\Tailor\Tailor.vcxproj">
       <Project>{07ee2f31-bac4-453e-bbba-8eec99e67ded}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Triangulation\Triangulation.vcxproj">
+      <Project>{b0382de0-2221-47b8-9680-6b668f667d02}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
