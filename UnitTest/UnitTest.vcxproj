@@ -109,6 +109,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="MPIR.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Orbit.cpp">
       <SubType>
       </SubType>
@@ -143,6 +147,10 @@
     <ClCompile Include="STL.cpp" />
     <ClCompile Include="Tetrahedron.cpp" />
     <ClCompile Include="Tools.cpp" />
+    <ClCompile Include="GMP.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="XPoint.cpp" />
   </ItemGroup>

@@ -34,6 +34,9 @@
     <Filter Include="Tests\Triangulation">
       <UniqueIdentifier>{d9247209-8c2f-4c92-8cf3-2b86d4804520}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Arithmetics">
+      <UniqueIdentifier>{6bbc86f0-6087-4264-86e7-57cc2d328958}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -142,6 +145,12 @@
     </ClCompile>
     <ClCompile Include="InsideTest.cpp">
       <Filter>Tests\Triangulation</Filter>
+    </ClCompile>
+    <ClCompile Include="GMP.cpp">
+      <Filter>Tests\Arithmetics</Filter>
+    </ClCompile>
+    <ClCompile Include="MPIR.cpp">
+      <Filter>Tests\Arithmetics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
